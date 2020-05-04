@@ -1,0 +1,26 @@
+#homePic1
+{
+	margin: auto;
+
+}
+.main-section 
+{
+	margin:0 auto;
+	margin-top: 50px;
+	padding: 0;
+}
+
+.modal-content
+{
+	background-color: #B0B0B0;
+	opacity: .8;
+	padding: 0 18px;
+	border-radius: 10px;
+	/*#434e5a*/
+}
+
+.user-img img
+{
+	height: 50%;
+	width: 50%;
+}
