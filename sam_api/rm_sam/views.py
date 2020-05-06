@@ -5,6 +5,7 @@ from django.contrib.auth import (authenticate, login, logout,
                                  update_session_auth_hash)
 from django.contrib.auth.forms import (PasswordChangeForm, UserChangeForm,
                                        UserCreationForm)
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from rest_framework import viewsets
@@ -69,7 +70,6 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            
 
             this_teacher = Teacher.objects.get(user_id=user.id)
 
