@@ -1,59 +1,62 @@
 {% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
     <!-- Drop Downs -->
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark pb-2">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark pb-2">
 
-    <select class="form-check m-2" id="selectDay">
-        <option class="dropdown-item" href="#" value="">Select Day</option>
-        <option class="dropdown-item" href="#" value="monday">Monday</option>
-        <option class="dropdown-item" href="#" value="tuesday">Tuesday</option>
-        <option class="dropdown-item" href="#" value="wednesday">Wednesday</option>
-        <option class="dropdown-item" href="#" value="thursday">Thursday</option>
-        <option class="dropdown-item" href="#" value="friday">Friday</option>
-        <option class="dropdown-item" href="#" value="saturday">Saturday</option>
-    </select>
-    <select class="form-check m-2" id="selectTeacher">
-        <option class="dropdown-item" href="#" value="">Select Teacher</option>
-        {% for teacher in teachers %}
-        <option class="dropdown-item" href="#" value={{teacher.id}}> {{teacher.user.first_name}} {{teacher.user.last_name}} </option>
-        {% endfor %}
-    </select>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="navbar-brand" href="{% url 'home' %}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-  <!-- Modal----------------------------------------------------- -->
+        <select class="form-check m-2" id="selectDay">
+            <option class="dropdown-item" href="#" value="">Select Day</option>
+            <option class="dropdown-item" href="#" value="monday">Monday</option>
+            <option class="dropdown-item" href="#" value="tuesday">Tuesday</option>
+            <option class="dropdown-item" href="#" value="wednesday">Wednesday</option>
+            <option class="dropdown-item" href="#" value="thursday">Thursday</option>
+            <option class="dropdown-item" href="#" value="friday">Friday</option>
+            <option class="dropdown-item" href="#" value="saturday">Saturday</option>
+        </select>
+        <select class="form-check m-2" id="selectTeacher">
+            <option class="dropdown-item" href="#" value="">Select Teacher</option>
+            {% for teacher in teachers %}
+                <option class="dropdown-item" href="#"
+                        value={{ teacher.id }}> {{ teacher.user.first_name }} {{ teacher.user.last_name }} </option>
+            {% endfor %}
+        </select>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Modal----------------------------------------------------- -->
     <div id="dropStudentModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" style="border:2px solid black">
                     <p> Confirm Drop for <span id="dropStudentName"></span></p>
                     <div class="row">
-                        <button class="col" dropId='0' id='confirmDrop'>Confirm</button><button class="cancel col" id="cancel_drop">Cancel</button>
+                        <button class="col" dropId='0' id='confirmDrop'>Confirm</button>
+                        <button class="cancel col" id="cancel_drop">Cancel</button>
                     </div>
                 </div>
 
@@ -62,84 +65,100 @@
     </div>
 
     <div id="insertStudentModal" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body" style="border:2px solid black">
-				<div class="container p-2">
-					<h4 class="text-center">Insert Student</h4>
-					<form action="" id="insertStudent">
-						<div class="row">
-							<div class="col">
-								<div class="form-control" id="studentSelector"></div>
-							</div>
-							<div class="col">
-								<div class="form-group">
-                                        <label class="form-control-label"  for="insert_start_date">Start Date</label>
-                                        <input class="form-control" type="date" name="insert_start_date" id="insert_start_date">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="border:2px solid black">
+                    <div class="container p-2">
+                        <h4 class="text-center">Insert Student</h4>
+                        <form action="" id="insertStudent">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-control" id="studentSelector"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="insert_start_date">Start Date</label>
+                                        <input class="form-control" type="date" name="insert_start_date"
+                                               id="insert_start_date">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-control-label"  for="insert_end_date">End Date(Optional)</label>
-                                        <input class="form-control" type="date" name="insert_end_date" id="insert_end_date">
+                                        <label class="form-control-label" for="insert_end_date">End
+                                            Date(Optional)</label>
+                                        <input class="form-control" type="date" name="insert_end_date"
+                                               id="insert_end_date">
                                     </div>
-    							</div>
-    						</div>
-    						<button class="btn btn-primary btn-block col" type="submit" name="submit" id='confirmInsert'>Confirm Insert</button>
-    						<button class="cancel col" id="cancel_insert">Cancel</button>
-    					</form>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-block col" type="submit" name="submit"
+                                    id='confirmInsert'>Confirm Insert
+                            </button>
+                            <button class="cancel col" id="cancel_insert">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="addStudentModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!--Modal content-->
             <div class="modal-content">
-                <div class="modal-body"style="border:2px solid black">
+                <div class="modal-body" style="border:2px solid black">
                     <div class="container p-2">
                         <h4 class="text-center">Add/Update Student</h4>
-                        <form  action="" id="addStudent">
+                        <form action="" id="addStudent">
                             <div class="row">
                                 <div class="col">
                                     <fieldset class="form-group">
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="First Name" name="first" id="first" required>
+                                            <input class="form-control" type="text" placeholder="First Name"
+                                                   name="first" id="first" required>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Last Name"  name="last" id="last" required>
+                                            <input class="form-control" type="text" placeholder="Last Name" name="last"
+                                                   id="last" required>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="parentFirst" id="parentFirst" placeholder="Parent First Name">
+                                            <input class="form-control" type="text" name="parentFirst" id="parentFirst"
+                                                   placeholder="Parent First Name">
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="parentLast" id="parentLast" placeholder="Parent Last Name">
+                                            <input class="form-control" type="text" name="parentLast" id="parentLast"
+                                                   placeholder="Parent Last Name">
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Email"  name="email" id="email">
+                                            <input class="form-control" type="text" placeholder="Email" name="email"
+                                                   id="email">
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="tel" placeholder="Phone"  name="phone" id="phone">
+                                            <input class="form-control" type="tel" placeholder="Phone" name="phone"
+                                                   id="phone">
                                         </div>
                                     </fieldset>
 
                                     <fieldset class="form-check border border-secondary-light m-2 p-3">
                                         <h6>Monthly Rate:</h6>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="old" name="charge_rate" value="2019_rate">
+                                            <input class="form-check-input" type="radio" id="old" name="charge_rate"
+                                                   value="2019_rate">
                                             <label class="form-check-label mr-2" for="old">$120</label><br>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="new" name="charge_rate" value="2020_rate">
+                                            <input class="form-check-input" type="radio" id="new" name="charge_rate"
+                                                   value="2020_rate">
                                             <label class="form-check-label mr-2" for="new">$140</label><br>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="scholarship" name="charge_rate" value="scholarship">
-                                            <label class="form-check-label mr-2"  for="scholarship">Scholarship</label><br>
+                                            <input class="form-check-input" type="radio" id="scholarship"
+                                                   name="charge_rate" value="scholarship">
+                                            <label class="form-check-label mr-2"
+                                                   for="scholarship">Scholarship</label><br>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="annual" name="charge_rate" value="annual">
-                                            <label class="form-check-label mr-2"  for="annual">Annual</label><br>
+                                            <input class="form-check-input" type="radio" id="annual" name="charge_rate"
+                                                   value="annual">
+                                            <label class="form-check-label mr-2" for="annual">Annual</label><br>
                                         </div>
                                     </fieldset>
                                 </div> <!--col 1 (row1)-->
@@ -150,7 +169,7 @@
                                             <input class="form-control" type="text" name="time" id="time" disabled>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-control-label"  for="day">Day</label>
+                                            <label class="form-control-label" for="day">Day</label>
                                             <input class="form-control" type="text" name="day" id="day" disabled>
                                         </div>
                                     </fieldset>
@@ -158,26 +177,26 @@
                                         <select class="form-group" id="teacher">
                                             <option value="">Teacher</option>
                                             {% for teacher in teachers %}
-                                          <option value="{{teacher.id}}">{{ teacher }}</option>
+                                                <option value="{{ teacher.id }}">{{ teacher }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <select class="form-check" id="instrument">
                                             <option class="form-check-input" value="">Instrument</option>
-                                            <option class="form-check-input"  value="vocals">Vocals</option>
-                                            <option class="form-check-input"  value="drums">Drums</option>
-                                            <option class="form-check-input"  value="guitar">Guitar</option>
-                                            <option class="form-check-input"  value="bass">Bass</option>
-                                            <option class="form-check-input"  value="ukulele">Ukulele</option>
+                                            <option class="form-check-input" value="vocals">Vocals</option>
+                                            <option class="form-check-input" value="drums">Drums</option>
+                                            <option class="form-check-input" value="guitar">Guitar</option>
+                                            <option class="form-check-input" value="bass">Bass</option>
+                                            <option class="form-check-input" value="ukulele">Ukulele</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-control-label"  for="start_date">Start Date</label>
+                                        <label class="form-control-label" for="start_date">Start Date</label>
                                         <input class="form-control" type="date" name="start_date" id="start_date">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-control-label"  for="end_date">End Date(Optional)</label>
+                                        <label class="form-control-label" for="end_date">End Date(Optional)</label>
                                         <input class="form-control" type="date" name="end_date" id="end_date">
                                     </div>
                                     <div class="form-group">
@@ -185,17 +204,19 @@
                                         <input class="form-control" type="date" name="birthdate" id="birthdate">
                                     </div>
                                 </div> <!--col 2(row1)-->
-                                    </fieldset>
+                                </fieldset>
 
                             </div><!--row 1-->
                             <div class="row">
                                 <div class="col col-12">
                                     <textarea class="form-control rounded-0" rows="5"
-                                    placeholder="Notes" name="notes" id="notes"></textarea>
+                                              placeholder="Notes" name="notes" id="notes"></textarea>
                                 </div><!--col-->
                             </div><!--row 2-->
                             <div class="form-group mt-2 ml-5 mr-5">
-                                <button class="btn btn-primary btn-block" type="submit" name="submit" id="add" value="Add">Save</button>
+                                <button class="btn btn-primary btn-block" type="submit" name="submit" id="add"
+                                        value="Add">Save
+                                </button>
                             </div>
                         </form>
                     </div><!--container-->
@@ -204,342 +225,344 @@
         </div><!--modal dialog-->
     </div><!--add student modal-->
 
-                        <script>
-                        $.ajaxSetup({
-                             beforeSend: function(xhr, settings) {
-                                 function getCookie(name) {
-                                     var cookieValue = null;
-                                     if (document.cookie && document.cookie != '') {
-                                         var cookies = document.cookie.split(';');
-                                         for (var i = 0; i < cookies.length; i++) {
-                                             var cookie = jQuery.trim(cookies[i]);
-                                             // Does this cookie string begin with the name we want?
-                                             if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                                                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                                 break;
-                                             }
-                                         }
-                                     }
-                                     return cookieValue;
-                                 }
-                                 if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-                                     // Only send the token to relative URLs i.e. locally.
-                                     xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                                 }
-                             }
+    <script>
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie != '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+
+                if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                    // Only send the token to relative URLs i.e. locally.
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+            }
+        });
+
+        var student;
+        $('#addStudent').submit(function (e) {
+            e.preventDefault()
+        });
+        $('#insertStudent').submit(function (e) {
+            e.preventDefault()
+        });
+
+        $("#confirmInsert").on('click', function () {
+            var studentId = $("#studentSelector").val();
+            var start_date = $("#insert_start_date").val();
+            var end_date = $("#insert_end_date").val();
+
+            var start = new Date(start_date.toString());
+
+            start.setDate(start.getDate() + 1);
+
+
+            if (end_date != null) {
+                var end = new Date(end_date.toString());
+                var lesson_dates = getDateArray(start, end);
+                end.setDate(end.getDate() + 1);
+            }
+
+            var lessons = [];
+            for (var i = 0; i < lesson_dates.length; i++) {
+
+                lessons[i] = {
+                    student: studentId,
+                    teacher: $("#selectTeacher").val(),
+                    date: formatDate(lesson_dates[i])
+                };
+            }
+            for (var i = 0; i < lessons.length; i++) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "sam_api/lesson_api/?format=json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(lessons[i]),
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    error: function (xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                    }
+                });
+
+            }
+            $.ajax({
+                type: "PATCH",
+                url: "sam_api/rm_sam/" + studentId + "/",
+                data: {
+                    time: $("#time").val(),
+                    day: $("#selectDay").val(),
+                    teacher: $("#selectTeacher").val()
+
+                },
+                success: function (result) {
+                    console.log(result);
+                    buildTable($("#selectDay").val());
+                    jQuery("#insertStudentModal").modal('toggle');
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            });
+        })
+
+        $("#add").on('click', function () {
+            // send ajax
+            var first = $("#first").val();
+            var last = $("#last").val();
+            var time = $("#time").val();
+            var day = $("#day").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var instrument = $("#instrument").val();
+            var start_date = $("#start_date").val();
+            var end_date = $("#end_date").val();
+            var teacher = $("#teacher").val();
+            var charge_rate = $('input[name="charge_rate"]').val();
+            var notes = $("#notes").val();
+            var parent_first = $("#parent_first").val();
+            var parent_last = $("#parent_last").val();
+            var birthdate = $("#birthdate").val();
+            student = {
+                first: first, last: last, email: email, phone: phone, time: time,
+                day: day, instrument: instrument, start_date: start_date, end_date: end_date,
+                teacher: teacher, charge_rate: charge_rate, notes: notes,
+                parent_first: parent_first, parent_last: parent_last, birthdate: birthdate
+            };
+
+
+            $.ajax({
+                type: "POST",
+                url: "sam_api/rm_sam/?format=json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(student),
+                success: function (result) {
+                    jQuery("#addStudentModal").modal('toggle');
+                    console.log(result);
+
+                    var start = new Date(result.start_date.toString());
+
+                    start.setDate(start.getDate() + 1);
+
+
+                    if (result.end_date != null) {
+                        var end = new Date(result.end_date.toString());
+                        var lesson_dates = getDateArray(start, end);
+                        end.setDate(end.getDate() + 1);
+                    }
+
+                    var lessons = [];
+                    for (var i = 0; i < lesson_dates.length; i++) {
+
+                        lessons[i] = {
+                            student: result.id,
+                            teacher: result.teacher,
+                            date: formatDate(lesson_dates[i])
+                        };
+                    }
+                    for (var i = 0; i < lessons.length; i++) {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "sam_api/lesson_api/?format=json",
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(lessons[i]),
+                            success: function (result) {
+                                console.log(result);
+                            },
+                            error: function (xhr, resp, text) {
+                                console.log(xhr, resp, text);
+                            }
                         });
 
-                            var student;
-                            $('#addStudent').submit(function(e){
-                                e.preventDefault()
-                            });
-							$('#insertStudent').submit(function(e){
-                                e.preventDefault()
-                            });
+                    }
+                    buildTable(day);
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            });
+        });
 
-							$("#confirmInsert").on('click', function(){
-                                var studentId = $("#studentSelector").val();
-                                var start_date = $("#insert_start_date").val();
-                                var end_date = $("#insert_end_date").val();
+        function getDateArray(start, end) {
+            end.setDate(end.getDate() + 1);
+            var arr = [];
+            var dt = new Date(start);
+            while (dt <= end) {
+                arr.push(new Date(dt));
+                dt.setDate(dt.getDate() + 7);
+            }
+            return arr;
+        }
 
-                                var start = new Date(start_date.toString());
+        function getNextFourDatesArray(start) {
+            var arr = [];
+            var dt = new Date(start);
+            for (var i = 0; i < 4; i++) {
+                arr.push(new Date(dt));
+                dt.setDate(dt.getDate() + 7);
+            }
+            return arr;
+        }
 
-                                        start.setDate(start.getDate() + 1);
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
 
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
 
-                                        if(end_date != null){
-                                            var end =  new Date(end_date.toString());
-                                            var lesson_dates = getDateArray(start, end);
-                                            end.setDate(end.getDate() + 1);
-                                        }
+            return [year, month, day].join('-');
+        }
 
-                                        var lessons = [];
-                                        for(var i = 0; i < lesson_dates.length; i++){
-
-                                            lessons[i] = {
-                                                student: studentId,
-                                                teacher: $("#selectTeacher").val(),
-                                                date: formatDate(lesson_dates[i])
-                                            };
-                                        }
-                                        for(var i = 0; i < lessons.length; i++){
-
-                                            $.ajax({
-                                                type : "POST",
-                                                url: "sam_api/lesson_api/?format=json",
-                                                contentType : 'application/json; charset=utf-8',
-                                                data : JSON.stringify(lessons[i]),
-                                                success : function(result) {
-                                                console.log(result);
-                                                },
-                                                error: function(xhr, resp, text) {
-                                                console.log(xhr, resp, text);
-                                            }
-                                        });
-
-                                        }
-                                        $.ajax({
-                                             type : "PATCH",
-                                             url: "sam_api/rm_sam/"+studentId+"/",
-                                             data : {
-                                                 time : $("#time").val(),
-                                                 day : $("#selectDay").val(),
-                                                 teacher : $("#selectTeacher").val()
-
-                                             },
-                                             success : function(result) {
-                                                 console.log(result);
-                                                 buildTable($("#selectDay").val());
-                                                 jQuery("#insertStudentModal").modal('toggle');
-                                             },
-                                             error: function(xhr, resp, text) {
-                                                 console.log(xhr, resp, text);
-                                             }
-                                         });
-                                })
-
-                            $("#add").on('click', function(){
-                                // send ajax
-                                var first = $("#first").val();
-                                var last = $("#last").val();
-                                var time = $("#time").val();
-                                var day = $("#day").val();
-                                var email = $("#email").val();
-                                var phone = $("#phone").val();
-                                var instrument = $("#instrument").val();
-                                var start_date = $("#start_date").val();
-                                var end_date = $("#end_date").val();
-                                var teacher = $("#teacher").val();
-                                var charge_rate = $('input[name="charge_rate"]').val();
-                                var notes = $("#notes").val();
-                                var parent_first = $("#parent_first").val();
-                                var parent_last = $("#parent_last").val();
-                                var birthdate = $("#birthdate").val();
-                                student = {first: first, last: last, email: email, phone: phone, time: time,
-                                    day: day, instrument: instrument, start_date: start_date, end_date: end_date,
-                                    teacher: teacher, charge_rate: charge_rate, notes: notes,
-                                    parent_first: parent_first, parent_last: parent_last, birthdate: birthdate};
-
-
-
-                                $.ajax({
-                                    type : "POST",
-                                    url: "sam_api/rm_sam/?format=json",
-                                    contentType : 'application/json; charset=utf-8',
-                                    data : JSON.stringify(student),
-                                    success : function(result) {
-                                        jQuery("#addStudentModal").modal('toggle');
-                                        console.log(result);
-
-                                       var start = new Date(result.start_date.toString());
-
-                                        start.setDate(start.getDate() + 1);
-
-
-                                        if(result.end_date != null){
-                                            var end =  new Date(result.end_date.toString());
-                                            var lesson_dates = getDateArray(start, end);
-                                            end.setDate(end.getDate() + 1);
-                                        }
-
-                                        var lessons = [];
-                                        for(var i = 0; i < lesson_dates.length; i++){
-
-                                            lessons[i] = {
-                                                student: result.id,
-                                                teacher: result.teacher,
-                                                date: formatDate(lesson_dates[i])
-                                            };
-                                        }
-                                        for(var i = 0; i < lessons.length; i++){
-
-                                            $.ajax({
-                                                type : "POST",
-                                                url: "sam_api/lesson_api/?format=json",
-                                                contentType : 'application/json; charset=utf-8',
-                                                data : JSON.stringify(lessons[i]),
-                                                success : function(result) {
-                                                console.log(result);
-                                                },
-                                                error: function(xhr, resp, text) {
-                                                console.log(xhr, resp, text);
-                                            }
-                                        });
-
-                                        }
-                                        buildTable(day);
-                                        },
-                                    error: function(xhr, resp, text) {
-                                    console.log(xhr, resp, text);
-                                    }
-                                });
-                            });
-
-                                function getDateArray(start, end) {
-                                    end.setDate(end.getDate() + 1);
-                                    var arr = [];
-                                    var dt = new Date(start);
-                                    while (dt <= end) {
-                                        arr.push(new Date(dt));
-                                        dt.setDate(dt.getDate() + 7);
-                                    }
-                                    return arr;
-                                }
-
-                                function getNextFourDatesArray(start) {
-                                    var arr = [];
-                                    var dt = new Date(start);
-                                    for (var i = 0; i < 4; i++) {
-                                        arr.push(new Date(dt));
-                                        dt.setDate(dt.getDate() + 7);
-                                    }
-                                    return arr;
-                                }
-
-                                function formatDate(date) {
-                                    var d = new Date(date),
-                                        month = '' + (d.getMonth() + 1),
-                                        day = '' + d.getDate(),
-                                        year = d.getFullYear();
-
-                                    if (month.length < 2)
-                                        month = '0' + month;
-                                    if (day.length < 2)
-                                        day = '0' + day;
-
-                                    return [year, month, day].join('-');
-                                }
-
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </script>
+    </div>
+    </div>
+    </div>
+    </div>
 
 
     <table class="table table-bordered table-striped">
-    <tbody id="body">
+        <tbody id="body">
 
-    </tbody>
+        </tbody>
     </table>
 {% endblock %}
 
-        {% block javascript %}
-        <script>
-            function buildTable(day) {
-             var time = ["3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
-             teacherId = $("#selectTeacher").val();
+{% block javascript %}
+    <script>
+        function buildTable(day) {
+            var time = ["3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
+            teacherId = $("#selectTeacher").val();
 
-             $.ajax({
-                 type:"GET",
-                 url: 'sam_api/rm_sam/?format=json',
-                 data: {
-                     postDay: day
-                 },
-                 success: function(studentData) {
+            $.ajax({
+                type: "GET",
+                url: 'sam_api/rm_sam/?format=json',
+                data: {
+                    postDay: day
+                },
+                success: function (studentData) {
 
-                     var studentExists = false;
-                     var tbody = $("tbody");
-                     var html = "<tbody id='body'><tr> <th>Time</th> <th>Name</th> <th>2/1</th> <th>2/8</th> <th>2/15</th> <th>2/22</th> </tr>";
-                     for(var t = 0; t < time.length; t++)
-                     {
-                         html += "<tr class='studentRow'><td>"+time[t]+"</td><div class='dropdown'><td class='studentName' ><button style='width:100%' class='studentcell' celltime='"+time[t]+"' type='button' data-toggle='dropdown'>";
+                    var studentExists = false;
+                    var tbody = $("tbody");
+                    var html = "<tbody id='body'><tr> <th>Time</th> <th>Name</th> <th>2/1</th> <th>2/8</th> <th>2/15</th> <th>2/22</th> </tr>";
+                    for (var t = 0; t < time.length; t++) {
+                        html += "<tr class='studentRow'><td>" + time[t] + "</td><div class='dropdown'><td class='studentName' >" +
+                            "<button  style='width:100%' class='btn btn-lg btn-dark align-content-center studentcell' celltime='" + time[t] + "' type='button' data-toggle='dropdown'>";
 
 
-                            for(var i = 0; i < studentData.length; i++)
-                            {
-                                if (studentData[i].time == time[t] && studentData[i].day == day && (studentData[i].teacher) == teacherId)
-                                {
-                                    studentExists = true;
-                                    html += ("<span id='"+ studentData[i].id +"'>"+studentData[i].first + " " + studentData[i].last) +"</span>";
-                                }
-
+                        for (var i = 0; i < studentData.length; i++) {
+                            if (studentData[i].time == time[t] && studentData[i].day == day && (studentData[i].teacher) == teacherId) {
+                                studentExists = true;
+                                html += ("<span id='" + studentData[i].id + "'>" + studentData[i].first + " " + studentData[i].last) + "</span>";
                             }
-                         if (studentExists == false)
-                                {
-                                    html += "+"
-                                }
-                                studentExists = false;
 
-                         html += ("</button><ul class='dropdown-menu'><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Add Student</a></li><li><a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a></li><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Change Student</a></li></ul></td></div><td></td><td></td><td></td><td></td></tr>");
-                     }
-                     tbody.replaceWith(html + '</tbody>');
-                 }
-             });
-             }
+                        }
+                        if (studentExists == false) {
+                            html += "<i class='fas fa-user-plus p-0'</i>"
+                        }
+                        studentExists = false;
 
-        </script>
-         <script>
-            $(document).ready(function(){
+                        html += ("</button><ul class='dropdown-menu'><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>" +
+                            "Add Student</a></li><li><a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a></li>" +
+                            "<li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Change Student</a>" +
+                            "</li></ul></td></div><td></td><td></td><td></td><td></td></tr>");
+                    }
+                    tbody.replaceWith(html + '</tbody>');
+                }
+            });
+        }
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var day = $("#selectDay").val();
+            buildTable(day);
+            $("#day").val(day);
+        });
+
+        $(document).ready(function () {
+
+
+            $(document).on('click', '#confirmDrop', function () {
+                dropId = $(this).attr('dropId')
+                $.ajax({
+                    type: "PATCH",
+                    url: "sam_api/rm_sam/" + dropId + "/",
+                    data: {
+                        time: '0:00',
+                        day: 'noday'
+                    },
+                    success: function (data) {
+                        jQuery("#dropStudentModal").modal('toggle');
+                        buildTable($('#selectDay').val())
+                        console.log(data);
+                    },
+                    error: function (xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                    }
+                });
+            });
+
+            //this function refreshes the table when the day is changed
+            $("#selectDay").change(function () {
                 var day = $("#selectDay").val();
                 buildTable(day);
                 $("#day").val(day);
             });
 
-            $(document).ready(function(){
-
-
-                $(document).on('click', '#confirmDrop', function(){
-                    dropId = $(this).attr('dropId')
-                    $.ajax({
-                            type : "PATCH",
-                            url: "sam_api/rm_sam/"+dropId+"/",
-                            data: {
-                                time: '0:00',
-                                day: 'noday'
-                            },
-                            success : function(data) {
-                            jQuery("#dropStudentModal").modal('toggle');
-                            buildTable($('#selectDay').val())
-                            console.log(data);
-                            },
-                            error: function(xhr, resp, text) {
-                            console.log(xhr, resp, text);
-                        }
-                });
-                });
-
-                //this function refreshes the table when the day is changed
-                $("#selectDay").change(function(){
-                    var day = $("#selectDay").val();
-                    buildTable(day);
-                    $("#day").val(day);
-                });
-
-                $("#selectTeacher").change(function(){
-                    var day = $("#selectDay").val();
-                    buildTable(day);
-                    $("#day").val(day);
-                });
-
-                //this function refreshes the table when a student is added
-                $("#add").click(function(){
-                    buildTable($("#selectDay").val());
-                });
-
-
-                //This function updates the time value in the add student form
-                //when a table cell button is clicked
-                $(document).on('click', '.studentcell', function(){
-                    time = $(this).attr('celltime');
-                    $('#time').val(time);
-                    dropStudent = $(this).html();
-                    $('#dropStudentName').html(dropStudent);
-                    dropStudentID = $(this).children().attr('id');
-                    $('#confirmDrop').attr('dropId', dropStudentID);
-
-                });
-
-                $(document).on('click', '#cancel_drop', function(){
-                    jQuery("#dropStudentModal").modal('toggle');
-                })
-                $(document).on('click', '#cancel_insert', function(){
-                    jQuery("#insertStudentModal").modal('toggle');
-                })
+            $("#selectTeacher").change(function () {
+                var day = $("#selectDay").val();
+                buildTable(day);
+                $("#day").val(day);
             });
 
-         </script>
+            //this function refreshes the table when a student is added
+            $("#add").click(function () {
+                buildTable($("#selectDay").val());
+            });
 
-        {% endblock %}
+
+            //This function updates the time value in the add student form
+            //when a table cell button is clicked
+            $(document).on('click', '.studentcell', function () {
+                time = $(this).attr('celltime');
+                $('#time').val(time);
+                dropStudent = $(this).html();
+                $('#dropStudentName').html(dropStudent);
+                dropStudentID = $(this).children().attr('id');
+                $('#confirmDrop').attr('dropId', dropStudentID);
+
+            });
+
+            $(document).on('click', '#cancel_drop', function () {
+                jQuery("#dropStudentModal").modal('toggle');
+            })
+            $(document).on('click', '#cancel_insert', function () {
+                jQuery("#insertStudentModal").modal('toggle');
+            })
+        });
+
+    </script>
+
+{% endblock %}
 </body>
 </html>

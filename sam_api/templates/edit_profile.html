@@ -1,41 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <div class="modal-dialog text-center">
-        <div class="col-sm-9 main-section">
-            <div class="modal-content">
+    <div class="container">
+        <div class="modal-dialog text-center">
+            <div class="col-sm-9 main-section">
+                <div class="modal-content">
 
-                <h2 class="text-center">Edit Profile</h2>
+                    <h2 class="text-center">Edit Profile</h2>
 
-                <div class="col-md-12">
-                    <form method="POST" action="{% url 'edit_profile' %}">
-                        {% csrf_token %}
+                    <div class="col-md-12">
+                        <form method="POST" action="{% url 'edit_profile' %}">
+                            {% csrf_token %}
 
-                        {% if form.errors %}
-                            <div class="alert alert-warning alert-dismissable" role="alert">
-                            <button class="close" data-dismiss="alert">
-                                    <small><sup>x</sup></small>
-                                </button>
-                            <p>Your Form Has Errors...</p>
-                            {% for field in form %}
-                                {% if field.errors %}
-                                    {{ field.errors }}
-                                {% endif %}
-                            {% endfor %}
-                            </div>
-                        {% endif %}
+                            {% if form.errors %}
+                                <div class="alert alert-warning alert-dismissable" role="alert">
+                                    <button class="close" data-dismiss="alert">
+                                        <small><sup>x</sup></small>
+                                    </button>
+                                    <p>Your Form Has Errors...</p>
+                                    {% for field in form %}
+                                        {% if field.errors %}
+                                            {{ field.errors }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
 
-                        {{ form.as_p }}
+                            {{ form.as_p }}
 
-                        <input type="submit" value="Edit Profile" class="btn btn-secondary">
-                    </form>
-                </div>
+                            <input type="submit" value="Edit Profile" class="btn btn-secondary">
+                        </form>
+                    </div>
                     <br/>
                     <p><small><a href="{% url 'change_password' %}">Click Here</a> To Change Your Password</small></p>
-            </div><!--modal-content-->
-        </div><!--main-section-->
-    </div><!--modal-dialog-->
-</div><!--container-->
-<br/><br/>
+                </div><!--modal-content-->
+            </div><!--main-section-->
+        </div><!--modal-dialog-->
+    </div><!--container-->
+    <br/><br/>
 {% endblock %}

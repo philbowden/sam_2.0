@@ -10,97 +10,99 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <h3 class="h3 text-light mr-5">Welcome {{user.first_name}}!</h3>
-        <h4 class="h4 text-light ml-5">{{today}}</h4>
+    </button>
+    <h3 class="h3 text-light mr-5">Welcome {{ user.first_name }}!</h3>
+    <h4 class="h4 text-light ml-5">{{ today }}</h4>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> 
-            <a class="navbar-brand" href="{% url 'home' %}">Home</a>
-          </li>
-          <li class="nav-item"> 
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
-          </li>
+            <li class="nav-item">
+                <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+            </li>
         </ul>
-      </div>
-    </nav>
-    <div class="container">
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Time</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Present</th>
-                    <th scope="col">Absent</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for lesson in lessons %}
-                {% if lesson.is_today %}
-
-                <tr>
-                  <th scope="row">{{ lesson.student.time }}</th>
-                  <td hidden>
-                      <form action="" id="{{lesson.id}}_form" class="row" method="post"></form>{% csrf_token %}
-                  </td>
-                  <td>{{ lesson.student.first }} {{lesson.student.last }}</td>
-                  <td>
-                      <label for="{{lesson.id}}_present" hidden></label>
-                      <input form="{{lesson.id}}_form"  type="radio" id="{{lesson.id}}_present"
-                             name="{{lesson.id}}_attendance" value="true" checked="checked">
-                  </td>
-                  <td>
-                      <label for="{{lesson.id}}_not_here"></label>
-                      <input form="{{lesson.id}}_form" type="radio" id="{{lesson.id}}_not_here"
-                             name="{{lesson.id}}_attendance" value="false">
-                  </td>
-                  <td><input form="{{lesson.id}}_form" type="submit" id="{{lesson.id}}_update" value="Update"></td>
-
-                    <script>
-                        var button = "#{{lesson.id}}_update";
-                        var form  = "#{{lesson.id}}_form";
-
-                        $(form).submit(function(e){
-                            e.preventDefault()
-                        });
-
-                        $(button).on('click', function(){
-                            var url = "sam_api/lesson_api/{{lesson.id}}/";
-                            var present = $('input[name="{{lesson.id}}_attendance"]').val();
-                            var marked = true;
-
-
-                            $.ajax({
-                                url: url,
-                                type: 'PATCH',
-                                data: {
-                                    present: present,
-                                    marked: marked
-                                },
-                                success: function() {
-                                    location.reload();
-                                }
-                            });
-
-                        });
-                    </script>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-
     </div>
+</nav>
+<div class="container">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Name</th>
+            <th scope="col">Present</th>
+            <th scope="col">Absent</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lesson in lessons %}
+            {% if lesson.is_today %}
+
+                <tr>
+                <th scope="row">{{ lesson.student.time }}</th>
+                <td hidden>
+                    <form action="" id="{{ lesson.id }}_form" class="row" method="post"></form>
+                    {% csrf_token %}
+                </td>
+                <td>{{ lesson.student.first }} {{ lesson.student.last }}</td>
+                <td>
+                    <label for="{{ lesson.id }}_present" hidden></label>
+                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_present"
+                           name="{{ lesson.id }}_attendance" value="true" checked="checked">
+                </td>
+                <td>
+                    <label for="{{ lesson.id }}_not_here"></label>
+                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_not_here"
+                           name="{{ lesson.id }}_attendance" value="false">
+                </td>
+                <td><input form="{{ lesson.id }}_form" type="submit" id="{{ lesson.id }}_update" value="Update"></td>
+
+                <script>
+                    var button = "#{{lesson.id}}_update";
+                    var form = "#{{lesson.id}}_form";
+
+                    $(form).submit(function (e) {
+                        e.preventDefault()
+                    });
+
+                    $(button).on('click', function () {
+                        var url = "sam_api/lesson_api/{{lesson.id}}/";
+                        var present = $('input[name="{{lesson.id}}_attendance"]').val();
+                        var marked = true;
+
+
+                        $.ajax({
+                            url: url,
+                            type: 'PATCH',
+                            data: {
+                                present: present,
+                                marked: marked
+                            },
+                            success: function () {
+                                location.reload();
+                            }
+                        });
+
+                    });
+                </script>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
 
 </body>
 </html>

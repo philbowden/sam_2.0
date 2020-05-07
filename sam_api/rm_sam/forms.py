@@ -33,7 +33,7 @@ class EditProfileForm(UserChangeForm):
                                 widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}))
 
     CHOICES = [('admin', 'Admin'), ('teacher', 'Teacher')]
-    #status = forms.CharField(label='Status', widget=forms.RadioSelect(choices=CHOICES))
+    # status = forms.CharField(label='Status', widget=forms.RadioSelect(choices=CHOICES))
     username = forms.CharField(max_length=100,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'User Name'}))
     password = forms.CharField(widget=forms.TextInput(attrs={'type': 'hidden'}))
