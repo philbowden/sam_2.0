@@ -463,10 +463,10 @@
 
                     var studentExists = false;
                     var tbody = $("tbody");
-                    var html = "<tbody id='body'><tr> <th>Time</th> <th>Name</th> <th>2/1</th> <th>2/8</th> <th>2/15</th> <th>2/22</th> </tr>";
+                    var html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th> <th class='text-center'>2/1</th> <th class='text-center'>2/8</th> <th class='text-center'>2/15</th> <th class='text-center'>2/22</th> </tr>";
                     for (var t = 0; t < time.length; t++) {
-                        html += "<tr class='studentRow'><td>" + time[t] + "</td><div class='dropdown'><td class='studentName' >" +
-                            "<button  style='width:100%' class='btn btn-lg btn-dark align-content-center studentcell' celltime='" + time[t] + "' type='button' data-toggle='dropdown'>";
+                        html += "<tr class='studentRow'><td class='text-center'>" + time[t] + "</td><div class='dropdown'><td class='text-center studentName' >" +
+                            "<button  style='width:70%' class='btn btn-lg btn-secondary text-center studentcell' celltime='" + time[t] + "' type='button' data-toggle='dropdown'>";
 
 
                         for (var i = 0; i < studentData.length; i++) {
