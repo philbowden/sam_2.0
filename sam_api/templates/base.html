@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
     <link rel="stylesheet" href="{% static 'css/basestyles.css' %}">
 
     <title>Login</title>
@@ -26,7 +27,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+    <div class="nav-item">
+        <a class="fas fa-home navbar-brand" href="{% url 'home' %}"></a>
+    </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -50,13 +53,16 @@
                 </li>
             {% elif user.is_authenticated and this_teacher.is_admin == false %}
                 <li class="nav-item">
+                    <i class="fas fa-home fa-home-lg navbar-brand" href="{% url 'home' %}"></i>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'teacher' teacher_id=this_teacher.id %}">My Schedule</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+                    <a class="fas fa-tools nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>

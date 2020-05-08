@@ -14,7 +14,9 @@
     <body>
     <!-- Drop Downs -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark pb-2">
-
+        <div class="nav-item">
+            <a class="fas fa-home fa-home-lg navbar-brand" href="{% url 'home' %}"></a>
+        </div>
         <select class="form-check m-2" id="selectDay">
             <option class="dropdown-item" href="#" value="">Select Day</option>
             <option class="dropdown-item" href="#" value="monday">Monday</option>
@@ -33,9 +35,6 @@
         </select>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{% url 'home' %}">Home</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
