@@ -53,8 +53,6 @@ def teacher(request, teacher_id):
     lessons = Lesson.objects.filter(teacher=teacher_id, date__range=["2020-01-01", today], marked=False)
     students = Student.objects.filter(teacher=teacher_id)
     current_teacher = Teacher.objects.filter(id=teacher_id)
-    user_id = request.user.id
-    this_teacher = Teacher.objects.get(user_id=user_id)
     return render(request, 'teacher.html',
                   {'current_teacher': current_teacher, 'lessons': lessons, 'students': students, 'today': today})
 
@@ -72,6 +70,8 @@ def login_user(request):
             login(request, user)
 
             this_teacher = Teacher.objects.get(user_id=user.id)
+            request.session['current_id'] = this_teacher.id
+            request.session['current_status'] = this_teacher.is_admin
 
             if this_teacher.is_admin:
                 return redirect('/admin_page')
