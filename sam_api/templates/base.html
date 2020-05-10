@@ -55,17 +55,13 @@
 
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'teacher' teacher_id=request.session.current_id %}">My
-                            Schedule</a>
+                        <a class="nav-link" href="{% url 'teacher' teacher_id=request.session.current_id %}">My Schedule</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
                     </li>
                 {% endif %}
 
@@ -74,7 +70,7 @@
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    <a class="nav-link" href="{% url 'register' %}">Register New User</a>
                 </li>
             {% endif %}
 
@@ -116,33 +112,3 @@
 </body>
 </html>
 
-{#                {% if request.session.current_id  %}#}
-{#                {% endif %}#}
-{% comment %}<li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin' %}">Admin</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
-                </li>
-            {% elif user.is_authenticated %}
-                <li class="nav-item">
-                    <i class="fas fa-home fa-home-lg navbar-brand" href="{% url 'home' %}"></i>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'teacher' teacher_id=this_teacher.id %}">My Schedule</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="fas fa-tools nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
-                </li>{% endcomment %}
