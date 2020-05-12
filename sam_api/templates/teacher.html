@@ -27,24 +27,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
-            </li>
         </ul>
     </div>
 </nav>
-<div class="container">
+<div class="table-responsive">
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr>
             <th scope="col">Time</th>
             <th scope="col">Name</th>
-            <th scope="col">Present</th>
-            <th scope="col">Absent</th>
-            <th scope="col"></th>
+            <th scope="col">Present<br></th>
+            <th scope="col">Excused</th>
+            <th scope="col">Unexcused</th>
         </tr>
         </thead>
         <tbody>
@@ -64,11 +58,15 @@
                            name="{{ lesson.id }}_attendance" value="true" checked="checked">
                 </td>
                 <td>
-                    <label for="{{ lesson.id }}_not_here"></label>
-                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_not_here"
+                    <label for="{{ lesson.id }}_excused"></label>
+                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_excused"
                            name="{{ lesson.id }}_attendance" value="false">
                 </td>
-                <td><input form="{{ lesson.id }}_form" type="submit" id="{{ lesson.id }}_update" value="Update"></td>
+                <td>
+                    <label for="{{ lesson.id }}_unexcused"></label>
+                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_unexcused"
+                           name="{{ lesson.id }}_attendance" value="false">
+                </td>
 
                 <script>
                     var button = "#{{lesson.id}}_update";
