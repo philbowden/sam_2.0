@@ -37,8 +37,8 @@
             <th scope="col">Time</th>
             <th scope="col">Name</th>
             <th scope="col">Present<br></th>
-            <th scope="col">Excused</th>
             <th scope="col">Unexcused</th>
+            <th scope="col">Excused</th>
         </tr>
         </thead>
         <tbody>
@@ -58,13 +58,13 @@
                            name="{{ lesson.id }}_attendance" value="true" checked="checked">
                 </td>
                 <td>
-                    <label for="{{ lesson.id }}_excused"></label>
-                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_excused"
+                    <label for="{{ lesson.id }}_unexcused"></label>
+                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_unexcused"
                            name="{{ lesson.id }}_attendance" value="false">
                 </td>
                 <td>
-                    <label for="{{ lesson.id }}_unexcused"></label>
-                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_unexcused"
+                    <label for="{{ lesson.id }}_excused"></label>
+                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_excused"
                            name="{{ lesson.id }}_attendance" value="false">
                 </td>
 
