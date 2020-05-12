@@ -37,7 +37,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-
             {% if user.is_authenticated %}
                 {% if request.session.current_status %}
                     <li class="nav-item">
@@ -52,10 +51,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register New User</a>
+                    </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'teacher' teacher_id=request.session.current_id %}">My Schedule</a>
+                        <a class="nav-link" href="{% url 'teacher' teacher_id=request.session.current_id %}">My
+                            Schedule</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -64,22 +66,14 @@
                         <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
                     </li>
                 {% endif %}
-
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register New User</a>
-                </li>
             {% endif %}
-
-
         </ul>
-
     </div>
 </nav>
-
 <br/>
 <div class="container">
     {% if messages %}
@@ -92,8 +86,6 @@
             </div>
         {% endfor %}
     {% endif %}
-
-
     {% block content %}
     {% endblock %}
 </div>

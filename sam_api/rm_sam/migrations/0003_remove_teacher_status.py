@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('rm_sam', '0002_auto_20200425_2259'),
     ]

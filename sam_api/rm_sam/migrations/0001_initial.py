@@ -7,7 +7,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -53,7 +52,8 @@ class Migration(migrations.Migration):
                 ('vacay_end_date', models.DateField(blank=True, null=True)),
                 ('active', models.BooleanField(default=True)),
                 ('created', models.DateField(auto_now_add=True)),
-                ('creator', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('creator', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                              to=settings.AUTH_USER_MODEL)),
                 ('teacher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rm_sam.Teacher')),
             ],
         ),
@@ -65,7 +65,8 @@ class Migration(migrations.Migration):
                 ('present', models.BooleanField(default=False)),
                 ('marked', models.BooleanField(default=False)),
                 ('created', models.DateField(auto_now_add=True)),
-                ('creator', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('creator', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                              to=settings.AUTH_USER_MODEL)),
                 ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rm_sam.Student')),
                 ('teacher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rm_sam.Teacher')),
             ],
