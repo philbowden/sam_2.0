@@ -326,7 +326,7 @@
             var instrument = $("#instrument").val();
             var start_date = $("#start_date").val();
             var end_date = $("#end_date").val();
-            var teacher = $("#teacher").val();
+            var teacher = $("#selectTeacher").val();
             var charge_rate = $('input[name="charge_rate"]').val();
             var notes = $("#notes").val();
             var parent_first = $("#parent_first").val();
@@ -528,8 +528,8 @@
 
                 var selectedTeacher = document.getElementById("selectTeacher");
                 var teacher_name = selectedTeacher.options[selectedTeacher.selectedIndex].text;
-
-                $("#teacher").val(teacher_name);
+                $('#teacher').attr('placeholder', teacher_name.toString());
+                //$("#teacher").val(selectedTeacher);
             });
 
             //this function refreshes the table when a student is added
