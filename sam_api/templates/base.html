@@ -43,9 +43,6 @@
                         <a class="nav-link" href="{% url 'admin' %}">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
                     </li>
                     <li class="nav-item">
@@ -54,16 +51,22 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'register' %}">Register New User</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'teacher' teacher_id=request.session.current_id %}">My
                             Schedule</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+                        <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
                 {% endif %}
             {% else %}
