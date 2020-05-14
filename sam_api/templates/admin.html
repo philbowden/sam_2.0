@@ -1,3 +1,5 @@
+{% load static %}
+
 {% block content %}
 
     <!DOCTYPE html>
@@ -219,7 +221,7 @@
             </div><!--modal content-->
         </div><!--modal dialog-->
     </div><!--add student modal-->
-    <script src="../static/js/lessonDates.js"></script>
+{#    <script src="../static/js/lessonDates.js"></script>#}
     <script>
         $.ajaxSetup({
             beforeSend: function (xhr, settings) {
@@ -406,7 +408,7 @@
 
 
 
-        {% comment %}function getNextFourDatesArray(start) {
+        function getNextFourDatesArray(start) {
             var arr = [];
             var dt = new Date(start);
             for (var i = 0; i < 4; i++) {
@@ -414,7 +416,7 @@
                 dt.setDate(dt.getDate() + 7);
             }
             return arr;
-        }{% endcomment %}
+        }
 
         function formatDate(date) {
             var d = new Date(date),
