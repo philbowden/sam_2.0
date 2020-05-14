@@ -6,17 +6,39 @@ let currentYear = today.getFullYear();
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 let day = document.getElementById("selectDay");
-let dayIndex = getDayIndex(day);
+let dayIndex = getDayInt(day);
 
-function getDayIndex(day) {
-    let dayIndex = 0;
+function getDayInt(day){
     for(let i = 0; i < days.length; i++){
         if (days[i] === day){
             return i;
         }
     }
 }
-displayDates(dayIndex, currentMonth);
+if(day !== ''){
+    displayDates(currentYear, currentMonth, dayIndex);
+}
+
+function getLessonDays(month, day) {
+    let date = new Date(),
+        lessonDays = [];
+
+    while(date.getDay() !== day){
+        date.setDate(date.getDate() + 1);
+    }
+
+    while (date.getMonth() === month){
+        lessonDays.push(new Date(date.getTime()));
+        date.setDate(date.getDate() + 7);
+    }
+    return lessonDays;
+
+}
+function  displayDates(year, month, day) {
+    let idArray = ['lesson1', 'lesson2', 'lesson3','lesson4','lesson5'];
+    let dates = getLessonDays(month, day);
+
+}
 
 function next() {
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
