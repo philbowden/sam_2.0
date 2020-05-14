@@ -219,7 +219,7 @@
             </div><!--modal content-->
         </div><!--modal dialog-->
     </div><!--add student modal-->
-
+    <script src="../static/js/lessonDates.js"></script>
     <script>
         $.ajaxSetup({
             beforeSend: function (xhr, settings) {
@@ -246,7 +246,7 @@
             }
         });
 
-        var student;
+        let student;
         $('#addStudent').submit(function (e) {
             e.preventDefault()
         });
@@ -404,7 +404,9 @@
             return arr;
         }
 
-        function getNextFourDatesArray(start) {
+
+
+        {% comment %}function getNextFourDatesArray(start) {
             var arr = [];
             var dt = new Date(start);
             for (var i = 0; i < 4; i++) {
@@ -412,7 +414,7 @@
                 dt.setDate(dt.getDate() + 7);
             }
             return arr;
-        }
+        }{% endcomment %}
 
         function formatDate(date) {
             var d = new Date(date),
@@ -455,7 +457,10 @@
 
                     var studentExists = false;
                     var tbody = $("tbody");
-                    var html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th> <th class='text-center'>2/1</th> <th class='text-center'>2/8</th> <th class='text-center'>2/15</th> <th class='text-center'>2/22</th> </tr>";
+                    var html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th>" +
+                        " <th id='lesson1' class='text-center'>Lesson 1</th> <th id='lesson2' class='text-center'>Lesson 2</th>" +
+                        " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>" +
+                        "<th id='lesson5' class='text-center'>Lesson 5</th> </tr>";
                     for (var t = 0; t < time.length; t++) {
                         html += "<tr class='studentRow'><td class='text-center'>" + time[t] + "</td><div class='dropdown'><td class='text-center studentName' >" +
                             "<button  style='width:70%' class='btn btn-lg btn-secondary text-center studentcell' celltime='" + time[t] + "' type='button' data-toggle='dropdown'>";
