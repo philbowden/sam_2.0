@@ -11,12 +11,12 @@ class TeacherSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('id', 'first', 'last', 'phone', 'email', 'time', 'day', 'start_date', 'end_date', 'instrument',
+        fields = ('id', 'first', 'last', 'email', 'phone', 'time', 'day', 'start_date', 'instrument',
                   'teacher', 'charge_rate', 'notes', 'parent_first', 'parent_last', 'birthdate', 'present',
-                  'unexcused', 'make_up', 'vacay_start_date', 'vacay_end_date', 'active')
+                  'unexcused', 'make_up', 'active', 'creator', 'created')
 
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = ('id', 'student', 'teacher', 'date', 'present', 'marked', 'created')
+        fields = ('id', 'student', 'teacher', 'month', 'year', 'lessons')
