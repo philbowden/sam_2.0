@@ -3,17 +3,13 @@
  let currentMonth = today.getMonth();
  let currentYear = today.getFullYear();
 
- let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
- console.log("select Day: " + day)
-//let dayIndex = getDayInt(day);
+ let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday",""];
 
-function setDay()
+function setDay(dayNumber)
 {
-    let day = document.getElementById("selectDay").value;
-    console.log("Day is Selected is: " + day);
-    let dayNumber = getDayInt(day);
     displayDates(currentYear, currentMonth, dayNumber);
 }
+
  function getDayInt(day)
  {
      let index = 0;
@@ -26,17 +22,25 @@ function setDay()
 
  function getLessonDays(year, month, dayNumber)
  {
-   let day = new Date(year, month, 1);
-   console.log("Day object: " + day)
+   let firstDayOfThisMonth = new Date(year, month, 1);
+   console.log("firstDayOfThisMonth: " + firstDayOfThisMonth);
+   console.log("\n")
+   let firstDayOfThisMonthIndex = firstDayOfThisMonth.getDay();
+   console.log("firstDayOfThisMonthIndex: " + firstDayOfThisMonthIndex);
+   console.log("\n");
    let dates = [];
-   let daysToFirst = (dayNumber + 7 - day.getDay()) % 7;
-   let firstOf = new Date(day.setDate(day.getDate() + daysToFirst));
+   let daysToFirst = (dayNumber + 7 - firstDayOfThisMonthIndex) % 7;
+   console.log("daysToFirst: " + daysToFirst);
+   console.log("\n");
+   let firstOf = new Date(firstDayOfThisMonth.setDate(firstDayOfThisMonth.getDate() + daysToFirst));
+   console.log("firstOf: " + firstOf);
+   console.log("\n");
+   console.log("#############################################");
 
    while (firstOf.getMonth() === month)
    {
      dates.push(new Date(+firstOf));
      firstOf.setDate(firstOf.getDate() + 7);
-     console.log("dates: " + dates)
    }
    return dates;
  }
@@ -59,7 +63,6 @@ function setDay()
  }
  function formatMonth(date)
  {
-     console.log("formatMonth => date = " + date)
      let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
      return months[date];
  }

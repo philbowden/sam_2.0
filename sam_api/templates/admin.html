@@ -370,9 +370,6 @@
         }
 
     </script>
-
-
-
     <table class="table table-bordered table-striped">
         <tbody id="body">
 
@@ -423,7 +420,16 @@
                             "</li></ul></td></div><td></td><td></td><td></td><td></td></tr>");
                     }
                     tbody.replaceWith(html + '</tbody>');
-                    displayDates(currentYear,currentMonth,currentDay);
+
+                    //populates the date columns w all occurences of the current day/month
+                    if(document.getElementById("selectDay").value === ""){
+                        displayDates(currentYear,currentMonth,currentDay);
+                    }
+                    else
+                    {
+                        let dayNumber = getDayInt(day);
+                        setDay(dayNumber);
+                    }
                 }
 
             });
@@ -432,14 +438,12 @@
     </script>
     <script>
         $(document).ready(function () {
-            var day = $("#selectDay").val();
+            let day = $("#selectDay").val();
             buildTable(day);
             $("#day").val(day);
         });
 
         $(document).ready(function () {
-
-
             $(document).on('click', '#confirmDrop', function () {
                 dropId = $(this).attr('dropId')
                 $.ajax({
@@ -452,7 +456,6 @@
                     success: function (data) {
                         jQuery("#dropStudentModal").modal('toggle');
                         buildTable($('#selectDay').val())
-                        console.log(data);
                     },
                     error: function (xhr, resp, text) {
                         console.log(xhr, resp, text);
@@ -462,7 +465,7 @@
 
             //this function refreshes the table when the day is changed
             $("#selectDay").change(function () {
-                var day = $("#selectDay").val();
+                let day = $("#selectDay").val();
                 buildTable(day);
                 $("#day").val(day);
             });
