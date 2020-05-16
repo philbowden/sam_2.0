@@ -232,7 +232,7 @@
                         for (var i = 0; i < cookies.length; i++) {
                             var cookie = jQuery.trim(cookies[i]);
                             // Does this cookie string begin with the name we want?
-                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
                                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                                 break;
                             }
@@ -406,13 +406,13 @@
 
 
                         for (var i = 0; i < studentData.length; i++) {
-                            if (studentData[i].time === time[t] && studentData[i].day === day && (studentData[i].teacher) === teacherId) {
+                            if (studentData[i].time == time[t] && studentData[i].day == day && (studentData[i].teacher) == teacherId) {
                                 studentExists = true;
                                 html += ("<span id='" + studentData[i].id + "'>" + studentData[i].first + " " + studentData[i].last) + "</span>";
                             }
 
                         }
-                        if (studentExists === false) {
+                        if (studentExists == false) {
                             html += "<i class='fas fa-user-plus p-0'</i>"
                         }
                         studentExists = false;
@@ -423,7 +423,9 @@
                             "</li></ul></td></div><td></td><td></td><td></td><td></td></tr>");
                     }
                     tbody.replaceWith(html + '</tbody>');
+                    displayDates(currentYear,currentMonth,currentDay);
                 }
+
             });
         }
 
@@ -503,7 +505,7 @@
         });
 
     </script>
-
+<script src="../static/js/lessonDates.js"></script>
 {% endblock %}
 </body>
 </html>
