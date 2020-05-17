@@ -17,7 +17,7 @@
     <!-- Drop Downs -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark pb-2">
         <div class="nav-item">
-            <a class="fas fa-home fa-home-lg navbar-brand" href="{% url 'home' %}"></a>
+            <a class="fas fa-home fa-home-lg mr-5 navbar-brand" href="{% url 'home' %}"></a>
         </div>
         <label for="selectDay"></label><select class="form-check m-2" id="selectDay">
             <option class="dropdown-item" href="#" value="">Select Day</option>
@@ -380,7 +380,7 @@
 {% block javascript %}
     <script>
         function buildTable(day) {
-            var time = ["3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
+            let time = ["3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
             teacherId = $("#selectTeacher").val();
 
             $.ajax({
@@ -391,13 +391,14 @@
                 },
                 success: function (studentData) {
 
-                    var studentExists = false;
-                    var tbody = $("tbody");
-                    var html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th>" +
+                    let studentExists = false;
+                    let tbody = $("tbody");
+                    let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th>" +
                         " <th id='lesson1' class='text-center'>Lesson 1</th> <th id='lesson2' class='text-center'>Lesson 2</th>" +
-                        " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>" +
-                        "<th id='lesson5' class='text-center'>Lesson 5</th> </tr>";
-                    for (var t = 0; t < time.length; t++) {
+                        " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>";
+                    let dayChoice = document.getElementById("selectDay").value;
+
+                    for (let t = 0; t < time.length; t++) {
                         html += "<tr class='studentRow'><td class='text-center'>" + time[t] + "</td><div class='dropdown'><td class='text-center studentName' >" +
                             "<button  style='width:70%' class='btn btn-lg btn-secondary text-center studentcell' celltime='" + time[t] + "' type='button' data-toggle='dropdown'>";
 
@@ -421,8 +422,9 @@
                     }
                     tbody.replaceWith(html + '</tbody>');
 
-                    //populates the date columns w all occurences of the current day/month
+
                     if(document.getElementById("selectDay").value === ""){
+
                         displayDates(currentYear,currentMonth,currentDay);
                     }
                     else
@@ -434,6 +436,7 @@
 
             });
         }
+
 
     </script>
     <script>
@@ -475,8 +478,8 @@
                 buildTable(day);
                 $("#day").val(day);
 
-                var selectedTeacher = document.getElementById("selectTeacher");
-                var teacher_name = selectedTeacher.options[selectedTeacher.selectedIndex].text;
+                let selectedTeacher = document.getElementById("selectTeacher");
+                let teacher_name = selectedTeacher.options[selectedTeacher.selectedIndex].text;
                 $('#teacher').attr('placeholder', teacher_name.toString());
                 //$("#teacher").val(selectedTeacher);
             });

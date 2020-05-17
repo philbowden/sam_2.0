@@ -17,10 +17,10 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="nav-item">
-        <a class="fas fa-home fa-home-lg navbar-brand" href="{% url 'home' %}"></a>
+        <a class="fas fa-home fa-home-lg navbar-brand mr-5" href="{% url 'home' %}"></a>
     </div>
     <h3 class="h3 text-light ml-5 mr-5 ">Welcome {{ user.first_name }}!</h3>
-    <h4 class="h4 text-light ml-5">{{ today }}</h4>
+    <h4 class="h4 text-light ml-lg-5">{{ today|title }} Schedule</h4>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">

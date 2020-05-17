@@ -67,6 +67,19 @@ function setDay(dayNumber)
      return months[date];
  }
 
+ function completeHtml(dayChoice)
+ {
+            if(dayChoice === "")
+            {
+                let dayInt = getDayInt(currentYear, currentMonth, currentDay);
+                let currentLessonDays = getLessonDays(dayInt);
+            }
+            else
+            {
+
+            }
+        }
+
  function next()
  {
      currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;

@@ -17,8 +17,8 @@ class Teacher(models.Model):
 
 
 class Student(models.Model):
-    first = models.CharField(max_length=100)
-    last = models.CharField(max_length=100)
+    first = models.CharField(max_length=100, default=None)
+    last = models.CharField(max_length=100, default=None)
     email = models.EmailField(max_length=100, null=True, blank=True)
     phone = models.CharField(max_length=10, null=True, blank=True)
     time = models.CharField(max_length=30, null=True)
