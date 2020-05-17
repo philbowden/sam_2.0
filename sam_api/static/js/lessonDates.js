@@ -44,8 +44,6 @@ function setDay(dayNumber)
    }
    return dates;
  }
-
-
  function displayDates(year, month, day)
  {
      let date_label_ids = ['lesson1', 'lesson2', 'lesson3','lesson4','lesson5'];
@@ -60,6 +58,10 @@ function setDay(dayNumber)
          document.getElementById(id).innerHTML = month + " " + day;
          index++;
      }
+     if(dates.length < 5)
+     {
+         document.getElementById('topRow').deleteCell(6);
+     }
  }
  function formatMonth(date)
  {
@@ -67,18 +69,7 @@ function setDay(dayNumber)
      return months[date];
  }
 
- function completeHtml(dayChoice)
- {
-            if(dayChoice === "")
-            {
-                let dayInt = getDayInt(currentYear, currentMonth, currentDay);
-                let currentLessonDays = getLessonDays(dayInt);
-            }
-            else
-            {
 
-            }
-        }
 
  function next()
  {

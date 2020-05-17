@@ -393,10 +393,10 @@
 
                     let studentExists = false;
                     let tbody = $("tbody");
-                    let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th>" +
+                    let html = "<tbody id='body'><tr id='topRow'> <th class='text-center'>Time</th> <th class='text-center'>Name</th>" +
                         " <th id='lesson1' class='text-center'>Lesson 1</th> <th id='lesson2' class='text-center'>Lesson 2</th>" +
-                        " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>";
-                    let dayChoice = document.getElementById("selectDay").value;
+                        " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>" +
+                        "<th id='lesson5' class='text-center'></th></tr>";
 
                     for (let t = 0; t < time.length; t++) {
                         html += "<tr class='studentRow'><td class='text-center'>" + time[t] + "</td><div class='dropdown'><td class='text-center studentName' >" +
@@ -421,7 +421,6 @@
                             "</li></ul></td></div><td></td><td></td><td></td><td></td></tr>");
                     }
                     tbody.replaceWith(html + '</tbody>');
-
 
                     if(document.getElementById("selectDay").value === ""){
 
