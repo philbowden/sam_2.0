@@ -30,7 +30,9 @@
         </ul>
     </div>
 </nav>
+
 <div class="table-responsive">
+<form action="" id="attendance_form" class="row px-3" method="post">{% csrf_token %}
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr>
@@ -38,68 +40,37 @@
             <th scope="col">Name</th>
             <th scope="col">Present<br></th>
             <th scope="col">Absent</th>
-            <th scope="col">Makeup</th>
         </tr>
         </thead>
         <tbody>
-        {% for lesson in lessons %}
-            {% if lesson.is_today %}
 
-                <tr>
-                <th scope="row">{{ lesson.student.time }}</th>
-                <td hidden>
-                    <form action="" id="{{ lesson.id }}_form" class="row" method="post"></form>
-                    {% csrf_token %}
-                </td>
-                <td>{{ lesson.student.first }} {{ lesson.student.last }}</td>
-                <td>
-                    <label for="{{ lesson.id }}_present" hidden></label>
-                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_present"
-                           name="{{ lesson.id }}_attendance" value="true" checked="checked">
-                </td>
-                <td>
-                    <label for="{{ lesson.id }}_unexcused"></label>
-                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_unexcused"
-                           name="{{ lesson.id }}_attendance" value="false">
-                </td>
-                <td>
-                    <label for="{{ lesson.id }}_excused"></label>
-                    <input form="{{ lesson.id }}_form" type="radio" id="{{ lesson.id }}_excused"
-                           name="{{ lesson.id }}_attendance" value="false">
-                </td>
+        {% for student in students %}
 
-                <script>
-                    var button = "#{{lesson.id}}_update";
-                    var form = "#{{lesson.id}}_form";
+        <tr>
+            <th scope="row">{{ student.time }}</th>
+            <td hidden>
 
-                    $(form).submit(function (e) {
-                        e.preventDefault()
-                    });
+            </td>
+            <td>{{ student.first }} {{ student.last }}</td>
+            <td>
+                <label for="{{ student.id }}_present" hidden></label>
+                <input type="radio" id="{{ student.id }}_present"
+                       name="{{ student.id }}_attendance" value="true" checked="checked">
+            </td>
+            <td>
+                <label for="{{ student.id }}_absent"></label>
+                <input type="radio" id="{{ student.id }}_absent"
+                           name="{{ student.id }}_attendance" value="false">
+            </td>
 
-                    $(button).on('click', function () {
-                        var url = "sam_api/lesson_api/{{lesson.id}}/";
-                        var present = $('input[name="{{lesson.id}}_attendance"]').val();
-                        var marked = true;
-
-
-                        $.ajax({
-                            url: url,
-                            type: 'PATCH',
-                            data: {
-                                present: present,
-                                marked: marked
-                            },
-                            success: function () {
-                                location.reload();
-                            }
-                        });
-
-                    });
-                </script>
-            {% endif %}
         {% endfor %}
         </tbody>
     </table>
+
+    <input id="attendance_update" type="submit" value="Submit">
+
+
+</form>
 
 </div>
 

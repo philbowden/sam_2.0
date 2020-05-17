@@ -49,12 +49,50 @@ def admin(request):
 
 @login_required(login_url='/login/')
 def teacher(request, teacher_id):
-    today = timezone.localdate()
-    lessons = Lesson.objects.filter(teacher=teacher_id, date__range=["2020-01-01", today], marked=False)
-    students = Student.objects.filter(teacher=teacher_id)
+    day = timezone.localdate().day
+    today = timezone.localdate().strftime('%A').lower()
+    month = timezone.localdate().strftime('%B').lower()
+    year = timezone.localdate().year
+
+    students = Student.objects.all().filter(teacher=teacher_id, day=today, active=True)
     current_teacher = Teacher.objects.filter(id=teacher_id)
-    return render(request, 'teacher.html',
-                  {'current_teacher': current_teacher, 'lessons': lessons, 'students': students, 'today': today})
+    current_lessons = Lesson.objects.all().filter(teacher=teacher_id, month=month, year=year)
+
+    if request.method == "POST":
+        for student in students:
+            request_id = str(student.id) + "_attendance"
+            student_attendance = request.POST[request_id]
+            if student_attendance:
+                data = 'present'
+            else:
+                data = "absent"
+
+            if current_lessons.filter(student=student.id).count() == 0:
+                lesson_attrs = {
+                    "student_id": student.id,
+                    "teacher_id": student.teacher.id,
+                    "month": month,
+                    "year": year,
+                    "lessons": {
+                        day: data
+                    }
+                }
+                new_lesson = Lesson.objects.create(**lesson_attrs)
+                serializer = LessonSerializer(data=new_lesson)
+                if serializer.is_valid():
+                    serializer.save()
+
+            else:
+
+                lesson = current_lessons.get(student=student.id)
+                lesson.lessons[day] = data
+
+        return redirect('home')
+
+    else:
+
+        return render(request, 'teacher.html',
+                      {'current_teacher': current_teacher, 'students': students, 'today': today})
 
 
 def home(request):

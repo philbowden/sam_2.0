@@ -3,13 +3,17 @@ from django.utils.dateparse import parse_date
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from rest_framework.fields import JSONField
-
+from jsonfield import JSONField
 
 
 class Teacher(models.Model):
+    first = models.CharField(max_length=100)
+    last = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_admin = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.first + ' ' + self.last
 
 
 class Student(models.Model):
@@ -19,7 +23,8 @@ class Student(models.Model):
     phone = models.CharField(max_length=10, null=True, blank=True)
     time = models.CharField(max_length=30, null=True)
     day = models.CharField(max_length=100, null=True)
-    start_date = models.DateField(auto_now_add=False, auto_now=False, default=datetime.date.today, null=True,                          blank=True)
+    start_date = models.DateField(auto_now_add=False, auto_now=False, default=datetime.date.today, null=True,
+                                  blank=True)
     instrument = models.CharField(max_length=100, null=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     charge_rate = models.CharField(max_length=30, default='2020 rate', null=True)
@@ -47,4 +52,4 @@ class Lesson(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     month = models.CharField(max_length=9, default=timezone.now().strftime('%B'))
     year = models.IntegerField(default=timezone.now().year)
-    lessons = JSONField()
+    lessons = JSONField(null=True, blank=True)

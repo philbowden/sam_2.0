@@ -5,7 +5,7 @@ from .models import Teacher, Student, Lesson
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ('id', 'user', 'admin')
+        fields = ('id', 'first', 'last', 'user', 'is_admin')
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -17,6 +17,8 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class LessonSerializer(serializers.ModelSerializer):
+    lessons = serializers.JSONField()
+
     class Meta:
         model = Lesson
-        fields = ('id', 'student', 'teacher', 'month', 'year', 'lessons')
+        fields = ('id','student', 'teacher', 'month', 'year', 'lessons')
