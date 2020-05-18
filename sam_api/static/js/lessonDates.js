@@ -23,19 +23,10 @@ function setDay(dayNumber)
  function getLessonDays(year, month, dayNumber)
  {
    let firstDayOfThisMonth = new Date(year, month, 1);
-   console.log("firstDayOfThisMonth: " + firstDayOfThisMonth);
-   console.log("\n")
    let firstDayOfThisMonthIndex = firstDayOfThisMonth.getDay();
-   console.log("firstDayOfThisMonthIndex: " + firstDayOfThisMonthIndex);
-   console.log("\n");
    let dates = [];
    let daysToFirst = (dayNumber + 7 - firstDayOfThisMonthIndex) % 7;
-   console.log("daysToFirst: " + daysToFirst);
-   console.log("\n");
    let firstOf = new Date(firstDayOfThisMonth.setDate(firstDayOfThisMonth.getDate() + daysToFirst));
-   console.log("firstOf: " + firstOf);
-   console.log("\n");
-   console.log("#############################################");
 
    while (firstOf.getMonth() === month)
    {
@@ -58,31 +49,36 @@ function setDay(dayNumber)
          document.getElementById(id).innerHTML = month + " " + day;
          index++;
      }
-     if(dates.length < 5)
-     {
-         document.getElementById('topRow').deleteCell(6);
-     }
+     if(dates.length < 5) delete5thLessonDayColumn()
  }
+
+ function delete5thLessonDayColumn()
+ {
+    let allRows = document.getElementById("adminTable").rows;
+         for (let i=0; i< allRows.length; i++)
+         {
+             allRows[i].deleteCell(-1);
+         }
+ }
+
  function formatMonth(date)
  {
      let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
      return months[date];
  }
 
-
-
  function next()
  {
      currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
      currentMonth = (currentMonth + 1) % 12;
-     displayDates(currentMonth, currentYear);
+     displayDates(currentMonth, currentYear, currentDay);
  }
 
  function previous()
  {
      currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
      currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-     displayDates(currentMonth, currentYear);
+     displayDates(currentMonth, currentYear, currentDay);
  }
 
  function jump()
