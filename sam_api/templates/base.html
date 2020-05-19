@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav id="basenav" class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="nav-item">
         <a class="fas fa-home navbar-brand" href="{% url 'home' %}"></a>
     </div>
@@ -40,42 +40,39 @@
             {% if user.is_authenticated %}
                 {% if request.session.current_status %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin' %}">Admin</a>
+                        <a class="btn btn-outline-light mr-4 mb-2 mt-2" href="{% url 'admin' %}">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+                        <a class="btn btn-outline-light mr-4 mb-2 mt-2" href="{% url 'edit_profile' %}">Edit Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+                        <a class="btn btn-outline-light mr-4 mb-2 mt-2" href="{% url 'change_password' %}">Change Password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register New User</a>
+                        <a class="btn btn-outline-light mr-4 mb-2 mt-2" href="{% url 'register' %}">Register New User</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="btn btn-outline-light mr-4 mb-2 mt-2" href="{% url 'logout' %}">Logout</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'teacher' teacher_id=request.session.current_id %}">My
+                        <a class="btn btn-outline-light m-3" href="{% url 'teacher' teacher_id=request.session.current_id %}">My
                             Schedule</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+                        <a class="btn btn-outline-light m-3" href="{% url 'edit_profile' %}">Edit Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+                        <a class="btn btn-outline-light m-3" href="{% url 'change_password' %}">Change Password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="btn btn-outline-light m-3" href="{% url 'logout' %}">Logout</a>
                     </li>
                 {% endif %}
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="btn btn-outline-light m-3" href="{% url 'login' %}">Login</a>
                 </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register New User</a>
-                    </li>
             {% endif %}
         </ul>
     </div>

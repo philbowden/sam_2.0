@@ -9,17 +9,18 @@
         <title>Admin</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+        <link rel="stylesheet" href="{% static 'css/adminstyles.css' %}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
     <!-- Drop Downs -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark pb-2">
+    <nav id="adminnav" class="navbar navbar-expand-sm bg-dark navbar-dark pb-2">
         <div class="nav-item">
             <a class="fas fa-home fa-home-lg mr-5 navbar-brand" href="{% url 'home' %}"></a>
         </div>
-        <label for="selectDay"></label><select class="form-check m-2" id="selectDay">
+        <label for="selectDay"></label><select class="form-check m-2 mr-3" id="selectDay">
             <option class="dropdown-item" href="#" value="">Select Day</option>
             <option class="dropdown-item" href="#" value="monday">Monday</option>
             <option class="dropdown-item" href="#" value="tuesday">Tuesday</option>
@@ -28,23 +29,26 @@
             <option class="dropdown-item" href="#" value="friday">Friday</option>
             <option class="dropdown-item" href="#" value="saturday">Saturday</option>
         </select>
-        <label for="selectTeacher"></label><select class="form-check m-2" id="selectTeacher">
+        <label for="selectTeacher"></label><select class="form-check m-2 mr-5" id="selectTeacher">
             <option class="dropdown-item" href="#" value="">Select Teacher</option>
             {% for teacher in teachers %}
                 <option class="dropdown-item" href="#"
                         value={{ teacher.id }}> {{ teacher.user.first_name }} {{ teacher.user.last_name }} </option>
             {% endfor %}
         </select>
+        <div class= "ml-5">
+            <h3 id="currentdate" style="color: white"></h3>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="btn btn-sm btn-light p-1 mr-5" onclick="previousMonth()">Previous</a>
+                    <a class="btn btn-sm btn-light p-1 mr-5 mb-2 mt-2" onclick="previousMonth()">Previous</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-sm btn-light pl-3 pr-3 mr-5" onclick="nextMonth()">Next</a>
+                    <a class="btn btn-sm btn-light pl-3 pr-3 mr-5 mb-2 mt-2" onclick="nextMonth()">Next</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    <a class="btn btn-outline-light mr-4 mb-2 mt-2" href="{% url 'logout' %}">Logout</a>
                 </li>
             </ul>
         </div>
@@ -402,7 +406,7 @@
 
                     for (let t = 0; t < time.length; t++) {
                         html += "<tr class='studentRow'><td class='text-center'>" + time[t] + "</td><div class='dropdown'><td class='text-center studentName' >" +
-                            "<button  style='width:70%' class='btn btn-lg btn-secondary text-center studentcell' celltime='" + time[t] + "' type='button' data-toggle='dropdown'>";
+                            "<button  style='width:70%' class='btn btn-outline-dark btn-lg text-center studentcell' celltime='" + time[t] + "' type='button' data-toggle='dropdown'>";
 
 
                         for (var i = 0; i < studentData.length; i++) {

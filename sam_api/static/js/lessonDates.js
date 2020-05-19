@@ -38,6 +38,8 @@ function resetDay(dayNumber)
  }
  function displayDates(year, month, dayNumber)
  {
+     let monthString = formatMonth(month);
+     document.getElementById('currentdate').innerHTML = monthString + "  " + year;
      let date_label_ids = ['lesson1', 'lesson2', 'lesson3','lesson4','lesson5'];
      let dates = getLessonDays(year, month, dayNumber);
      let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
@@ -83,7 +85,7 @@ function resetDay(dayNumber)
 
  function formatMonth(date)
  {
-     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+     let months = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "June ", "July ", "Aug ", "Sep ", "Oct ", "Nov ", "Dec "];
      return months[date];
  }
 
