@@ -3,12 +3,13 @@
  let currentMonth = today.getMonth();
  let currentYear = today.getFullYear();
 
- let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday",""];
+ let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
-function setDay(dayNumber)
+function resetDay(dayNumber)
 {
     displayDates(currentYear, currentMonth, dayNumber);
 }
+
 
  function getDayInt(day)
  {
@@ -35,13 +36,13 @@ function setDay(dayNumber)
    }
    return dates;
  }
- function displayDates(year, month, day)
+ function displayDates(year, month, dayNumber)
  {
      let date_label_ids = ['lesson1', 'lesson2', 'lesson3','lesson4','lesson5'];
-     let dates = getLessonDays(year, month, day);
+     let dates = getLessonDays(year, month, dayNumber);
      let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
      let numLessonDays = dates.length;
-     resizeTable(currentNumColumns, numLessonDays);
+     optimizeTable(currentNumColumns, numLessonDays);
      let index = 0;
      while(dates[index] != null)
      {
@@ -55,26 +56,30 @@ function setDay(dayNumber)
      }
  }
 
- function resizeTable(currentNumColumns, numLessonDays)
+ function optimizeTable(currentNumColumns, numLessonDays)
  {
-     let allRows = document.getElementById("adminTable").rows;
-     if(currentNumColumns === 5 && numLessonDays < 5)
-     {
-         for (let i=0; i< allRows.length; i++)
-         {
-             allRows[i].deleteCell(-1);
-         }
-     }
-     else if(currentNumColumns === 4 && numLessonDays === 5)
-     {
-         let row  = allRows[allRows.length-1];
-         let cell = row.insertCell().outerHTML = "<th></th>";
-         for (let i=0; i< allRows.length-1; i++)
-         {
-             allRows[i].insertCell(-1);
-         }
-     }
+    let rows = document.getElementsByTagName('tr');
+    if(currentNumColumns === 5 && numLessonDays ===4)
+    {
+        for(let i = 0; i < rows.length; i++)
+        {
+            rows[i].lastChild.remove();
+        }
+    }
+    else if(currentNumColumns=== 4 && numLessonDays ===5)
+    {
+        let th = document.createElement('th');
+        th.setAttribute("id", "lesson5");
+        th.setAttribute("class", "text-center");
+        rows[0].appendChild(th);
+        for(let i = 1; i < rows.length-1; i++)
+        {
+            rows[i].insertCell(-1);
+        }
+    }
  }
+
+
 
  function formatMonth(date)
  {
@@ -82,17 +87,19 @@ function setDay(dayNumber)
      return months[date];
  }
 
- function next()
+ function nextMonth()
  {
      currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
      currentMonth = (currentMonth + 1) % 12;
+     console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
      displayDates(currentYear, currentMonth, currentDay);
  }
 
- function previous()
+ function previousMonth()
  {
      currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
      currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+     console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
      displayDates(currentYear, currentMonth, currentDay);
  }
 
