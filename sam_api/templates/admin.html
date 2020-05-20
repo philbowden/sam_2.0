@@ -386,7 +386,7 @@
 {% block javascript %}
     <script>
         function buildTable(day) {
-            let time = ["3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
+            let time = ["12:00","12:30","1:00","1:30","2:00","2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
             teacherId = $("#selectTeacher").val();
 
             $.ajax({
@@ -402,7 +402,7 @@
                     let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th>" +
                         " <th id='lesson1' class='text-center'>Lesson 1</th> <th id='lesson2' class='text-center'>Lesson 2</th>" +
                         " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>" +
-                        "<th id='lesson5' class=' showHideColumn text-center'></th></tr>";
+                        "<th id='lesson5'></th></tr>";
 
                     for (let t = 0; t < time.length; t++) {
                         html += "<tr class='studentRow'><td class='text-center'>" + time[t] + "</td><div class='dropdown'><td class='text-center studentName' >" +
@@ -424,7 +424,7 @@
                         html += ("</button><ul class='dropdown-menu'><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>" +
                             "Add Student</a></li><li><a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a></li>" +
                             "<li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Change Student</a>" +
-                            "</li></ul></td></div><td></td><td></td><td></td><td></td><td class='showHideColumn'></td>");
+                            "</li></ul></td></div><td></td><td></td><td></td><td></td><td></td>");
                     }
                     tbody.replaceWith(html + '</tbody>');
 

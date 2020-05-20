@@ -28,61 +28,58 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="btn btn-outline-secondary" href="{% url 'logout' %}">Logout</a>
+                <a class="btn btn-outline-light" href="{% url 'logout' %}">Logout</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="table-responsive">
-<form action="" id="attendance_form" class="row px-3" method="post">{% csrf_token %}
-    <table class="table table-dark m-0">
-        <thead class="teachernav">
-        <tr>
-            <th class="header" scope="col">Time</th>
-            <th class="header" scope="col">Name</th>
-            <th class="header" scope="col">Present<br></th>
-            <th class="header" scope="col">Absent</th>
-        </tr>
-        </thead>
-        <tbody>
+    <form action="" id="attendance_form" class="row px-3" method="post">{% csrf_token %}
+        <table class="table table-dark m-0">
+            <thead class="teachernav">
+            <tr>
+                <th class="header font-weight-bold" scope="col">Time</th>
+                <th class="header font-weight-bold" scope="col">Name</th>
+                <th class="header font-weight-bold" scope="col">Present<br></th>
+                <th class="header font-weight-bold" scope="col">Absent</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        {% for student in students %}
+            {% for student in students %}
 
-        <tr>
-            <th scope="row">{{ student.time }}</th>
-            <td hidden>
+                <tr>
+                <th scope="row"><bold>{{ student.time }}</bold></th>
+                <td hidden>
 
-            </td>
-            <td>{{ student.first }} {{ student.last }}</td>
-            <td>
-                <label for="{{ student.id }}_present" hidden></label>
-                <input type="radio" id="{{ student.id }}_present"
-                       name="{{ student.id }}_attendance" value="true" checked="checked">
-            </td>
-            <td>
-                <label for="{{ student.id }}_absent"></label>
-                <input type="radio" id="{{ student.id }}_absent"
+                </td>
+                <td>{{ student.first }} {{ student.last }}</td>
+                <td>
+                    <label for="{{ student.id }}_present" hidden></label>
+                    <input type="radio" id="{{ student.id }}_present"
+                           name="{{ student.id }}_attendance" value="true" checked="checked">
+                </td>
+                <td>
+                    <label for="{{ student.id }}_absent"></label>
+                    <input type="radio" id="{{ student.id }}_absent"
                            name="{{ student.id }}_attendance" value="false">
-            </td>
+                </td>
 
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="container mt-0">
-        <div class="row">
-            <div class="col col-3"></div>
-            <div class="col col-6">
-                <input class="btn btn-outline-light btn-lg btn-block" id="attendance_update" type="submit" value="Submit">
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="container mt-1">
+            <div class="row">
+                <div class="col col-3"></div>
+                <div class="col col-6">
+                    <input class="btn btn-outline-light btn-lg btn-block" id="attendance_update" type="submit"
+                           value="Submit">
+                </div>
+                <div class="col col-3"></div>
             </div>
-            <div class="col col-3"></div>
         </div>
-    </div>
-
-
-
-
-</form>
+    </form>
 
 </div>
 

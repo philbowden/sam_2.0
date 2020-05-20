@@ -11,15 +11,16 @@
                         <form method="POST">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Enter Username" name="username">
+                                <label>
+                                    <input type="text" class="form-control" placeholder="Enter Username" name="username">
+                                </label>
 
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Enter Password"
-                                       name="password">
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label>
+                                    <input type="password" class="form-control" placeholder="Enter Password"
+                                           name="password">
+                                </label>
                             </div>
                             <button type="submit" class="btn btn-secondary mb-3">Login</button>
                         </form>
