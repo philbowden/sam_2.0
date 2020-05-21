@@ -6,6 +6,7 @@ from django.contrib.auth import (authenticate, login, logout,
 from django.contrib.auth.forms import (PasswordChangeForm, UserChangeForm,
                                        UserCreationForm)
 from django.contrib.auth.models import User
+from django.db.models import F
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from rest_framework import viewsets
@@ -56,18 +57,20 @@ def teacher(request, teacher_id):
 
     students = Student.objects.all().filter(teacher=teacher_id, day=today, active=True)
     current_teacher = Teacher.objects.filter(id=teacher_id)
-    current_lessons = Lesson.objects.all().filter(teacher=teacher_id, month=month, year=year)
+    # current_lessons = Lesson.objects.all().filter(teacher=teacher_id, month=month, year=year)
 
     if request.method == "POST":
         for student in students:
             request_id = str(student.id) + "_attendance"
             student_attendance = request.POST[request_id]
-            if student_attendance:
+            if student_attendance == 'true':
                 data = 'present'
             else:
                 data = "absent"
+                if student_attendance == 'makeup':
+                    Student.objects.filter(id=student.id).update(make_up=F('make_up') + 1)
 
-            if current_lessons.filter(student=student.id).count() == 0:
+            if Lesson.objects.all().filter(student=student.id, teacher=teacher_id, month=month, year=year).count() == 0:
                 lesson_attrs = {
                     "student_id": student.id,
                     "teacher_id": student.teacher.id,
@@ -83,9 +86,9 @@ def teacher(request, teacher_id):
                     serializer.save()
 
             else:
-
-                lesson = current_lessons.get(student=student.id)
+                lesson = Lesson.objects.get(student=student.id, teacher=teacher_id, month=month, year=year)
                 lesson.lessons[day] = data
+                lesson.save()
 
         return redirect('home')
 
