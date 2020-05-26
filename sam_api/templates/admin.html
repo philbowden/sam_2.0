@@ -367,6 +367,13 @@
 
 {% block javascript %}
     <script>
+        let today = new Date();
+        let currentDay = today.getDay();
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
+
+        let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+
         function buildTable(day) {
             let startTime = 10;
             if (day === 'friday') {
@@ -434,12 +441,12 @@
             });
         }
 
-        let today = new Date();
+      {% comment %}  let today = new Date();
         let currentDay = today.getDay();
         let currentMonth = today.getMonth();
         let currentYear = today.getFullYear();
 
-        let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+        let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];{% endcomment %}
 
         function resetDay(dayNumber) {
             displayDates(currentYear, currentMonth, dayNumber);
@@ -627,14 +634,9 @@
             }
             return attendance;
         }
-         //below is the content from lessonDates.js
 
-        let today = new Date();
-        let currentDay = today.getDay();
-        let currentMonth = today.getMonth();
-        let currentYear = today.getFullYear();
+        //below is the content from lessonDates.js
 
-        let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
         function resetDay(dayNumber) {
             displayDates(currentYear, currentMonth, dayNumber);
