@@ -361,19 +361,7 @@
 
 
 
-        function formatDate(date) {
-            var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
 
-            if (month.length < 2)
-                month = '0' + month;
-            if (day.length < 2)
-                day = '0' + day;
-
-            return [year, month, day].join('-');
-        }
 
     </script>
     <table id="adminTable" class="table table-bordered table-striped">
@@ -404,6 +392,7 @@
                 },
                 success: function (studentData) {
 
+
                     let studentExists = false;
                     let tbody = $("tbody");
                     let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th>" +
@@ -431,7 +420,7 @@
                         html += ("</button><ul class='dropdown-menu'><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>" +
                             "Add Student</a></li><li><a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a></li>" +
                             "<li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Change Student</a>" +
-                            "</li></ul></td></div><td></td><td></td><td></td><td></td><td></td>");
+                            "</li></ul></td></div><td id='studentAttendance'>" + getAttendance(1, 'may', 20, 2020) + "</td><td></td><td></td><td></td><td></td>");
                     }
                     tbody.replaceWith(html + '</tbody>');
 
@@ -521,6 +510,32 @@
                 jQuery("#insertStudentModal").modal('toggle');
             })
         });
+
+         function getAttendance(student, month, day, year) {
+             let answer = $.ajax({
+                type: "GET",
+                url: 'sam_api/lesson_api/?format=json',
+                async: false,
+
+                success: function (lessonData) {
+                },
+                error: function () {
+                    return  "Hello";
+                }
+            });
+
+             let lesson_array = JSON.parse(JSON.stringify(answer.responseJSON));
+
+            let attendance = "";
+             for (let d in lesson_array) {
+
+                 if (lesson_array[d].student == student && lesson_array[d].month == month &&
+                     lesson_array[d].year == year) {
+                     attendance = lesson_array[d]["lessons"][day];
+                 }
+             }
+             return attendance;
+        }
 
     </script>
 {#    <script rel="stylesheet" href="{% static 'js/lessonDates.js' %}"></script>#}
