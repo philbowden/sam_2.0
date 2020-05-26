@@ -420,7 +420,12 @@
                         html += ("</button><ul class='dropdown-menu'><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>" +
                             "Add Student</a></li><li><a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a></li>" +
                             "<li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Change Student</a>" +
-                            "</li></ul></td></div><td id='studentAttendance'>" + getAttendance(1, 'may', 20, 2020) + "</td><td></td><td></td><td></td><td></td>");
+                            "</li></ul></td></div>" +
+                            "<td>" + getAttendance(1, 'may', 20, 2020) + "</td>" +
+                            "<td>" + getAttendance(1, 'may', 20, 2020) + "</td>" +
+                            "<td>" + getAttendance(1, 'may', 20, 2020) + "</td>" +
+                            "<td>" + getAttendance(1, 'may', 20, 2020) + "</td>" +
+                            "<td>" + getAttendance(1, 'may', 20, 2020) + "</td>");
                     }
                     tbody.replaceWith(html + '</tbody>');
 
