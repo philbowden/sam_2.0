@@ -21,22 +21,22 @@
             <a class="fas fa-home fa-home-lg mr-5 navbar-brand" href="{% url 'home' %}"></a>
         </div>
         <label for="selectDay"></label><select class="form-check m-2 mr-3" id="selectDay">
-            <option class="dropdown-item" href="#" value="">Select Day</option>
-            <option class="dropdown-item" href="#" value="monday">Monday</option>
-            <option class="dropdown-item" href="#" value="tuesday">Tuesday</option>
-            <option class="dropdown-item" href="#" value="wednesday">Wednesday</option>
-            <option class="dropdown-item" href="#" value="thursday">Thursday</option>
-            <option class="dropdown-item" href="#" value="friday">Friday</option>
-            <option class="dropdown-item" href="#" value="saturday">Saturday</option>
-        </select>
+        <option class="dropdown-item" href="#" value="">Select Day</option>
+        <option class="dropdown-item" href="#" value="monday">Monday</option>
+        <option class="dropdown-item" href="#" value="tuesday">Tuesday</option>
+        <option class="dropdown-item" href="#" value="wednesday">Wednesday</option>
+        <option class="dropdown-item" href="#" value="thursday">Thursday</option>
+        <option class="dropdown-item" href="#" value="friday">Friday</option>
+        <option class="dropdown-item" href="#" value="saturday">Saturday</option>
+    </select>
         <label for="selectTeacher"></label><select class="form-check m-2 mr-5" id="selectTeacher">
-            <option class="dropdown-item" href="#" value="">Select Teacher</option>
-            {% for teacher in teachers %}
-                <option class="dropdown-item" href="#"
-                        value={{ teacher.id }}> {{ teacher.user.first_name }} {{ teacher.user.last_name }} </option>
-            {% endfor %}
-        </select>
-        <div class= "ml-5">
+        <option class="dropdown-item" href="#" value="">Select Teacher</option>
+        {% for teacher in teachers %}
+            <option class="dropdown-item" href="#"
+                    value={{ teacher.id }}> {{ teacher.user.first_name }} {{ teacher.user.last_name }} </option>
+        {% endfor %}
+    </select>
+        <div class="ml-5">
             <h3 id="currentdate" style="color: white"></h3>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -179,8 +179,8 @@
                                         </div>
                                     </fieldset>
                                     <div class="form-group">
-                                            <label class="form-control-label" for="teacher">Teacher</label>
-                                            <input class="form-control" type="text" name="teacher" id="teacher" disabled>
+                                        <label class="form-control-label" for="teacher">Teacher</label>
+                                        <input class="form-control" type="text" name="teacher" id="teacher" disabled>
                                         <!--<select class="form-group" id="teacher">
                                             <option value="">Teacher</option>
                                             {% for teacher in teachers %}
@@ -227,7 +227,7 @@
             </div><!--modal content-->
         </div><!--modal dialog-->
     </div><!--add student modal-->
-{#    <script src="../static/js/lessonDates.js"></script>#}
+    {#    <script src="../static/js/lessonDates.js"></script>#}
     <script>
         $.ajaxSetup({
             beforeSend: function (xhr, settings) {
@@ -357,12 +357,6 @@
         });
 
 
-
-
-
-
-
-
     </script>
     <table id="adminTable" class="table table-bordered table-striped">
         <tbody id="body">
@@ -375,13 +369,12 @@
     <script>
         function buildTable(day) {
             let startTime = 10;
-            if(day === 'friday') {
+            if (day === 'friday') {
                 startTime = 6;
-            }
-            else if(day === 'saturday') {
+            } else if (day === 'saturday') {
                 startTime = 0;
             }
-            let time = ["10:00","10:30","11:00","11:30","12:00","12:30","1:00","1:30","2:00","2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
+            let time = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
             teacherId = $("#selectTeacher").val();
 
             $.ajax({
@@ -429,12 +422,10 @@
                     }
                     tbody.replaceWith(html + '</tbody>');
 
-                    if(document.getElementById("selectDay").value === ""){
+                    if (document.getElementById("selectDay").value === "") {
 
-                        displayDates(currentYear,currentMonth,currentDay);
-                    }
-                    else
-                    {
+                        displayDates(currentYear, currentMonth, currentDay);
+                    } else {
                         let dayNumber = getDayInt(day);
                         resetDay(dayNumber);
                     }
@@ -442,122 +433,101 @@
 
             });
         }
-         let today = new Date();
- let currentDay = today.getDay();
- let currentMonth = today.getMonth();
- let currentYear = today.getFullYear();
 
- let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+        let today = new Date();
+        let currentDay = today.getDay();
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
 
-function resetDay(dayNumber)
-{
-    displayDates(currentYear, currentMonth, dayNumber);
-}
+        let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
-function getDayInt(day)
-{
-    let index = 0;
-    while(days[index] !== day)
-    {
-        index++;
-    }
-    return index;
-}
-
-function getLessonDays(year, month, dayNumber)
-{
-    let firstDayOfThisMonth = new Date(year, month, 1);
-    let firstDayOfThisMonthIndex = firstDayOfThisMonth.getDay();
-    let dates = [];
-    let daysToFirst = (dayNumber + 7 - firstDayOfThisMonthIndex) % 7;
-    let firstOf = new Date(firstDayOfThisMonth.setDate(firstDayOfThisMonth.getDate() + daysToFirst));
-
-    while (firstOf.getMonth() === month)
-    {
-        dates.push(new Date(+firstOf));
-        firstOf.setDate(firstOf.getDate() + 7);
-    }
-    return dates;
- }
-
- function displayDates(year, month, dayNumber)
- {
-     let monthString = formatFullMonth(month);
-     document.getElementById('currentdate').innerHTML = monthString + "  " + year;
-     let date_label_ids = ['lesson1', 'lesson2', 'lesson3','lesson4','lesson5'];
-     let dates = getLessonDays(year, month, dayNumber);
-     let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
-     let numLessonDays = dates.length;
-     optimizeTable(currentNumColumns, numLessonDays);
-     let index = 0;
-     while(dates[index] != null)
-     {
-         let monthAbbreviation = dates[index].getUTCMonth();
-         monthAbbreviation = formatMonthAbriviation(monthAbbreviation);
-         let day = dates[index].getDate();
-         let id = date_label_ids[index];
-         document.getElementById(id).innerHTML = monthAbbreviation + " " + day;
-         index++;
-     }
- }
-
- function optimizeTable(currentNumColumns, numLessonDays)
- {
-    let rows = document.getElementsByTagName('tr');
-    if(currentNumColumns === 5 && numLessonDays ===4)
-    {
-        for(let i = 0; i < rows.length; i++)
-        {
-            rows[i].lastChild.remove();
+        function resetDay(dayNumber) {
+            displayDates(currentYear, currentMonth, dayNumber);
         }
-    }
-    else if(currentNumColumns=== 4 && numLessonDays ===5)
-    {
-        let th = document.createElement('th');
-        th.setAttribute("id", "lesson5");
-        th.setAttribute("class", "text-center");
-        rows[0].appendChild(th);
-        for(let i = 1; i < rows.length-1; i++)
-        {
-            rows[i].insertCell(-1);
+
+        function getDayInt(day) {
+            let index = 0;
+            while (days[index] !== day) {
+                index++;
+            }
+            return index;
         }
-    }
- }
+
+        function getLessonDays(year, month, dayNumber) {
+            let firstDayOfThisMonth = new Date(year, month, 1);
+            let firstDayOfThisMonthIndex = firstDayOfThisMonth.getDay();
+            let dates = [];
+            let daysToFirst = (dayNumber + 7 - firstDayOfThisMonthIndex) % 7;
+            let firstOf = new Date(firstDayOfThisMonth.setDate(firstDayOfThisMonth.getDate() + daysToFirst));
+
+            while (firstOf.getMonth() === month) {
+                dates.push(new Date(+firstOf));
+                firstOf.setDate(firstOf.getDate() + 7);
+            }
+            return dates;
+        }
+
+        function displayDates(year, month, dayNumber) {
+            let monthString = formatFullMonth(month);
+            document.getElementById('currentdate').innerHTML = monthString + "  " + year;
+            let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
+            let dates = getLessonDays(year, month, dayNumber);
+            let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
+            let numLessonDays = dates.length;
+            optimizeTable(currentNumColumns, numLessonDays);
+            let index = 0;
+            while (dates[index] != null) {
+                let monthAbbreviation = dates[index].getUTCMonth();
+                monthAbbreviation = formatMonthAbriviation(monthAbbreviation);
+                let day = dates[index].getDate();
+                let id = date_label_ids[index];
+                document.getElementById(id).innerHTML = monthAbbreviation + " " + day;
+                index++;
+            }
+        }
+
+        function optimizeTable(currentNumColumns, numLessonDays) {
+            let rows = document.getElementsByTagName('tr');
+            if (currentNumColumns === 5 && numLessonDays === 4) {
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].lastChild.remove();
+                }
+            } else if (currentNumColumns === 4 && numLessonDays === 5) {
+                let th = document.createElement('th');
+                th.setAttribute("id", "lesson5");
+                th.setAttribute("class", "text-center");
+                rows[0].appendChild(th);
+                for (let i = 1; i < rows.length - 1; i++) {
+                    rows[i].insertCell(-1);
+                }
+            }
+        }
 
 
+        function formatMonthAbriviation(date) {
+            let months = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "June ", "July ", "Aug ", "Sept ", "Oct ", "Nov ", "Dec "];
+            return months[date];
+        }
 
- function formatMonthAbriviation(date)
- {
-     let months = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "June ", "July ", "Aug ", "Sept ", "Oct ", "Nov ", "Dec "];
-     return months[date];
- }
- function formatFullMonth(date)
- {
-     let months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ", "August ", "September ", "October ", "November ", "December "];
-     return months[date];
- }
+        function formatFullMonth(date) {
+            let months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ", "August ", "September ", "October ", "November ", "December "];
+            return months[date];
+        }
 
 
- function nextMonth()
- {
-     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-     currentMonth = (currentMonth + 1) % 12;
-     console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
-     displayDates(currentYear, currentMonth, currentDay);
- }
+        function nextMonth() {
+            currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
+            currentMonth = (currentMonth + 1) % 12;
+            console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
+            displayDates(currentYear, currentMonth, currentDay);
+        }
 
- function previousMonth()
- {
-     currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-     currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-     console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
-     displayDates(currentYear, currentMonth, currentDay);
- }
-
-
-
-
-
+        function previousMonth() {
+            currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
+            currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+            console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
+            displayDates(currentYear, currentMonth, currentDay);
+        }
 
 
     </script>
@@ -632,8 +602,8 @@ function getLessonDays(year, month, dayNumber)
             })
         });
 
-         function getAttendance(student, month, day, year) {
-             let answer = $.ajax({
+        function getAttendance(student, month, day, year) {
+            let answer = $.ajax({
                 type: "GET",
                 url: 'sam_api/lesson_api/?format=json',
                 async: false,
@@ -641,22 +611,119 @@ function getLessonDays(year, month, dayNumber)
                 success: function (lessonData) {
                 },
                 error: function () {
-                    return  "Hello";
+                    return "Hello";
                 }
             });
 
-             let lesson_array = JSON.parse(JSON.stringify(answer.responseJSON));
+            let lesson_array = JSON.parse(JSON.stringify(answer.responseJSON));
 
             let attendance = "";
-             for (let d in lesson_array) {
+            for (let d in lesson_array) {
 
-                 if (lesson_array[d].student == student && lesson_array[d].month == month &&
-                     lesson_array[d].year == year) {
-                     attendance = lesson_array[d]["lessons"][day];
-                 }
-             }
-             return attendance;
+                if (lesson_array[d].student == student && lesson_array[d].month == month &&
+                    lesson_array[d].year == year) {
+                    attendance = lesson_array[d]["lessons"][day];
+                }
+            }
+            return attendance;
         }
+         //below is the content from lessonDates.js
+
+        let today = new Date();
+        let currentDay = today.getDay();
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
+
+        let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+
+        function resetDay(dayNumber) {
+            displayDates(currentYear, currentMonth, dayNumber);
+        }
+
+        function getDayInt(day) {
+            let index = 0;
+            while (days[index] !== day) {
+                index++;
+            }
+            return index;
+        }
+
+        function getLessonDays(year, month, dayNumber) {
+            let firstDayOfThisMonth = new Date(year, month, 1);
+            let firstDayOfThisMonthIndex = firstDayOfThisMonth.getDay();
+            let dates = [];
+            let daysToFirst = (dayNumber + 7 - firstDayOfThisMonthIndex) % 7;
+            let firstOf = new Date(firstDayOfThisMonth.setDate(firstDayOfThisMonth.getDate() + daysToFirst));
+
+            while (firstOf.getMonth() === month) {
+                dates.push(new Date(+firstOf));
+                firstOf.setDate(firstOf.getDate() + 7);
+            }
+            return dates;
+        }
+
+        function displayDates(year, month, dayNumber) {
+            let monthString = formatFullMonth(month);
+            document.getElementById('currentdate').innerHTML = monthString + "  " + year;
+            let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
+            let dates = getLessonDays(year, month, dayNumber);
+            let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
+            let numLessonDays = dates.length;
+            optimizeTable(currentNumColumns, numLessonDays);
+            let index = 0;
+            while (dates[index] != null) {
+                let monthAbbreviation = dates[index].getUTCMonth();
+                monthAbbreviation = formatMonthAbriviation(monthAbbreviation);
+                let day = dates[index].getDate();
+                let id = date_label_ids[index];
+                document.getElementById(id).innerHTML = monthAbbreviation + " " + day;
+                index++;
+            }
+        }
+
+        function optimizeTable(currentNumColumns, numLessonDays) {
+            let rows = document.getElementsByTagName('tr');
+            if (currentNumColumns === 5 && numLessonDays === 4) {
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].lastChild.remove();
+                }
+            } else if (currentNumColumns === 4 && numLessonDays === 5) {
+                let th = document.createElement('th');
+                th.setAttribute("id", "lesson5");
+                th.setAttribute("class", "text-center");
+                rows[0].appendChild(th);
+                for (let i = 1; i < rows.length - 1; i++) {
+                    rows[i].insertCell(-1);
+                }
+            }
+        }
+
+
+        function formatMonthAbriviation(date) {
+            let months = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "June ", "July ", "Aug ", "Sept ", "Oct ", "Nov ", "Dec "];
+            return months[date];
+        }
+
+        function formatFullMonth(date) {
+            let months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ", "August ", "September ", "October ", "November ", "December "];
+            return months[date];
+        }
+
+
+        function nextMonth() {
+            currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
+            currentMonth = (currentMonth + 1) % 12;
+            console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
+            displayDates(currentYear, currentMonth, currentDay);
+        }
+
+        function previousMonth() {
+            currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
+            currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+            console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
+            displayDates(currentYear, currentMonth, currentDay);
+        }
+
 
     </script>
 {% endblock %}
