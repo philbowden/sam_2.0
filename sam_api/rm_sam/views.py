@@ -136,7 +136,7 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
-
+@login_required(login_url='/login/')
 def register_user(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -168,7 +168,7 @@ def register_user(request):
     context = {'form': form}
     return render(request, 'register.html', context)
 
-
+@login_required(login_url='/login/')
 def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
@@ -183,7 +183,7 @@ def edit_profile(request):
     context = {'form': form}
     return render(request, 'edit_profile.html', context)
 
-
+@login_required(login_url='/login/')
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(data=request.POST, user=request.user)
