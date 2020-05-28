@@ -147,12 +147,12 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" id="old" name="charge_rate"
                                                    value="2019_rate">
-                                            <label class="form-check-label mr-2" for="old">$120</label><br>
+                                            <label class="form-check-label mr-2" for="old">$110</label><br>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" id="new" name="charge_rate"
                                                    value="2020_rate">
-                                            <label class="form-check-label mr-2" for="new">$140</label><br>
+                                            <label class="form-check-label mr-2" for="new">$120</label><br>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" id="scholarship"
@@ -546,9 +546,9 @@
             displayDates(currentYear, currentMonth, dayNumber);
         }
 
-        function getDayInt(day) {
+        function getDayInt(dayString) {
             let index = 0;
-            while (days[index] !== day) {
+            while (days[index] !== dayString) {
                 index++;
             }
             return index;
