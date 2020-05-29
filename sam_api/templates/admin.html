@@ -327,11 +327,20 @@
             let instrument = $("#instrument").val();
             let start_date = $("#start_date").val();
             let teacher = $("#selectTeacher").val();
-            let charge_rate = $('input[name="charge_rate"]').val();
+            //let charge_rate = $('input[name="charge_rate"]').val();
+            let charge_rates = document.getElementsByName('charge_rate');
             let notes = $("#notes").val();
             let parent_first = $("#parent_first").val();
             let parent_last = $("#parent_last").val();
             let birthdate = $("#birthdate").val() || "1967-02-20";
+            let charge_rate = "$120";
+            for (var i = 0, length = charge_rates.length; i < length; i++) {
+                if (charge_rates[i].checked) {
+                    charge_rate = charge_rates[i].value
+                    break;
+                  }
+                }
+            alert(charge_rate);
             student = {
                 first: first, last: last, email: email, phone: phone, time: time,
                 day: day, instrument: instrument, start_date: start_date,
@@ -438,12 +447,7 @@
                         let dayNumber = getDayInt(day);
                         resetDay(dayNumber);
                     }
-                    //console.log(student_ids);
-                    //console.log(student_times);
-
                     displayAttendance(currentYear, currentMonth, currentDay, student_ids, student_times);
-
-
 
                 }
 
@@ -664,22 +668,11 @@
 
         function displayAttendance(year, month, dayNumber, student_ids, start_times) {
             let monthString = formatFullMonth(month).toLowerCase();
-            //document.getElementById('currentdate').innerHTML = monthString + "  " + year;
+
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
 
             let dates = getLessonDays(year, month, dayNumber);
-            /*let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
-            let numLessonDays = dates.length;
-            optimizeTable(currentNumColumns, numLessonDays);
-            let index = 0;
-            while (dates[index] != null) {
-                let monthAbbreviation = dates[index].getUTCMonth();
-                monthAbbreviation = formatMonthAbriviation(monthAbbreviation);
-                let day = dates[index].getDate();
-                let id = date_label_ids[index];
-                document.getElementById(id).innerHTML = monthAbbreviation + " " + day;
-                index++;
-            }*/
+
 
             $.ajax({
                 type: "GET",
@@ -687,7 +680,7 @@
                 dataType: "json",
 
                 success: function (lessonData) {
-
+                    console.log(lessonData)
                     for (let i = 0; i < start_times.length; i++) {
                         for (let e = 0; e < date_label_ids.length; e++) {
                             let element = document.getElementById(start_times[i]+"_"+date_label_ids[e]);
@@ -699,7 +692,7 @@
                                         lesson = lessonData[j]["lessons"][dayOfMonth];
                                     }
 
-                                    console.log(lesson)
+                                    console.log(lessonData[j].student == student_ids[i] && lessonData[j].month == monthString && lessonData[j].year == year)
                                     if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString && lessonData[j].year == year) {
 
                                         element.innerHTML =  lessonData[j]["lessons"][dayOfMonth];
@@ -708,7 +701,7 @@
                                     }
 
                                 }
-                                //element.innerHTML = start_times[i]+"_"+date_label_ids[e];
+
                             }
                         }
                     }
