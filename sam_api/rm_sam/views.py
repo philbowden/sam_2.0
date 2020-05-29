@@ -56,12 +56,11 @@ def admin(request):
 def teacher(request, teacher_id):
     day = timezone.localdate().day
     today = timezone.localdate().strftime('%A').lower()
-    month = timezone.localdate().strftime('%B').lower()
+    month = timezone.localdate().strftime('%B')
     year = timezone.localdate().year
 
     students = Student.objects.all().filter(teacher=teacher_id, day=today, active=True)
     current_teacher = Teacher.objects.filter(id=teacher_id)
-    # current_lessons = Lesson.objects.all().filter(teacher=teacher_id, month=month, year=year)
 
     if request.method == "POST":
         for student in students:
@@ -136,6 +135,7 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
+
 @login_required(login_url='/login/')
 def register_user(request):
     if request.method == 'POST':
@@ -168,6 +168,7 @@ def register_user(request):
     context = {'form': form}
     return render(request, 'register.html', context)
 
+
 @login_required(login_url='/login/')
 def edit_profile(request):
     if request.method == 'POST':
@@ -182,6 +183,7 @@ def edit_profile(request):
 
     context = {'form': form}
     return render(request, 'edit_profile.html', context)
+
 
 @login_required(login_url='/login/')
 def change_password(request):

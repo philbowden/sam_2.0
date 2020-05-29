@@ -340,7 +340,6 @@
                     break;
                   }
                 }
-            alert(charge_rate);
             student = {
                 first: first, last: last, email: email, phone: phone, time: time,
                 day: day, instrument: instrument, start_date: start_date,
@@ -443,11 +442,14 @@
                     if (document.getElementById("selectDay").value === "") {
 
                         displayDates(currentYear, currentMonth, currentDay);
+                        displayAttendance(currentYear, currentMonth, currentDay, student_ids, student_times);
+
                     } else {
                         let dayNumber = getDayInt(day);
                         resetDay(dayNumber);
+                        displayAttendance(currentYear, currentMonth, dayNumber, student_ids, student_times);
                     }
-                    displayAttendance(currentYear, currentMonth, currentDay, student_ids, student_times);
+
 
                 }
 
@@ -622,65 +624,19 @@
             })
         });
 
-        function getAttendance(student, month, day, year) {
 
-            let attendance = "";
-            $.ajax({
-                type: "GET",
-                url: 'sam_api/lesson_api/?format=json',
-                dataType: "json",
-
-                success: function (lessonData) {
-                    attendance = lessonData;
-                    //console.log(attendance);
-
-                    let rows = document.getElementsByTagName('tr');
-                    let spans = document.getElementsByTagName('span');
-
-                    for(var i=0;i < spans.length;i++) {
-
-                        //console.log(spans[i]);
-                        //var cellVal=rows[i].cell
-
-                    }
-
-
-                },
-               error: function (xhr, resp, text) {
-                    console.log(xhr, resp, text);
-                }
-            });
-        }
-
-        function getAttendanceString(lessonData, student, month, day, year) {
-
-            let attendance = "";
-            for (let d in lessonData) {
-
-                if (lessonData[d].student == student && lessonData[d].month == month &&
-                        lessonData[d].year == year) {
-                    attendance =  lessonData[d]["lessons"][day];
-                }
-            }
-            return attendance;
-        }
 
 
         function displayAttendance(year, month, dayNumber, student_ids, start_times) {
-            let monthString = formatFullMonth(month).toLowerCase();
-
+            let monthString = formatFullMonth(month).trim();
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
-
             let dates = getLessonDays(year, month, dayNumber);
-
-
             $.ajax({
                 type: "GET",
                 url: 'sam_api/lesson_api/?format=json',
                 dataType: "json",
-
                 success: function (lessonData) {
-                    console.log(lessonData)
+
                     for (let i = 0; i < start_times.length; i++) {
                         for (let e = 0; e < date_label_ids.length; e++) {
                             let element = document.getElementById(start_times[i]+"_"+date_label_ids[e]);
@@ -691,15 +647,9 @@
                                     if(lessonData[j]["lessons"][dayOfMonth] != null){
                                         lesson = lessonData[j]["lessons"][dayOfMonth];
                                     }
-
-                                    console.log(lessonData[j].student == student_ids[i] && lessonData[j].month == monthString && lessonData[j].year == year)
                                     if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString && lessonData[j].year == year) {
-
-                                        element.innerHTML =  lessonData[j]["lessons"][dayOfMonth];
-                                    }else{
-                                        element.innerHTML = "?";
+                                        element.innerHTML =  lesson;
                                     }
-
                                 }
 
                             }
@@ -802,6 +752,11 @@
             currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
             console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
             displayDates(currentYear, currentMonth, currentDay);
+        }
+        function strcmp(a, b) {
+            if (a.toString() < b.toString()) return -1;
+            if (a.toString() > b.toString()) return 1;
+            return 0;
         }
 
 
