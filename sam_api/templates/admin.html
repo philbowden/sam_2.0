@@ -146,13 +146,13 @@
                                         <h6>Monthly Rate:</h6>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" id="old" name="charge_rate"
-                                                   value="2019_rate">
-                                            <label class="form-check-label mr-2" for="old">$120</label><br>
+                                                   value="$110">
+                                            <label class="form-check-label mr-2" for="old">$110</label><br>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" id="new" name="charge_rate"
-                                                   value="2020_rate">
-                                            <label class="form-check-label mr-2" for="new">$140</label><br>
+                                                   value="$120">
+                                            <label class="form-check-label mr-2" for="new">$120</label><br>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" id="scholarship"
@@ -327,7 +327,6 @@
             let instrument = $("#instrument").val();
             let start_date = $("#start_date").val();
             let teacher = $("#selectTeacher").val();
-            //let charge_rate = $('input[name="charge_rate"]').val();
             let charge_rates = document.getElementsByName('charge_rate');
             let notes = $("#notes").val();
             let parent_first = $("#parent_first").val();
@@ -416,7 +415,8 @@
                         for (var i = 0; i < studentData.length; i++) {
                             if (studentData[i].time == time[t] && studentData[i].day == day && (studentData[i].teacher) == teacherId) {
                                 studentExists = true;
-                                html += ("<span id='" + studentData[i].id + "'>" + studentData[i].first + " " + studentData[i].last) + "</span>";
+                                html += ("<span id='" + studentData[i].id + "'>" + studentData[i].first + " " + studentData[i].last) + "&nbsp;&nbsp;" + '<span class="badge badge-secondary">' +
+                                studentData[i].charge_rate + '</span>' +  "</span>";
                                 student_ids.push(studentData[i].id);
                                 student_times.push(time[t]);
                             }
@@ -455,13 +455,6 @@
 
             });
         }
-
-      "{% comment %}";  let today = new Date();
-        let currentDay = today.getDay();
-        let currentMonth = today.getMonth();
-        let currentYear = today.getFullYear();
-
-        let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];"{% endcomment %}";
 
         function resetDay(dayNumber) {
             displayDates(currentYear, currentMonth, dayNumber);
