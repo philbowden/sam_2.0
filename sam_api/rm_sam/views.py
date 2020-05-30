@@ -68,13 +68,10 @@ def teacher(request, teacher_id):
             student_attendance = request.POST[request_id]
             if student_attendance == 'true':
                 data = 'present'
-            elif student_attendance == 'makeup':
-                data = "makeup"
-                Student.objects.filter(id=student.id).update(make_up=F('make_up') + 1)
             else:
                 data = "absent"
-
-
+                if student_attendance == 'makeup':
+                    Student.objects.filter(id=student.id).update(make_up=F('make_up') + 1)
 
             if Lesson.objects.all().filter(student=student.id, teacher=teacher_id, month=month, year=year).count() == 0:
                 lesson_attrs = {
