@@ -475,10 +475,6 @@
 
         //below is code for dynamic date display
 
-        function resetDay(dayNumber) {
-            displayDates(currentYear, currentMonth, dayNumber);
-        }
-
         function getDayInt(day) {
             let index = 0;
             while (days[index] !== day) {
@@ -487,11 +483,11 @@
             return index;
         }
 
-        function getLessonDays(year, month, dayNumber) {
+        function getLessonDays(year, month) {
             let firstDayOfThisMonth = new Date(year, month, 1);
             let firstDayOfThisMonthIndex = firstDayOfThisMonth.getDay();
             let dates = [];
-            let daysToFirst = (dayNumber + 7 - firstDayOfThisMonthIndex) % 7;
+            let daysToFirst = (currentDay + 7 - firstDayOfThisMonthIndex) % 7;
             let firstOf = new Date(firstDayOfThisMonth.setDate(firstDayOfThisMonth.getDate() + daysToFirst));
 
             while (firstOf.getMonth() === month) {
@@ -501,11 +497,11 @@
             return dates;
         }
 
-        function displayDates(year, month, dayNumber) {
+        function displayDates(year, month) {
             let monthString = formatFullMonth(month);
             document.getElementById('currentdate').innerHTML = monthString + "  " + year;
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
-            let dates = getLessonDays(year, month, dayNumber);
+            let dates = getLessonDays(year, month, currentDay);
             let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
             let numLessonDays = dates.length;
             optimizeTable(currentNumColumns, numLessonDays);
@@ -551,29 +547,29 @@
         }
 
 
-        function nextMonth(dayNumber) {
+        function nextMonth() {
             currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
             currentMonth = (currentMonth + 1) % 12;
-            displayDates(currentYear, currentMonth, currentDay);
+            displayDates(currentYear, currentMonth);
         }
 
-        function previousMonth(dayNumber) {
+        function previousMonth() {
             currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
             currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-            displayDates(currentYear, currentMonth, currentDay);
+            displayDates(currentYear, currentMonth);
         }
-        function nextMonthWithAttendance(dayNumber, student_ids, student_times) {
+        function nextMonthWithAttendance(student_ids, student_times) {
             currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
             currentMonth = (currentMonth + 1) % 12;
             displayDates(currentYear, currentMonth, currentDay);
-            displayAttendance(currentYear, currentMonth, dayNumber, student_ids, student_times);
+            displayAttendance(currentYear, currentMonth, student_ids, student_times);
         }
 
         function previousMonthWithAttendance(dayNumber, student_ids, student_times) {
             currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
             currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
             displayDates(currentYear, currentMonth, currentDay);
-            displayAttendance(currentYear, currentMonth, dayNumber, student_ids, student_times);
+            displayAttendance(currentYear, currentMonth, student_ids, student_times);
         }
 
 
