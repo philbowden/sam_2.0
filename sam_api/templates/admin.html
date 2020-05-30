@@ -462,8 +462,7 @@
 
                     } else {
                         currentDay = getDayInt(day);
-                        displayDates(currentYear,currentMonth,currentDay)
-                     //   resetDay(dayNumber);
+                        displayDates()
                         displayAttendance(student_ids, student_times);
                     }
                 }
@@ -472,9 +471,9 @@
 
         //below is code for dynamic date display
 
-        function getDayInt(day) {
+        function getDayInt(dayString) {
             let index = 0;
-            while (days[index] !== day) {
+            while (days[index] !== dayString) {
                 index++;
             }
             return index;
@@ -545,31 +544,20 @@
 
 
         function nextMonth() {
+            let dayString = days[currentDay];
+            buildTable(dayString);
             currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
             currentMonth = (currentMonth + 1) % 12;
             displayDates(currentYear, currentMonth);
         }
 
         function previousMonth() {
+            let dayString = days[currentDay];
+            buildTable(dayString);
             currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
             currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
             displayDates(currentYear, currentMonth);
         }
-        function nextMonthWithAttendance(student_ids, student_times) {
-            currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-            currentMonth = (currentMonth + 1) % 12;
-            displayDates(currentYear, currentMonth, currentDay);
-            displayAttendance(currentYear, currentMonth, student_ids, student_times);
-        }
-
-        function previousMonthWithAttendance(student_ids, student_times) {
-            currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-            currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-            displayDates(currentYear, currentMonth, currentDay);
-            displayAttendance(currentYear, currentMonth, student_ids, student_times);
-        }
-
-
 
     </script>
     <script>
@@ -646,8 +634,8 @@
 
 
 
-        function displayAttendance(student_ids, start_times) {
-            console.log("displayAttendance vars: " + currentYear, currentMonth, currentDay, student_ids, start_times);
+        function displayAttendance(student_ids, student_times) {
+            console.log("displayAttendance vars: " + currentYear, currentMonth, currentDay, student_ids, student_times);
             let monthString = formatFullMonth(currentMonth).trim();
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
             let dates = getLessonDays(currentYear, currentMonth, currentDay);
@@ -657,9 +645,9 @@
                 dataType: "json",
                 success: function (lessonData) {
 
-                    for (let i = 0; i < start_times.length; i++) {
+                    for (let i = 0; i < student_times.length; i++) {
                         for (let e = 0; e < date_label_ids.length; e++) {
-                            let element = document.getElementById(start_times[i]+"_"+date_label_ids[e]);
+                            let element = document.getElementById(student_times[i]+"_"+date_label_ids[e]);
                             if (element != null) {
                                 let dayOfMonth = dates[e].getDate();
                                 for (let j = 0; j < lessonData.length; j++) {
