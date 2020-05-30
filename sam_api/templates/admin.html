@@ -458,18 +458,15 @@
                     if (document.getElementById("selectDay").value === "") {
 
                         displayDates(currentYear, currentMonth, currentDay);
-                        displayAttendance(currentYear, currentMonth, currentDay, student_ids, student_times);
+                        displayAttendance(student_ids, student_times);
 
                     } else {
                         currentDay = getDayInt(day);
                         displayDates(currentYear,currentMonth,currentDay)
                      //   resetDay(dayNumber);
-                        displayAttendance(currentYear, currentMonth, currentDay, student_ids, student_times);
+                        displayAttendance(student_ids, student_times);
                     }
-
-
                 }
-
             });
         }
 
@@ -483,25 +480,25 @@
             return index;
         }
 
-        function getLessonDays(year, month) {
-            let firstDayOfThisMonth = new Date(year, month, 1);
+        function getLessonDays() {
+            let firstDayOfThisMonth = new Date(currentYear, currentMonth, 1);
             let firstDayOfThisMonthIndex = firstDayOfThisMonth.getDay();
             let dates = [];
             let daysToFirst = (currentDay + 7 - firstDayOfThisMonthIndex) % 7;
             let firstOf = new Date(firstDayOfThisMonth.setDate(firstDayOfThisMonth.getDate() + daysToFirst));
 
-            while (firstOf.getMonth() === month) {
+            while (firstOf.getMonth() === currentMonth) {
                 dates.push(new Date(+firstOf));
                 firstOf.setDate(firstOf.getDate() + 7);
             }
             return dates;
         }
 
-        function displayDates(year, month) {
-            let monthString = formatFullMonth(month);
-            document.getElementById('currentdate').innerHTML = monthString + "  " + year;
+        function displayDates() {
+            let monthString = formatFullMonth(currentMonth);
+            document.getElementById('currentdate').innerHTML = monthString + "  " + currentYear;
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
-            let dates = getLessonDays(year, month, currentDay);
+            let dates = getLessonDays(currentYear, currentMonth, currentDay);
             let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
             let numLessonDays = dates.length;
             optimizeTable(currentNumColumns, numLessonDays);
@@ -565,7 +562,7 @@
             displayAttendance(currentYear, currentMonth, student_ids, student_times);
         }
 
-        function previousMonthWithAttendance(dayNumber, student_ids, student_times) {
+        function previousMonthWithAttendance(student_ids, student_times) {
             currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
             currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
             displayDates(currentYear, currentMonth, currentDay);
@@ -649,10 +646,11 @@
 
 
 
-        function displayAttendance(year, month, dayNumber, student_ids, start_times) {
-            let monthString = formatFullMonth(month).trim();
+        function displayAttendance(student_ids, start_times) {
+            console.log("displayAttendance vars: " + currentYear, currentMonth, currentDay, student_ids, start_times);
+            let monthString = formatFullMonth(currentMonth).trim();
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
-            let dates = getLessonDays(year, month, dayNumber);
+            let dates = getLessonDays(currentYear, currentMonth, currentDay);
             $.ajax({
                 type: "GET",
                 url: 'sam_api/lesson_api/?format=json',
@@ -670,7 +668,7 @@
                                         lesson = lessonData[j]["lessons"][dayOfMonth];
                                     }
                                     if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString &&
-                                        lessonData[j].year == year) {
+                                        lessonData[j].year == currentYear) {
                                         element.innerHTML =  lesson;
                                     }
                                 }
