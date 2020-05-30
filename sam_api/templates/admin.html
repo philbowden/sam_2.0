@@ -166,14 +166,8 @@
                                             <label class="form-check-label mr-2" for="annual">Annual</label><br>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="annual" name="charge_rate"
-                                                   value="annual">
-                                            <label class="form-check-label mr-2" for="annual">Annual</label><br>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="other" name="charge_rate"
-                                                   value="other">
-                                            <label class="form-check-label mr-2" for="annual">Other</label><br>
+                                            <input class="form-check-input" type="radio" id="other" name="charge_rate">
+                                            <label class="form-check-label mr-2" for="other">Other</label><br>
                                         </div>
                                     </fieldset>
                                 </div> <!--col 1 (row1)-->
@@ -287,25 +281,6 @@
                 var lesson_dates = getDateArray(start, end);
                 end.setDate(end.getDate() + 1);
             }
-            /*
-            var lessons = [];
-
-            for (var i = 0; i < lessons.length; i++) {
-
-                $.ajax({
-                    type: "POST",
-                    url: "sam_api/lesson_api/?format=json",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(lessons[i]),
-                    success: function (result) {
-                        console.log(result);
-                    },
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                    }
-                });
-
-            }*/
             $.ajax({
                 type: "PATCH",
                 url: "sam_api/rm_sam/" + studentId + "/",
@@ -413,7 +388,7 @@
 
                     let studentExists = false;
                     let tbody = $("tbody");
-                    let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th>" +
+                    let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th><th class='text-center'></th>" +
                         " <th id='lesson1' class='text-center'>Lesson 1</th> <th id='lesson2' class='text-center'>Lesson 2</th>" +
                         " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>" +
                         "<th id='lesson5' class='text-center'></th></tr>";
@@ -429,8 +404,8 @@
                             if (studentData[i].time == time[t] && studentData[i].day == day && (studentData[i].teacher) == teacherId) {
                                 studentExists = true;
                                 html += ("<span id='" + studentData[i].id + "'>" + studentData[i].first + " " +
-                                    studentData[i].last) + "&nbsp;&nbsp;" + '<span class="badge badge-secondary">' +
-                                studentData[i].charge_rate + '</span>' +  "</span>";
+                                    studentData[i].last) + "&nbsp;&nbsp;" + '<span class="badge badge-success">' +
+                                studentData[i].charge_rate + '</span>'  + "</span>";
                                 student_ids.push(studentData[i].id);
                                 student_times.push(time[t]);
                             }
@@ -445,8 +420,9 @@
                             "<a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>" +
                             "Add Student</a></li><li>" +
                             "<a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a>" +
-                            "</li><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Change Student</a>" +
+                            "</li><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#updateStudentModal'>Update Student</a>" +
                             "</li></ul></td></div>" +
+                            "<td id='" +time[t] + "_notes'><span>notes</span></td>" +
                             "<td id='" +time[t] +  "_lesson1'></td>" +
                             "<td id='" +time[t] +  "_lesson2'></td>" +
                             "<td id='" +time[t] +  "_lesson3'></td>" +
@@ -457,7 +433,7 @@
 
                     if (document.getElementById("selectDay").value === "") {
 
-                        displayDates(currentYear, currentMonth, currentDay);
+                        displayDates();
                         displayAttendance(student_ids, student_times);
 
                     } else {
