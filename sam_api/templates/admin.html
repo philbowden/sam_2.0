@@ -165,6 +165,16 @@
                                                    value="annual">
                                             <label class="form-check-label mr-2" for="annual">Annual</label><br>
                                         </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="annual" name="charge_rate"
+                                                   value="annual">
+                                            <label class="form-check-label mr-2" for="annual">Annual</label><br>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="other" name="charge_rate"
+                                                   value="other">
+                                            <label class="form-check-label mr-2" for="annual">Other</label><br>
+                                        </div>
                                     </fieldset>
                                 </div> <!--col 1 (row1)-->
                                 <div class="col">
@@ -387,7 +397,8 @@
             } else if (day === 'saturday') {
                 startTime = 0;
             }
-            let time = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
+            let time = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30",
+                "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30"];
             teacherId = $("#selectTeacher").val();
 
             $.ajax({
@@ -408,14 +419,17 @@
                         "<th id='lesson5' class='text-center'></th></tr>";
 
                     for (let t = startTime; t < time.length; t++) {
-                        html += "<tr class='studentRow'><td class='text-center'>" + time[t] + "</td><div class='dropdown'><td class='text-center studentName' >" +
-                            "<button  style='width:70%' class='btn btn-outline-dark btn-lg text-center studentcell' celltime='" + time[t] + "' type='button' data-toggle='dropdown'>";
+                        html += "<tr class='studentRow'><td class='text-center'>" + time[t] +
+                            "</td><div class='dropdown'><td class='text-center studentName' >" +
+                            "<button  style='width:70%' class='btn btn-outline-dark btn-lg text-center studentcell' celltime='" +
+                            time[t] + "' type='button' data-toggle='dropdown'>";
 
 
                         for (var i = 0; i < studentData.length; i++) {
                             if (studentData[i].time == time[t] && studentData[i].day == day && (studentData[i].teacher) == teacherId) {
                                 studentExists = true;
-                                html += ("<span id='" + studentData[i].id + "'>" + studentData[i].first + " " + studentData[i].last) + "&nbsp;&nbsp;" + '<span class="badge badge-secondary">' +
+                                html += ("<span id='" + studentData[i].id + "'>" + studentData[i].first + " " +
+                                    studentData[i].last) + "&nbsp;&nbsp;" + '<span class="badge badge-secondary">' +
                                 studentData[i].charge_rate + '</span>' +  "</span>";
                                 student_ids.push(studentData[i].id);
                                 student_times.push(time[t]);
@@ -427,9 +441,11 @@
                         }
                         studentExists = false;
 
-                        html += ("</button><ul class='dropdown-menu'><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>" +
-                            "Add Student</a></li><li><a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a></li>" +
-                            "<li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Change Student</a>" +
+                        html += ("</button><ul class='dropdown-menu'><li>" +
+                            "<a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>" +
+                            "Add Student</a></li><li>" +
+                            "<a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a>" +
+                            "</li><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#addStudentModal'>Change Student</a>" +
                             "</li></ul></td></div>" +
                             "<td id='" +time[t] +  "_lesson1'></td>" +
                             "<td id='" +time[t] +  "_lesson2'></td>" +
@@ -445,9 +461,10 @@
                         displayAttendance(currentYear, currentMonth, currentDay, student_ids, student_times);
 
                     } else {
-                        let dayNumber = getDayInt(day);
-                        resetDay(dayNumber);
-                        displayAttendance(currentYear, currentMonth, dayNumber, student_ids, student_times);
+                        currentDay = getDayInt(day);
+                        displayDates(currentYear,currentMonth,currentDay)
+                     //   resetDay(dayNumber);
+                        displayAttendance(currentYear, currentMonth, currentDay, student_ids, student_times);
                     }
 
 
@@ -455,6 +472,8 @@
 
             });
         }
+
+        //below is code for dynamic date display
 
         function resetDay(dayNumber) {
             displayDates(currentYear, currentMonth, dayNumber);
@@ -520,29 +539,43 @@
 
 
         function formatMonthAbriviation(date) {
-            let months = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "June ", "July ", "Aug ", "Sept ", "Oct ", "Nov ", "Dec "];
+            let months = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "June ", "July ", "Aug ", "Sept ",
+                "Oct ", "Nov ", "Dec "];
             return months[date];
         }
 
         function formatFullMonth(date) {
-            let months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ", "August ", "September ", "October ", "November ", "December "];
+            let months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ",
+                "August ", "September ", "October ", "November ", "December "];
             return months[date];
         }
 
 
-        function nextMonth() {
+        function nextMonth(dayNumber) {
             currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
             currentMonth = (currentMonth + 1) % 12;
-            console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
             displayDates(currentYear, currentMonth, currentDay);
         }
 
-        function previousMonth() {
+        function previousMonth(dayNumber) {
             currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
             currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-            console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
             displayDates(currentYear, currentMonth, currentDay);
         }
+        function nextMonthWithAttendance(dayNumber, student_ids, student_times) {
+            currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
+            currentMonth = (currentMonth + 1) % 12;
+            displayDates(currentYear, currentMonth, currentDay);
+            displayAttendance(currentYear, currentMonth, dayNumber, student_ids, student_times);
+        }
+
+        function previousMonthWithAttendance(dayNumber, student_ids, student_times) {
+            currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
+            currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+            displayDates(currentYear, currentMonth, currentDay);
+            displayAttendance(currentYear, currentMonth, dayNumber, student_ids, student_times);
+        }
+
 
 
     </script>
@@ -640,7 +673,8 @@
                                     if(lessonData[j]["lessons"][dayOfMonth] != null){
                                         lesson = lessonData[j]["lessons"][dayOfMonth];
                                     }
-                                    if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString && lessonData[j].year == year) {
+                                    if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString &&
+                                        lessonData[j].year == year) {
                                         element.innerHTML =  lesson;
                                     }
                                 }
@@ -656,96 +690,7 @@
 
 
         }
-        //below is the content from lessonDates.js
 
-
-        function resetDay(dayNumber) {
-            displayDates(currentYear, currentMonth, dayNumber);
-        }
-
-        function getDayInt(day) {
-            let index = 0;
-            while (days[index] !== day) {
-                index++;
-            }
-            return index;
-        }
-
-        function getLessonDays(year, month, dayNumber) {
-            let firstDayOfThisMonth = new Date(year, month, 1);
-            let firstDayOfThisMonthIndex = firstDayOfThisMonth.getDay();
-            let dates = [];
-            let daysToFirst = (dayNumber + 7 - firstDayOfThisMonthIndex) % 7;
-            let firstOf = new Date(firstDayOfThisMonth.setDate(firstDayOfThisMonth.getDate() + daysToFirst));
-
-            while (firstOf.getMonth() === month) {
-                dates.push(new Date(+firstOf));
-                firstOf.setDate(firstOf.getDate() + 7);
-            }
-            return dates;
-        }
-
-        function displayDates(year, month, dayNumber) {
-            let monthString = formatFullMonth(month);
-            document.getElementById('currentdate').innerHTML = monthString + "  " + year;
-            let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
-            let dates = getLessonDays(year, month, dayNumber);
-            let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
-            let numLessonDays = dates.length;
-            optimizeTable(currentNumColumns, numLessonDays);
-            let index = 0;
-            while (dates[index] != null) {
-                let monthAbbreviation = dates[index].getUTCMonth();
-                monthAbbreviation = formatMonthAbriviation(monthAbbreviation);
-                let day = dates[index].getDate();
-                let id = date_label_ids[index];
-                document.getElementById(id).innerHTML = monthAbbreviation + " " + day;
-                index++;
-            }
-        }
-
-        function optimizeTable(currentNumColumns, numLessonDays) {
-            let rows = document.getElementsByTagName('tr');
-            if (currentNumColumns === 5 && numLessonDays === 4) {
-                for (let i = 0; i < rows.length; i++) {
-                    rows[i].lastChild.remove();
-                }
-            } else if (currentNumColumns === 4 && numLessonDays === 5) {
-                let th = document.createElement('th');
-                th.setAttribute("id", "lesson5");
-                th.setAttribute("class", "text-center");
-                rows[0].appendChild(th);
-                for (let i = 1; i < rows.length - 1; i++) {
-                    rows[i].insertCell(-1);
-                }
-            }
-        }
-
-
-        function formatMonthAbriviation(date) {
-            let months = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "June ", "July ", "Aug ", "Sept ", "Oct ", "Nov ", "Dec "];
-            return months[date];
-        }
-
-        function formatFullMonth(date) {
-            let months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ", "August ", "September ", "October ", "November ", "December "];
-            return months[date];
-        }
-
-
-        function nextMonth() {
-            currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-            currentMonth = (currentMonth + 1) % 12;
-            console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
-            displayDates(currentYear, currentMonth, currentDay);
-        }
-
-        function previousMonth() {
-            currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-            currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-            console.log("currentYear: " + currentYear + " currentMonth: " + currentMonth);
-            displayDates(currentYear, currentMonth, currentDay);
-        }
         function strcmp(a, b) {
             if (a.toString() < b.toString()) return -1;
             if (a.toString() > b.toString()) return 1;
