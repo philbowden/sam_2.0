@@ -158,15 +158,16 @@
                                             <input class="form-check-input" type="radio" id="scholarship"
                                                    name="charge_rate" value="scholarship">
                                             <label class="form-check-label mr-2"
-                                                   for="scholarship">Scholarship</label><br>
+                                                   for="Scholarship">Scholarship</label><br>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" id="annual" name="charge_rate"
-                                                   value="annual">
+                                                   value="Annual">
                                             <label class="form-check-label mr-2" for="annual">Annual</label><br>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="other" name="charge_rate">
+                                            <input class="form-check-input" type="radio" id="other" name="charge_rate"
+                                            value="Other">
                                             <label class="form-check-label mr-2" for="other">Other</label><br>
                                         </div>
                                     </fieldset>
@@ -611,7 +612,6 @@
 
 
         function displayAttendance(student_ids, student_times) {
-            console.log("displayAttendance vars: " + currentYear, currentMonth, currentDay, student_ids, student_times);
             let monthString = formatFullMonth(currentMonth).trim();
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
             let dates = getLessonDays(currentYear, currentMonth, currentDay);
