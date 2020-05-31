@@ -167,7 +167,7 @@
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" id="other" name="charge_rate"
-                                            value="Other">
+                                                   value="Other">
                                             <label class="form-check-label mr-2" for="other">Other</label><br>
                                         </div>
                                     </fieldset>
@@ -323,8 +323,8 @@
                 if (charge_rates[i].checked) {
                     charge_rate = charge_rates[i].value
                     break;
-                  }
                 }
+            }
             student = {
                 first: first, last: last, email: email, phone: phone, time: time,
                 day: day, instrument: instrument, start_date: start_date,
@@ -389,29 +389,34 @@
 
                     let studentExists = false;
                     let tbody = $("tbody");
+
+                    //creates the <th> elements
                     let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th><th class='text-center'></th>" +
                         " <th id='lesson1' class='text-center'>Lesson 1</th> <th id='lesson2' class='text-center'>Lesson 2</th>" +
                         " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>" +
                         "<th id='lesson5' class='text-center'></th></tr>";
 
+                    //creates the cells under the Name column
                     for (let t = startTime; t < time.length; t++) {
                         html += "<tr class='studentRow'><td class='text-center'>" + time[t] +
                             "</td><div class='dropdown'><td class='text-center studentName' >" +
                             "<button  style='width:70%' class='btn btn-outline-dark btn-lg text-center studentcell' celltime='" +
                             time[t] + "' type='button' data-toggle='dropdown'>";
 
-
-                        for (var i = 0; i < studentData.length; i++) {
+                        //displays the data inside the Name button
+                        for (let i = 0; i < studentData.length; i++) {
                             if (studentData[i].time == time[t] && studentData[i].day == day && (studentData[i].teacher) == teacherId) {
                                 studentExists = true;
                                 html += ("<span id='" + studentData[i].id + "'>" + studentData[i].first + " " +
                                     studentData[i].last) + "&nbsp;&nbsp;" + '<span class="badge badge-success">' +
-                                studentData[i].charge_rate + '</span>'  + "</span>";
+                                    studentData[i].charge_rate + '</span>' + "</span>";
                                 student_ids.push(studentData[i].id);
                                 student_times.push(time[t]);
                             }
 
+
                         }
+                        //dislays button for Name cell with no student
                         if (studentExists == false) {
                             html += "<i class='fas fa-user-plus p-0'</i>"
                         }
@@ -423,28 +428,90 @@
                             "<a class='dropdown-item' href='#dropStudentModal' data-toggle='modal' data-target='#dropStudentModal'>Drop Student</a>" +
                             "</li><li><a class='dropdown-item' href='#addStudentModal' data-toggle='modal' data-target='#updateStudentModal'>Update Student</a>" +
                             "</li></ul></td></div>" +
-                            "<td id='" +time[t] + "_notes'><span>notes</span></td>" +
-                            "<td id='" +time[t] +  "_lesson1'></td>" +
-                            "<td id='" +time[t] +  "_lesson2'></td>" +
-                            "<td id='" +time[t] +  "_lesson3'></td>" +
-                            "<td id='" +time[t] +  "_lesson4'></td>" +
-                            "<td id='" +time[t] +  "_lesson5'></td>");
+                            "<td id='" + time[t] + "_info'>info</td>" +
+                            "<td id='" + time[t] + "_lesson1'></td>" +
+                            "<td id='" + time[t] + "_lesson2'></td>" +
+                            "<td id='" + time[t] + "_lesson3'></td>" +
+                            "<td id='" + time[t] + "_lesson4'></td>" +
+                            "<td id='" + time[t] + "_lesson5'></td>");
                     }
                     tbody.replaceWith(html + '</tbody>');
 
                     if (document.getElementById("selectDay").value === "") {
 
                         displayDates();
-                        displayAttendance(student_ids, student_times);
-
                     } else {
                         currentDay = getDayInt(day);
                         displayDates()
                         displayAttendance(student_ids, student_times);
+                        displayInfo(student_ids, student_times);
                     }
                 }
             });
         }
+
+        function displayAttendance(student_ids, student_times) {
+            let monthString = formatFullMonth(currentMonth).trim();
+            let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
+            let dates = getLessonDays(currentYear, currentMonth, currentDay);
+            $.ajax({
+                type: "GET",
+                url: 'sam_api/lesson_api/?format=json',
+                dataType: "json",
+                success: function (lessonData) {
+                    for (let i = 0; i < student_times.length; i++) {
+                        for (let e = 0; e < date_label_ids.length; e++) {
+                            let element = document.getElementById(student_times[i] + "_" + date_label_ids[e]);
+                            if (element != null) {
+                                let dayOfMonth = dates[e].getDate();
+                                for (let j = 0; j < lessonData.length; j++) {
+                                    let lesson = "";
+                                    if (lessonData[j]["lessons"][dayOfMonth] != null) {
+                                        lesson = lessonData[j]["lessons"][dayOfMonth];
+                                    }
+                                    if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString &&
+                                        lessonData[j].year == currentYear) {
+                                        element.innerHTML = lesson;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            });
+        }
+
+        function strcmp(a, b) {
+            if (a.toString() < b.toString()) return -1;
+            if (a.toString() > b.toString()) return 1;
+            return 0;
+        }
+
+        function displayInfo(student_ids, student_times) {
+            $.ajax({
+                type: "GET",
+                url: 'sam_api/rm_sam/?format=json',
+                dataType: "json",
+                success: function (studentData) {
+                    for (let i = 0; i < student_times.length; i++) {
+                        let student = document.getElementById(student_times[i] + "_" + 'info');
+                        if (student != null) {
+                            for (let j = 0; j < studentData.length; j++) {
+                                if (studentData[j].student == student_ids[i]) {
+                                    student.innerHTML = studentData[j].notes;
+                                }
+                            }
+                        }
+                    }
+                },
+
+            });
+        }
+
+
 
         //below is code for dynamic date display
 
@@ -607,53 +674,6 @@
                 jQuery("#insertStudentModal").modal('toggle');
             })
         });
-
-
-
-
-        function displayAttendance(student_ids, student_times) {
-            let monthString = formatFullMonth(currentMonth).trim();
-            let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
-            let dates = getLessonDays(currentYear, currentMonth, currentDay);
-            $.ajax({
-                type: "GET",
-                url: 'sam_api/lesson_api/?format=json',
-                dataType: "json",
-                success: function (lessonData) {
-
-                    for (let i = 0; i < student_times.length; i++) {
-                        for (let e = 0; e < date_label_ids.length; e++) {
-                            let element = document.getElementById(student_times[i]+"_"+date_label_ids[e]);
-                            if (element != null) {
-                                let dayOfMonth = dates[e].getDate();
-                                for (let j = 0; j < lessonData.length; j++) {
-                                    let lesson = "";
-                                    if(lessonData[j]["lessons"][dayOfMonth] != null){
-                                        lesson = lessonData[j]["lessons"][dayOfMonth];
-                                    }
-                                    if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString &&
-                                        lessonData[j].year == currentYear) {
-                                        element.innerHTML =  lesson;
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-                },
-               error: function (xhr, resp, text) {
-                    console.log(xhr, resp, text);
-                }
-            });
-
-
-        }
-
-        function strcmp(a, b) {
-            if (a.toString() < b.toString()) return -1;
-            if (a.toString() > b.toString()) return 1;
-            return 0;
-        }
 
 
     </script>
