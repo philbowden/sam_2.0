@@ -58,7 +58,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" style="border:2px solid black">
-                    <p> <span id="dropStudentName"></span></p>
+                    <p><span id="dropStudentName"></span></p>
                     <div class="row">
                         <button class="btn btn-primary btn-lg mr-5" dropId='0' id='confirmDrop'>Drop</button>
                         <button class="btn btn-warning btn-lg" id="cancel_drop">Cancel</button>
@@ -73,14 +73,14 @@
                 <div class="modal-body" style="border:2px solid black">
                     <div class="container p-2">
                         <h4 class="text-center">Edit Notes</h4>
-                        <form action="" id="editStudent">
+                        <form action="" id="editForm">
                             <div class="form-group">
                                 <label for="notes">Notes</label>
                                 <textarea class="form-control rounded-0"
                                           rows="5" name="notesEdit" id="notesEdit"></textarea>
                             </div>
                             <button class="btn btn-primary" type="submit" name="submit"
-                                    id='confirmEdit'>Confirm
+                                    id='submitEdit'>Confirm
                             </button>
                             <button class="btn btn-warning" id="cancel_insert">Cancel</button>
                         </form>
@@ -242,6 +242,7 @@
                     }
                     return cookieValue;
                 }
+
                 if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
                     // Only send the token to relative URLs i.e. locally.
                     xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
@@ -296,16 +297,35 @@
 
 
         $(document).ready(function () {
-            $(document).on('click', '#editStudent', function () {
+            $(document).on('click', '#submitEdit', function () {
                 editId = $(this).attr('editId')
                 $.ajax({
                     type: "PATCH",
                     url: "sam_api/rm_sam/" + editId + "/",
                     data: {
-                        notes: $("#confirmEdit").val()
+                        notes: $("#editId").val()
                     },
-                    success: function () {
-                        jQuery("#editStudentModal").modal('toggle');
+
+                    error: function (xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                    }
+                });
+            });
+        });
+
+        //**********************************************************************************
+        $(document).ready(function () {
+            $(document).on('click', '#confirmDrop', function () {
+                dropId = $(this).attr('dropId')
+                $.ajax({
+                    type: "PATCH",
+                    url: "sam_api/rm_sam/" + dropId + "/",
+                    data: {
+                        time: '0:00',
+                        day: 'noday'
+                    },
+                    success: function (data) {
+                        jQuery("#dropStudentModal").modal('toggle');
                         buildTable($('#selectDay').val())
                     },
                     error: function (xhr, resp, text) {
@@ -313,56 +333,55 @@
                     }
                 });
             });
+            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-//**********************************************************************************
+            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-
-        $("#add").on('click', function () {
-            // send ajax
-            let first = $("#first").val();
-            let last = $("#last").val();
-            let time = $("#time").val();
-            let day = $("#day").val();
-            let email = $("#email").val();
-            let phone = $("#phone").val();
-            let instrument = $("#instrument").val();
-            let start_date = $("#start_date").val();
-            let teacher = $("#selectTeacher").val();
-            let charge_rates = document.getElementsByName('charge_rate');
-            let notes = $("#notes").val();
-            let parent_first = $("#parent_first").val();
-            let parent_last = $("#parent_last").val();
-            let birthdate = $("#birthdate").val() || "1967-02-20";
-            let charge_rate = "$120";
-            for (var i = 0, length = charge_rates.length; i < length; i++) {
-                if (charge_rates[i].checked) {
-                    charge_rate = charge_rates[i].value
-                    break;
+            $("#add").on('click', function () {
+                // send ajax
+                let first = $("#first").val();
+                let last = $("#last").val();
+                let time = $("#time").val();
+                let day = $("#day").val();
+                let email = $("#email").val();
+                let phone = $("#phone").val();
+                let instrument = $("#instrument").val();
+                let start_date = $("#start_date").val();
+                let teacher = $("#selectTeacher").val();
+                let charge_rates = document.getElementsByName('charge_rate');
+                let notes = $("#notes").val();
+                let parent_first = $("#parent_first").val();
+                let parent_last = $("#parent_last").val();
+                let birthdate = $("#birthdate").val() || "1967-02-20";
+                let charge_rate = "$120";
+                for (var i = 0, length = charge_rates.length; i < length; i++) {
+                    if (charge_rates[i].checked) {
+                        charge_rate = charge_rates[i].value
+                        break;
+                    }
                 }
-            }
-            student = {
-                first: first, last: last, email: email, phone: phone, time: time,
-                day: day, instrument: instrument, start_date: start_date,
-                teacher: teacher, charge_rate: charge_rate, notes: notes,
-                parent_first: parent_first, parent_last: parent_last, birthdate: birthdate
-            };
+                student = {
+                    first: first, last: last, email: email, phone: phone, time: time,
+                    day: day, instrument: instrument, start_date: start_date,
+                    teacher: teacher, charge_rate: charge_rate, notes: notes,
+                    parent_first: parent_first, parent_last: parent_last, birthdate: birthdate
+                };
 
 
-            $.ajax({
-                type: "POST",
-                url: "sam_api/rm_sam/?format=json",
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(student),
-                success: function (result) {
-                    jQuery("#addStudentModal").modal('toggle');
-                    buildTable(day);
-                },
-                error: function (xhr, resp, text) {
-                    console.log(xhr, resp, text);
-                }
+                $.ajax({
+                    type: "POST",
+                    url: "sam_api/rm_sam/?format=json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(student),
+                    success: function (result) {
+                        jQuery("#addStudentModal").modal('toggle');
+                        buildTable(day);
+                    },
+                    error: function (xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                    }
+                });
             });
-        });
-
 
 
     </script>
