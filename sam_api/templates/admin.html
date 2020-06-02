@@ -295,23 +295,20 @@
 
         //**********************************************************************************
 
-
-        $(document).ready(function () {
-            $(document).on('click', '#submitEdit', function () {
-                editId = $(this).attr('editId')
-                $.ajax({
-                    type: "PATCH",
-                    url: "sam_api/rm_sam/" + editId + "/",
-                    data: {
-                        notes: $("#editId").val()
-                    },
-
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                    }
-                });
+        $(document).on('click', '#submitEdit', function () {
+            editId = $(this).attr('editId')
+            $.ajax({
+                type: "PATCH",
+                url: "sam_api/rm_sam/" + editId + "/",
+                data: {
+                    notes: $("#editId").val()
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
             });
         });
+
 
         //**********************************************************************************
         $(document).ready(function () {
@@ -335,24 +332,25 @@
             });
             //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        });
 
-            $("#add").on('click', function () {
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        $("#add").on('click', function () {
                 // send ajax
                 let first = $("#first").val();
                 let last = $("#last").val();
                 let time = $("#time").val();
                 let day = $("#day").val();
-                let email = $("#email").val();
-                let phone = $("#phone").val();
-                let instrument = $("#instrument").val();
+                //let email = $("#email").val();
+                //let phone = $("#phone").val();
+                //let instrument = $("#instrument").val();
                 let start_date = $("#start_date").val();
                 let teacher = $("#selectTeacher").val();
                 let charge_rates = document.getElementsByName('charge_rate');
                 let notes = $("#notes").val();
-                let parent_first = $("#parent_first").val();
-                let parent_last = $("#parent_last").val();
-                let birthdate = $("#birthdate").val() || "1967-02-20";
+                //let parent_first = $("#parent_first").val();
+                //let parent_last = $("#parent_last").val();
+                //let birthdate = $("#birthdate").val() || "1967-02-20";
                 let charge_rate = "$120";
                 for (var i = 0, length = charge_rates.length; i < length; i++) {
                     if (charge_rates[i].checked) {
@@ -361,12 +359,10 @@
                     }
                 }
                 student = {
-                    first: first, last: last, email: email, phone: phone, time: time,
-                    day: day, instrument: instrument, start_date: start_date,
-                    teacher: teacher, charge_rate: charge_rate, notes: notes,
-                    parent_first: parent_first, parent_last: parent_last, birthdate: birthdate
+                    first: first, last: last, time: time, day: day, start_date: start_date, teacher: teacher,
+                    charge_rate: charge_rate, notes: notes
                 };
-
+                alert(student.day);
 
                 $.ajax({
                     type: "POST",
@@ -375,14 +371,13 @@
                     data: JSON.stringify(student),
                     success: function (result) {
                         jQuery("#addStudentModal").modal('toggle');
+
                         buildTable(day);
                     },
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                    }
-                });
-            });
 
+                });
+
+            });
 
     </script>
     <table id="adminTable" class="table table-bordered table-striped">
