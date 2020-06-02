@@ -54,6 +54,25 @@
         </div>
     </nav>
     <!-- Modal----------------------------------------------------- -->
+    <div id="updateAttendanceModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="border:2px solid black">
+                    <div class="container p-2">
+                        <div class="row">
+                        <input type="radio" id="present" name="adminAttendance" value="present">
+                        <label for="present">Present</label><br>
+                        <input type="radio" id="absent" name="adminAttendance" value="absent">
+                        <label for="absent">Absent</label><br>
+                        <input type="radio" id="makeup" name="adminAttendance" value="makeup">
+                        <label for="makeup">Makeup</label>
+                        <button class="btn btn-warning btn-lg" id="attendanceUpdate">Update</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="dropStudentModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -90,6 +109,41 @@
         </div>
     </div>
 
+    <!--  <div id="insertStudentModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-body" style="border:2px solid black">
+                      <div class="container p-2">
+                          <h4 class="text-center">Insert Student</h4>
+                          <form action="" id="insertStudent">
+                              <div class="row">
+                                  <div class="col">
+                                      <div class="form-control" id="studentSelector"></div>
+                                  </div>
+                                  <div class="col">
+                                      <div class="form-group">
+                                          <label class="form-control-label" for="insert_start_date">Start Date</label>
+                                          <input class="form-control" type="date" name="insert_start_date"
+                                                 id="insert_start_date">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="form-control-label" for="insert_end_date">End
+                                              Date(Optional)</label>
+                                          <input class="form-control" type="date" name="insert_end_date"
+                                                 id="insert_end_date">
+                                      </div>
+                                  </div>
+                              </div>
+                              <button class="btn btn-primary btn-block col" type="submit" name="submit"
+                                      id='confirmInsert'>Confirm Insert
+                              </button>
+                              <button class="cancel col" id="cancel_insert">Cancel</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>-->
 
     <div id="addStudentModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -178,8 +232,8 @@
                                 </div><!--col-->
                             </div><!--row 2-->
                             <div class="form-group mt-2 ml-5 mr-5">
-                                <button class="btn btn-primary btn-block"
-                                        type="submit" name="submit" id="add" value="Add">Save
+                                <button class="btn btn-primary btn-block" type="submit" name="submit" id="add"
+                                        value="Add">Save
                                 </button>
                             </div>
                         </form>
@@ -260,56 +314,62 @@
 
         //**********************************************************************************
 
-         $(document).ready(function () {
-            $(document).on('click', '#submitEdit', function () {
-                editId = $(this).attr('editId')
+        $(document).on('click', '#submitEdit', function () {
+            editId = $(this).attr('editId')
+            $.ajax({
+                type: "PATCH",
+                url: "sam_api/rm_sam/" + editId + "/",
+                data: {
+                    notes: $("#editId").val()
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            });
+        });
+
+
+        //**********************************************************************************
+        $(document).ready(function () {
+            $(document).on('click', '#confirmDrop', function () {
+                dropId = $(this).attr('dropId')
                 $.ajax({
                     type: "PATCH",
-                    url: "sam_api/rm_sam/" + editId + "/",
+                    url: "sam_api/rm_sam/" + dropId + "/",
                     data: {
-                        notes: $('#editId').val()
+                        time: '0:00',
+                        day: 'noday'
                     },
                     success: function (data) {
-                        console.log("success!");
-                        jQuery("#editStudentModal").modal('toggle');
+                        jQuery("#dropStudentModal").modal('toggle');
                         buildTable($('#selectDay').val())
                     },
-
                     error: function (xhr, resp, text) {
                         console.log(xhr, resp, text);
                     }
                 });
-
-                $(document).on('click', '.studentcell', function () {
-                    time = $(this).attr('celltime');
-                    $('#time').val(time);
-                    editStudentID = $(this).html();
-                    $('#submitEdit').attr('editId', editStudentID);
-
-                });
-
-                $(document).on('click', '#cancelEdit', function () {
-                    jQuery("#editStudentModal").modal('toggle');
-                })
             });
+            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
         });
 
-        //**********************************************************************************
-
-
-
-
-
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         $("#add").on('click', function () {
                 // send ajax
                 let first = $("#first").val();
                 let last = $("#last").val();
                 let time = $("#time").val();
                 let day = $("#day").val();
+                //let email = $("#email").val();
+                //let phone = $("#phone").val();
+                //let instrument = $("#instrument").val();
                 let start_date = $("#start_date").val();
                 let teacher = $("#selectTeacher").val();
                 let charge_rates = document.getElementsByName('charge_rate');
                 let notes = $("#notes").val();
+                //let parent_first = $("#parent_first").val();
+                //let parent_last = $("#parent_last").val();
+                //let birthdate = $("#birthdate").val() || "1967-02-20";
                 let charge_rate = "$120";
                 for (var i = 0, length = charge_rates.length; i < length; i++) {
                     if (charge_rates[i].checked) {
@@ -321,6 +381,7 @@
                     first: first, last: last, time: time, day: day, start_date: start_date, teacher: teacher,
                     charge_rate: charge_rate, notes: notes
                 };
+
 
                 $.ajax({
                     type: "POST",
@@ -454,12 +515,17 @@
                                 let dayOfMonth = dates[e].getDate();
                                 for (let j = 0; j < lessonData.length; j++) {
                                     let lesson = "";
+                                    let button_id = lessonData[j].id + "_" + date_label_ids[e];
                                     if (lessonData[j]["lessons"][dayOfMonth] != null) {
                                         lesson = lessonData[j]["lessons"][dayOfMonth];
                                     }
                                     if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString &&
                                         lessonData[j].year == currentYear) {
-                                        element.innerHTML = lesson;
+                                        //element.innerHTML = lesson;
+                                        element.innerHTML = "<button  id='" + button_id + "' style='width:70%' " +
+                                            "class='btn btn-outline-dark text-center' type='button' " +
+                                            "href='#updateAttendanceModal' data-toggle='modal' " +
+                                            "onclick='adminUpdateAttendance(this.id)'>" + lesson;
                                     }
                                 }
                             }
@@ -472,10 +538,55 @@
             });
         }
 
-        function strcmp(a, b) {
-            if (a.toString() < b.toString()) return -1;
-            if (a.toString() > b.toString()) return 1;
-            return 0;
+        function adminUpdateAttendance(clicked_id) {
+
+            $('#attendanceUpdate').click(function() {
+
+                let lesson_id = parseInt(clicked_id);
+                let attendance_options = ['present', 'absent', 'makeup'];
+                let attendance_choices = document.getElementsByName('adminAttendance');
+
+                let attendance;
+                for (var i = 0, length = attendance_choices.length; i < length; i++) {
+                    if (attendance_choices[i].checked) {
+                        attendance = attendance_choices[i].value
+                        break;
+                    }
+                }
+                //alert(attendance in attendance_options);
+                if(attendance_options.includes(attendance)){
+                    let lesson_date = JSON.stringify(getLessonDate(clicked_id));
+                    //alert(JSON.stringify(lesson_date));
+                    //let data = lesson_date +": " + attendance;
+                    $.ajax({
+
+                        type: "PATCH",
+                        url: "sam_api/lesson_api/" + lesson_id + "/",
+                        data: {
+                            "lessons" : {
+                          lesson_date: attendance
+                        }
+                      },
+
+
+                        success: function () {
+
+                            $('#updateAttendanceModal').modal('toggle');
+                            buildTable($('#selectDay').val())
+                        }
+                    });
+                }
+            });
+
+        }
+        function getLessonDate(id){
+            let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
+            let dates = getLessonDays(currentYear, currentMonth, currentDay);
+            let button_id = id;
+            let lesson_num = button_id.substring(button_id.indexOf("_") + 1, button_id.length);
+            let lesson_index = date_label_ids.indexOf(lesson_num);
+
+            return dates[lesson_index].getDate();
         }
 
         function displayInfo(student_ids, student_times) {

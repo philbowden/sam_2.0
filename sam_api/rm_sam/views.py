@@ -59,7 +59,7 @@ def teacher(request, teacher_id):
     month = timezone.localdate().strftime('%B')
     year = timezone.localdate().year
 
-    students = Student.objects.all().filter(teacher=teacher_id, day=today, active=True)
+    students = Student.objects.all().filter(teacher=teacher_id, day=today, active=True).order_by('time')
     current_teacher = Teacher.objects.filter(id=teacher_id)
 
     if request.method == "POST":
@@ -70,8 +70,7 @@ def teacher(request, teacher_id):
                 data = 'present'
             else:
                 data = "absent"
-                if student_attendance == 'excused':
-                    data = "needs make-up"
+                if student_attendance == 'makeup':
                     Student.objects.filter(id=student.id).update(make_up=F('make_up') + 1)
 
             if Lesson.objects.all().filter(student=student.id, teacher=teacher_id, month=month, year=year).count() == 0:
