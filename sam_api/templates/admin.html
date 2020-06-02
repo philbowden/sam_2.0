@@ -279,33 +279,6 @@
             });
         })
 
-        //**********************************************************************************
-        function updateNotes(){
-            $(document).on('click', '#submitEdit', function () {
-            let editId = $(this).attr('editId');
-            alert(editId);
-            let notes = $("#notesEdit").val();
-            $.ajax({
-                type: "PATCH",
-                url: "sam_api/rm_sam/" + editId + "/",
-                data: {
-                    notes: notes
-                },
-                success: function () {
-                    $('#editStudentModal').modal('toggle');
-                    buildTable($('#selectDay').val())
-                }
-            });
-        });
-
-        }
-
-
-
-
-        //**********************************************************************************
-
-
         $("#add").on('click', function () {
                 // send ajax
                 let first = $("#first").val();
@@ -505,10 +478,8 @@
                         break;
                     }
                 }
-                //alert(attendance in attendance_options);
                 if(attendance_options.includes(attendance)){
                     let lesson_date = JSON.stringify(getLessonDate(clicked_id));
-                    //alert(JSON.stringify(lesson_date));
                     //let data = lesson_date +": " + attendance;
                     $.ajax({
 
@@ -561,6 +532,25 @@
                 },
 
             });
+        }
+
+         function updateNotes(){
+            $(document).on('click', '#submitEdit', function () {
+            let editId = $(this).attr('editId');
+            let notes = $("#notesEdit").val();
+            $.ajax({
+                type: "PATCH",
+                url: "sam_api/rm_sam/" + editId + "/",
+                data: {
+                    notes: notes
+                },
+                success: function () {
+                    $('#editStudentModal').modal('toggle');
+                    buildTable($('#selectDay').val())
+                }
+            });
+        });
+
         }
 
 
