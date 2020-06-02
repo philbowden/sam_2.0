@@ -295,30 +295,11 @@
         });
 
         //**********************************************************************************
-        $(document).ready(function () {
-            $(document).on('click', '#confirmDrop', function () {
-                dropId = $(this).attr('dropId')
-                $.ajax({
-                    type: "PATCH",
-                    url: "sam_api/rm_sam/" + dropId + "/",
-                    data: {
-                        time: '0:00',
-                        day: 'noday'
-                    },
-                    success: function (data) {
-                        jQuery("#dropStudentModal").modal('toggle');
-                        buildTable($('#selectDay').val())
-                    },
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                    }
-                });
-            });
-            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-        });
 
-        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+
         $("#add").on('click', function () {
                 // send ajax
                 let first = $("#first").val();
@@ -340,7 +321,6 @@
                     first: first, last: last, time: time, day: day, start_date: start_date, teacher: teacher,
                     charge_rate: charge_rate, notes: notes
                 };
-                alert(student.day);
 
                 $.ajax({
                     type: "POST",
