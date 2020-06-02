@@ -98,7 +98,7 @@
                                 <textarea class="form-control rounded-0"
                                           rows="5" name="notesEdit" id="notesEdit"></textarea>
                             </div>
-                            <button class="btn btn-primary" type="submit" name="submit"
+                            <button onclick="updateNotes(this.id)" class="btn btn-primary" type="submit" name="submit"
                                     id='submitEdit'>Confirm
                             </button>
                             <button class="btn btn-warning" id="cancel_insert">Cancel</button>
@@ -108,42 +108,6 @@
             </div>
         </div>
     </div>
-
-    <!--  <div id="insertStudentModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-body" style="border:2px solid black">
-                      <div class="container p-2">
-                          <h4 class="text-center">Insert Student</h4>
-                          <form action="" id="insertStudent">
-                              <div class="row">
-                                  <div class="col">
-                                      <div class="form-control" id="studentSelector"></div>
-                                  </div>
-                                  <div class="col">
-                                      <div class="form-group">
-                                          <label class="form-control-label" for="insert_start_date">Start Date</label>
-                                          <input class="form-control" type="date" name="insert_start_date"
-                                                 id="insert_start_date">
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="form-control-label" for="insert_end_date">End
-                                              Date(Optional)</label>
-                                          <input class="form-control" type="date" name="insert_end_date"
-                                                 id="insert_end_date">
-                                      </div>
-                                  </div>
-                              </div>
-                              <button class="btn btn-primary btn-block col" type="submit" name="submit"
-                                      id='confirmInsert'>Confirm Insert
-                              </button>
-                              <button class="cancel col" id="cancel_insert">Cancel</button>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>-->
 
     <div id="addStudentModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -313,14 +277,14 @@
         })
 
         //**********************************************************************************
-
-        $(document).on('click', '#submitEdit', function () {
-            editId = $(this).attr('editId')
+        function updateNotes(clickedID){
+            $(document).on('click', '#submitEdit', function () {
+            //editId = $(this).attr('editId')
             $.ajax({
                 type: "PATCH",
-                url: "sam_api/rm_sam/" + editId + "/",
+                url: "sam_api/rm_sam/" + clickedID + "/",
                 data: {
-                    notes: $("#editId").val()
+                    notes: $("#clickedID").val()
                 },
                 error: function (xhr, resp, text) {
                     console.log(xhr, resp, text);
@@ -328,32 +292,14 @@
             });
         });
 
+        }
+
+
+
 
         //**********************************************************************************
-        $(document).ready(function () {
-            $(document).on('click', '#confirmDrop', function () {
-                dropId = $(this).attr('dropId')
-                $.ajax({
-                    type: "PATCH",
-                    url: "sam_api/rm_sam/" + dropId + "/",
-                    data: {
-                        time: '0:00',
-                        day: 'noday'
-                    },
-                    success: function (data) {
-                        jQuery("#dropStudentModal").modal('toggle');
-                        buildTable($('#selectDay').val())
-                    },
-                    error: function (xhr, resp, text) {
-                        console.log(xhr, resp, text);
-                    }
-                });
-            });
-            //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-        });
 
-        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         $("#add").on('click', function () {
                 // send ajax
                 let first = $("#first").val();
