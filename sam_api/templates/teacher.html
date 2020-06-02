@@ -43,7 +43,7 @@
                 <th class="header font-weight-bold" scope="col">Name</th>
                 <th class="header font-weight-bold" scope="col">Present<br></th>
                 <th class="header font-weight-bold" scope="col">Absent</th>
-                <th class="header font-weight-bold" scope="col">Makeup</th>
+                <th class="header font-weight-bold" scope="col">Excused</th>
             </tr>
             </thead>
             <tbody>
@@ -67,8 +67,8 @@
                 </td>
                 <td>
                     <label for="{{ student.id }}_makeup"></label>
-                    <input type="radio" id="{{ student.id }}_makeup"
-                           name="{{ student.id }}_attendance" value="makeup">
+                    <input type="radio" id="{{ student.id }}_excused"
+                           name="{{ student.id }}_attendance" value="excused">
                 </td>
             {% endfor %}
             </tbody>

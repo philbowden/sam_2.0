@@ -90,41 +90,6 @@
         </div>
     </div>
 
-    <!--  <div id="insertStudentModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-body" style="border:2px solid black">
-                      <div class="container p-2">
-                          <h4 class="text-center">Insert Student</h4>
-                          <form action="" id="insertStudent">
-                              <div class="row">
-                                  <div class="col">
-                                      <div class="form-control" id="studentSelector"></div>
-                                  </div>
-                                  <div class="col">
-                                      <div class="form-group">
-                                          <label class="form-control-label" for="insert_start_date">Start Date</label>
-                                          <input class="form-control" type="date" name="insert_start_date"
-                                                 id="insert_start_date">
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="form-control-label" for="insert_end_date">End
-                                              Date(Optional)</label>
-                                          <input class="form-control" type="date" name="insert_end_date"
-                                                 id="insert_end_date">
-                                      </div>
-                                  </div>
-                              </div>
-                              <button class="btn btn-primary btn-block col" type="submit" name="submit"
-                                      id='confirmInsert'>Confirm Insert
-                              </button>
-                              <button class="cancel col" id="cancel_insert">Cancel</button>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>-->
 
     <div id="addStudentModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -213,8 +178,8 @@
                                 </div><!--col-->
                             </div><!--row 2-->
                             <div class="form-group mt-2 ml-5 mr-5">
-                                <button class="btn btn-primary btn-block" type="submit" name="submit" id="add"
-                                        value="Add">Save
+                                <button class="btn btn-primary btn-block"
+                                        type="submit" name="submit" id="add" value="Add">Save
                                 </button>
                             </div>
                         </form>
@@ -295,20 +260,39 @@
 
         //**********************************************************************************
 
-        $(document).on('click', '#submitEdit', function () {
-            editId = $(this).attr('editId')
-            $.ajax({
-                type: "PATCH",
-                url: "sam_api/rm_sam/" + editId + "/",
-                data: {
-                    notes: $("#editId").val()
-                },
-                error: function (xhr, resp, text) {
-                    console.log(xhr, resp, text);
-                }
+         $(document).ready(function () {
+            $(document).on('click', '#submitEdit', function () {
+                editId = $(this).attr('editId')
+                $.ajax({
+                    type: "PATCH",
+                    url: "sam_api/rm_sam/" + editId + "/",
+                    data: {
+                        notes: $('#editId').val()
+                    },
+                    success: function (data) {
+                        console.log("success!");
+                        jQuery("#editStudentModal").modal('toggle');
+                        buildTable($('#selectDay').val())
+                    },
+
+                    error: function (xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                    }
+                });
+
+                $(document).on('click', '.studentcell', function () {
+                    time = $(this).attr('celltime');
+                    $('#time').val(time);
+                    editStudentID = $(this).html();
+                    $('#submitEdit').attr('editId', editStudentID);
+
+                });
+
+                $(document).on('click', '#cancelEdit', function () {
+                    jQuery("#editStudentModal").modal('toggle');
+                })
             });
         });
-
 
         //**********************************************************************************
         $(document).ready(function () {
@@ -341,16 +325,10 @@
                 let last = $("#last").val();
                 let time = $("#time").val();
                 let day = $("#day").val();
-                //let email = $("#email").val();
-                //let phone = $("#phone").val();
-                //let instrument = $("#instrument").val();
                 let start_date = $("#start_date").val();
                 let teacher = $("#selectTeacher").val();
                 let charge_rates = document.getElementsByName('charge_rate');
                 let notes = $("#notes").val();
-                //let parent_first = $("#parent_first").val();
-                //let parent_last = $("#parent_last").val();
-                //let birthdate = $("#birthdate").val() || "1967-02-20";
                 let charge_rate = "$120";
                 for (var i = 0, length = charge_rates.length; i < length; i++) {
                     if (charge_rates[i].checked) {
