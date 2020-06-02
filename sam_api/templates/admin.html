@@ -98,7 +98,7 @@
                                 <textarea class="form-control rounded-0"
                                           rows="5" name="notesEdit" id="notesEdit"></textarea>
                             </div>
-                            <button onclick="updateNotes(this.id)" class="btn btn-primary" type="submit" name="submit"
+                            <button editId='0' class="btn btn-primary" type="submit" name="submit"
                                     id='submitEdit'>Confirm
                             </button>
                             <button class="btn btn-warning" id="cancel_insert">Cancel</button>
@@ -240,6 +240,9 @@
         $('#insertStudent').submit(function (e) {
             e.preventDefault()
         });
+        $('#editForm').submit(function (e) {
+            e.preventDefault()
+        });
 
         $("#confirmInsert").on('click', function () {
             var studentId = $("#studentSelector").val();
@@ -277,17 +280,20 @@
         })
 
         //**********************************************************************************
-        function updateNotes(clickedID){
+        function updateNotes(){
             $(document).on('click', '#submitEdit', function () {
-            //editId = $(this).attr('editId')
+            let editId = $(this).attr('editId');
+            alert(editId);
+            let notes = $("#notesEdit").val();
             $.ajax({
                 type: "PATCH",
-                url: "sam_api/rm_sam/" + clickedID + "/",
+                url: "sam_api/rm_sam/" + editId + "/",
                 data: {
-                    notes: $("#clickedID").val()
+                    notes: notes
                 },
-                error: function (xhr, resp, text) {
-                    console.log(xhr, resp, text);
+                success: function () {
+                    $('#editStudentModal').modal('toggle');
+                    buildTable($('#selectDay').val())
                 }
             });
         });
@@ -710,6 +716,8 @@
                 $('#dropStudentName').html(dropStudent);
                 dropStudentID = $(this).children().attr('id');
                 $('#confirmDrop').attr('dropId', dropStudentID);
+                 //editStudentID = $(this).children().attr('id');
+                $('#submitEdit').attr('editId', dropStudentID);
 
             });
 
