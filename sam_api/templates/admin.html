@@ -58,16 +58,58 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" style="border:2px solid black">
+                    <div class="container container-fluid" style="border:7px">
+                        <h4 class="text-center mb-3">Admin Override</h4>
+                        <form action="" id="editForm">
+                            <div class="form-group">
+                                <div class="form-check ml-5">
+                                    <input class="form-check-input" type="radio" id="present" name="adminAttendance"
+                                           value="present">
+                                    <label class="form-check-label mr-2">Present</label>
+                                </div>
+                                <div class="form-check ml-5">
+                                    <input class="form-check-input" type="radio" id="absent" name="adminAttendance"
+                                           value="absent">
+                                    <label class="form-check-label mr-2">Absent</label>
+                                </div>
+                                <div class="form-check ml-5 mb-3">
+                                    <input class="form-check-input" type="radio" id="makeup"
+                                           name="adminAttendance" value="makeup">
+                                    <label class="form-check-label mr-2">Makeup</label>
+                                </div>
+                            </div>
+                            <div class="form-group mt-2">
+                                <button class="btn btn-primary ml-5 mr-5" type="submit" name="submit"
+                                        id="attendanceUpdate">Update
+                                </button>
+                                <button class="btn btn-warning ml-5" type="submit" id="cancelUpdate">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="editStudentModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="border:2px solid black">
                     <div class="container p-2">
-                        <div class="row">
-                            <input type="radio" id="present" name="adminAttendance" value="present">
-                            <label for="present">Present</label><br>
-                            <input type="radio" id="absent" name="adminAttendance" value="absent">
-                            <label for="absent">Absent</label><br>
-                            <input type="radio" id="makeup" name="adminAttendance" value="makeup">
-                            <label for="makeup">Makeup</label>
-                            <button class="btn btn-warning btn-lg" id="attendanceUpdate">Update</button>
-                        </div>
+                        <h4 class="text-center">Edit Notes</h4>
+                        <form action="" id="editForm">
+                            <div class="form-group">
+                                <label for="notes">Notes</label>
+                                <textarea class="form-control rounded-0"
+                                          rows="5" name="notesEdit" id="notesEdit"></textarea>
+                            </div>
+                            <div class="form-group center-block">
+                                <button onclick="updateNotes()" editId='0' class="btn btn-primary ml-5 mr-5"
+                                        type="submit"
+                                        name="submit" id='submitEdit'>Confirm
+                                </button>
+                                <button class="btn btn-warning ml-5" id="cancelEdit">Cancel</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -86,29 +128,7 @@
             </div>
         </div>
     </div>
-    <div id="editStudentModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body" style="border:2px solid black">
-                    <div class="container p-2">
-                        <h4 class="text-center">Edit Notes</h4>
-                        <form action="" id="editForm">
-                            <div class="form-group">
-                                <label for="notes">Notes</label>
-                                <textarea class="form-control rounded-0"
-                                          rows="5" name="notesEdit" id="notesEdit"></textarea>
-                            </div>
-                            <button onclick="updateNotes()" editId='0' class="btn btn-primary" type="submit"
-                                    name="submit"
-                                    id='submitEdit'>Confirm
-                            </button>
-                            <button class="btn btn-warning" id="cancel_insert">Cancel</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <div id="addStudentModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -172,23 +192,24 @@
                                             <input class="form-control" type="text" name="day" id="day" disabled>
                                         </div>
                                     </fieldset>
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="teacher">Teacher</label>
-                                        <input class="form-control" type="text" name="teacher" id="teacher" disabled>
-                                        <!--<select class="form-group" id="teacher">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="teacher">Teacher</label>
+                                            <input class="form-control" type="text" name="teacher" id="teacher"
+                                                   disabled>
+                                            <!--<select class="form-group" id="teacher">
                                             <option value="">Teacher</option>
                                             {% for teacher in teachers %}
                                                 <option value="{{ teacher.id }}">{{ teacher }}</option>
                                             {% endfor %}
                                         </select>-->
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="start_date">Start Date</label>
-                                        <input class="form-control" type="date" name="start_date" id="start_date">
-                                    </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="start_date">Start Date</label>
+                                            <input class="form-control" type="date" name="start_date" id="start_date">
+                                        </div>
+                                    </fieldset>
                                 </div> <!--col 2(row1)-->
-                                </fieldset>
-
                             </div><!--row 1-->
                             <div class="row">
                                 <div class="col col-12">
@@ -445,10 +466,9 @@
                                     let button_id = lessonData[j].id + "_" + date_label_ids[e];
                                     if (lessonData[j]["lessons"][dayOfMonth] != null) {
                                         lesson = lessonData[j]["lessons"][dayOfMonth];
-                                        if(lesson == "absent"){
+                                        if (lesson == "absent") {
                                             color = " btn btn-danger'"
-                                        }
-                                        else if(lesson == "makeup"){
+                                        } else if (lesson == "makeup") {
                                             color = " btn btn-warning'"
                                         }
                                     }
@@ -456,7 +476,7 @@
                                         lessonData[j].year == currentYear) {
                                         //element.innerHTML = lesson;
                                         element.innerHTML = "<button  id='" + button_id +
-                                            "'class='fas fa-tools" + color +  "type='button' " +
+                                            "'class='fas fa-tools" + color + "type='button' " +
                                             "href='#updateAttendanceModal' data-toggle='modal' " +
                                             "onclick='adminUpdateAttendance(this.id)'> " + lesson;
 
