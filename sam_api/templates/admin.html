@@ -60,14 +60,14 @@
                 <div class="modal-body" style="border:2px solid black">
                     <div class="container p-2">
                         <div class="row">
-                        <input type="radio" id="present" name="adminAttendance" value="present">
-                        <label for="present">Present</label><br>
-                        <input type="radio" id="absent" name="adminAttendance" value="absent">
-                        <label for="absent">Absent</label><br>
-                        <input type="radio" id="makeup" name="adminAttendance" value="makeup">
-                        <label for="makeup">Makeup</label>
-                        <button class="btn btn-warning btn-lg" id="attendanceUpdate">Update</button>
-                    </div>
+                            <input type="radio" id="present" name="adminAttendance" value="present">
+                            <label for="present">Present</label><br>
+                            <input type="radio" id="absent" name="adminAttendance" value="absent">
+                            <label for="absent">Absent</label><br>
+                            <input type="radio" id="makeup" name="adminAttendance" value="makeup">
+                            <label for="makeup">Makeup</label>
+                            <button class="btn btn-warning btn-lg" id="attendanceUpdate">Update</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,8 @@
                                 <textarea class="form-control rounded-0"
                                           rows="5" name="notesEdit" id="notesEdit"></textarea>
                             </div>
-                            <button onclick="updateNotes()" editId='0' class="btn btn-primary" type="submit" name="submit"
+                            <button onclick="updateNotes()" editId='0' class="btn btn-primary" type="submit"
+                                    name="submit"
                                     id='submitEdit'>Confirm
                             </button>
                             <button class="btn btn-warning" id="cancel_insert">Cancel</button>
@@ -280,48 +281,48 @@
         })
 
         $("#add").on('click', function () {
-                // send ajax
-                let first = $("#first").val();
-                let last = $("#last").val();
-                let time = $("#time").val();
-                let day = $("#day").val();
-                //let email = $("#email").val();
-                //let phone = $("#phone").val();
-                //let instrument = $("#instrument").val();
-                let start_date = $("#start_date").val();
-                let teacher = $("#selectTeacher").val();
-                let charge_rates = document.getElementsByName('charge_rate');
-                let notes = $("#notes").val();
-                //let parent_first = $("#parent_first").val();
-                //let parent_last = $("#parent_last").val();
-                //let birthdate = $("#birthdate").val() || "1967-02-20";
-                let charge_rate = "$120";
-                for (var i = 0, length = charge_rates.length; i < length; i++) {
-                    if (charge_rates[i].checked) {
-                        charge_rate = charge_rates[i].value
-                        break;
-                    }
+            // send ajax
+            let first = $("#first").val();
+            let last = $("#last").val();
+            let time = $("#time").val();
+            let day = $("#day").val();
+            //let email = $("#email").val();
+            //let phone = $("#phone").val();
+            //let instrument = $("#instrument").val();
+            let start_date = $("#start_date").val();
+            let teacher = $("#selectTeacher").val();
+            let charge_rates = document.getElementsByName('charge_rate');
+            let notes = $("#notes").val();
+            //let parent_first = $("#parent_first").val();
+            //let parent_last = $("#parent_last").val();
+            //let birthdate = $("#birthdate").val() || "1967-02-20";
+            let charge_rate = "$120";
+            for (var i = 0, length = charge_rates.length; i < length; i++) {
+                if (charge_rates[i].checked) {
+                    charge_rate = charge_rates[i].value
+                    break;
                 }
-                student = {
-                    first: first, last: last, time: time, day: day, start_date: start_date, teacher: teacher,
-                    charge_rate: charge_rate, notes: notes
-                };
+            }
+            student = {
+                first: first, last: last, time: time, day: day, start_date: start_date, teacher: teacher,
+                charge_rate: charge_rate, notes: notes
+            };
 
 
-                $.ajax({
-                    type: "POST",
-                    url: "sam_api/rm_sam/?format=json",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(student),
-                    success: function (result) {
-                        jQuery("#addStudentModal").modal('toggle');
+            $.ajax({
+                type: "POST",
+                url: "sam_api/rm_sam/?format=json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(student),
+                success: function (result) {
+                    jQuery("#addStudentModal").modal('toggle');
 
-                        buildTable(day);
-                    },
-
-                });
+                    buildTable(day);
+                },
 
             });
+
+        });
 
     </script>
     <table id="adminTable" class="table table-bordered table-striped">
@@ -440,17 +441,26 @@
                                 let dayOfMonth = dates[e].getDate();
                                 for (let j = 0; j < lessonData.length; j++) {
                                     let lesson = "";
+                                    let color = " btn btn-dark'";
                                     let button_id = lessonData[j].id + "_" + date_label_ids[e];
                                     if (lessonData[j]["lessons"][dayOfMonth] != null) {
                                         lesson = lessonData[j]["lessons"][dayOfMonth];
+                                        if(lesson == "absent"){
+                                            color = " btn btn-danger'"
+                                        }
+                                        else if(lesson == "makeup"){
+                                            color = " btn btn-warning'"
+                                        }
                                     }
                                     if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString &&
                                         lessonData[j].year == currentYear) {
                                         //element.innerHTML = lesson;
-                                        element.innerHTML = "<button  id='" + button_id + "' style='width:70%' " +
-                                            "class='btn btn-outline-dark text-center' type='button' " +
+                                        element.innerHTML = "<button  id='" + button_id +
+                                            "'class='fas fa-tools" + color +  "type='button' " +
                                             "href='#updateAttendanceModal' data-toggle='modal' " +
-                                            "onclick='adminUpdateAttendance(this.id)'>" + lesson;
+                                            "onclick='adminUpdateAttendance(this.id)'> " + lesson;
+
+
                                     }
                                 }
                             }
@@ -465,7 +475,7 @@
 
         function adminUpdateAttendance(clicked_id) {
 
-            $('#attendanceUpdate').click(function() {
+            $('#attendanceUpdate').click(function () {
 
                 let lesson_id = parseInt(clicked_id);
                 let attendance_options = ['present', 'absent', 'makeup'];
@@ -478,7 +488,7 @@
                         break;
                     }
                 }
-                if(attendance_options.includes(attendance)){
+                if (attendance_options.includes(attendance)) {
                     let lesson_date = JSON.stringify(getLessonDate(clicked_id));
                     //let data = lesson_date +": " + attendance;
                     $.ajax({
@@ -486,12 +496,10 @@
                         type: "PATCH",
                         url: "sam_api/lesson_api/" + lesson_id + "/",
                         data: {
-                            "lessons" : {
-                          lesson_date: attendance
-                        }
-                      },
-
-
+                            "lessons": {
+                                lesson_date: attendance
+                            }
+                        },
                         success: function () {
 
                             $('#updateAttendanceModal').modal('toggle');
@@ -502,7 +510,8 @@
             });
 
         }
-        function getLessonDate(id){
+
+        function getLessonDate(id) {
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
             let dates = getLessonDays(currentYear, currentMonth, currentDay);
             let button_id = id;
@@ -534,22 +543,22 @@
             });
         }
 
-         function updateNotes(){
+        function updateNotes() {
             $(document).on('click', '#submitEdit', function () {
-            let editId = $(this).attr('editId');
-            let notes = $("#notesEdit").val();
-            $.ajax({
-                type: "PATCH",
-                url: "sam_api/rm_sam/" + editId + "/",
-                data: {
-                    notes: notes
-                },
-                success: function () {
-                    $('#editStudentModal').modal('toggle');
-                    buildTable($('#selectDay').val())
-                }
+                let editId = $(this).attr('editId');
+                let notes = $("#notesEdit").val();
+                $.ajax({
+                    type: "PATCH",
+                    url: "sam_api/rm_sam/" + editId + "/",
+                    data: {
+                        notes: notes
+                    },
+                    success: function () {
+                        $('#editStudentModal').modal('toggle');
+                        buildTable($('#selectDay').val())
+                    }
+                });
             });
-        });
 
         }
 
@@ -706,7 +715,7 @@
                 $('#dropStudentName').html(dropStudent);
                 dropStudentID = $(this).children().attr('id');
                 $('#confirmDrop').attr('dropId', dropStudentID);
-                 //editStudentID = $(this).children().attr('id');
+                //editStudentID = $(this).children().attr('id');
                 $('#submitEdit').attr('editId', dropStudentID);
 
             });
