@@ -451,7 +451,7 @@
             let monthString = formatFullMonth(currentMonth).trim();
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
             let dates = getLessonDays(currentYear, currentMonth, currentDay);
-            let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
+            let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 3;
             let numLessonDays = dates.length;
             optimizeTable(currentNumColumns, numLessonDays);
             $.ajax({
@@ -516,9 +516,6 @@
                     }
                 }
                 if (attendance_options.includes(attendance)) {
-
-
-
                     $.ajax({
                         type: "GET",
                         url: "sam_api/lesson_api/" + lesson_id + "/",
@@ -633,8 +630,9 @@
             document.getElementById('currentdate').innerHTML = monthString + "  " + currentYear;
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
             let dates = getLessonDays(currentYear, currentMonth, currentDay);
-            let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
+            let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 3;
             let numLessonDays = dates.length;
+            //console.log("Num Col before optimize: " + currentNumColumns);
             optimizeTable(currentNumColumns, numLessonDays);
             let index = 0;
             while (dates[index] != null) {
@@ -653,6 +651,8 @@
                 for (let i = 0; i < rows.length; i++) {
                     rows[i].lastChild.remove();
                 }
+                let currentNumCol = document.getElementById('adminTable').rows[0].cells.length - 3;
+               // console.log("numCol after removal: " + currentNumCol);
             } else if (currentNumColumns === 4 && numLessonDays === 5) {
                 let th = document.createElement('th');
                 th.setAttribute("id", "lesson5");
@@ -661,6 +661,8 @@
                 for (let i = 1; i < rows.length - 1; i++) {
                     rows[i].insertCell(-1);
                 }
+                let currentNumCol = document.getElementById('adminTable').rows[0].cells.length - 3;
+              //  console.log("numCol after addition: " + currentNumCol)
             }
         }
 
