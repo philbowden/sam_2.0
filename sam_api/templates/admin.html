@@ -683,7 +683,7 @@
             buildTable(dayString);
             currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
             currentMonth = (currentMonth + 1) % 12;
-            displayDates(currentYear, currentMonth);
+            displayDates();
         }
 
         function previousMonth() {
@@ -691,7 +691,7 @@
             buildTable(dayString);
             currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
             currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-            displayDates(currentYear, currentMonth);
+            displayDates();
         }
 
     </script>
