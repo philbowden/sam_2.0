@@ -447,6 +447,9 @@
             let monthString = formatFullMonth(currentMonth).trim();
             let date_label_ids = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5'];
             let dates = getLessonDays(currentYear, currentMonth, currentDay);
+            let currentNumColumns = (document.getElementById('adminTable').rows[0].cells.length) - 2;
+            let numLessonDays = dates.length;
+            optimizeTable(currentNumColumns, numLessonDays);
             $.ajax({
                 type: "GET",
                 url: 'sam_api/lesson_api/?format=json',
@@ -456,7 +459,10 @@
                         for (let e = 0; e < date_label_ids.length; e++) {
                             let element = document.getElementById(student_times[i] + "_" + date_label_ids[e]);
                             if (element != null) {
-                                let dayOfMonth = dates[e].getDate();
+                                let dayOfMonth = dates[e];
+                                if(dates[e] != null){
+                                    dayOfMonth = dates[e].getDate();
+                                }
                                 for (let j = 0; j < lessonData.length; j++) {
                                     let lesson = "";
                                     let color = " btn btn-dark'";
