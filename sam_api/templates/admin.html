@@ -388,7 +388,7 @@
                     let tbody = $("tbody");
 
                     //creates the <th> elements
-                    let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th><th class='text-center'></th>" +
+                    let html = "<tbody id='body'><tr> <th class='text-center'>Time</th> <th class='text-center'>Name</th><th class='text-center'>Notes</th>" +
                         " <th id='lesson1' class='text-center'>Lesson 1</th> <th id='lesson2' class='text-center'>Lesson 2</th>" +
                         " <th id='lesson3' class='text-center'>Lesson 3</th> <th id='lesson4' class='text-center'>Lesson 4</th>" +
                         "<th id='lesson5' class='text-center'></th></tr>";
@@ -534,7 +534,6 @@
                                     lessons: JSON.stringify(lesson),
                                 },
                                 success: function () {
-                                    alert(this.data);
                                     $('#updateAttendanceModal').modal('toggle');
                                     buildTable($('#selectDay').val())
                                 },
