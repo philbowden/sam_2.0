@@ -262,6 +262,10 @@
         $('#editForm').submit(function (e) {
             e.preventDefault()
         });
+        $('#updateAttendanceForm').submit(function (e) {
+            e.preventDefault()
+        });
+
 
         $("#confirmInsert").on('click', function () {
             var studentId = $("#studentSelector").val();
@@ -512,23 +516,38 @@
                     }
                 }
                 if (attendance_options.includes(attendance)) {
-                    let lesson_date = JSON.stringify(getLessonDate(clicked_id));
-                    //let data = lesson_date +": " + attendance;
+
+
+
                     $.ajax({
-
-                        type: "PATCH",
+                        type: "GET",
                         url: "sam_api/lesson_api/" + lesson_id + "/",
-                        data: {
-                            "lessons": {
-                                lesson_date: attendance
-                            }
-                        },
-                        success: function () {
+                        success: function(lessons) {
+                            let lesson = lessons.lessons;
+                            let lesson_date = (getLessonDate(clicked_id));
+                            lesson[lesson_date] = attendance;
+                            lesson =  JSON.parse(JSON.stringify(lesson));
+                            $.ajax({
+                                type: "PATCH",
+                                url: "sam_api/lesson_api/" + lesson_id + "/",
+                                data: {
+                                    lessons: JSON.stringify(lesson),
+                                },
+                                success: function () {
+                                    alert(this.data);
+                                    $('#updateAttendanceModal').modal('toggle');
+                                    buildTable($('#selectDay').val())
+                                },
+                                error: function (xhr, resp, text) {
+                                    console.log(xhr, resp, text);
+                                }
+                            })
 
-                            $('#updateAttendanceModal').modal('toggle');
-                            buildTable($('#selectDay').val())
+                        },
+                        error: function (xhr, resp, text) {
+                            console.log(xhr, resp, text);
                         }
-                    });
+                    })
                 }
             });
 
