@@ -79,10 +79,11 @@
                                 </div>
                             </div>
                             <div class="form-group mt-2">
-                                <button class="btn btn-primary ml-5 mr-5" type="submit" name="submit"
-                                        id="attendanceUpdate">Update
+                                <button onclick="adminUpdateAttendance()" updateId='0' class="btn btn-primary ml-5 mr-5" type="submit"
+                                        name="submit" id="attendanceUpdate">Update
                                 </button>
-                                <button class="btn btn-warning ml-5" type="submit" id="cancelUpdate">Cancel</button>
+                                <button class="btn btn-warning ml-5" type="submit" id="cancelUpdate"
+                                onclick="cancelAttendanceUpdate()">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -482,11 +483,8 @@
                                     if (lessonData[j].student == student_ids[i] && lessonData[j].month == monthString &&
                                         lessonData[j].year == currentYear) {
                                         //element.innerHTML = lesson;
-                                        element.innerHTML = "<button  id='" + button_id +
-                                            "'class='fas fa-tools" + color + "type='button' " +
-                                            "href='#updateAttendanceModal' data-toggle='modal' " +
-                                            "onclick='adminUpdateAttendance(this.id)'> " + lesson;
-
+                                        element.innerHTML = "<a  id='" + button_id + "' class='fas fa-tools attendanceButton" + color + " " +
+                                            "href='#updateAttendanceModal' data-toggle='modal' >" + lesson+"</a>";
 
                                     }
                                 }
@@ -500,16 +498,16 @@
             });
         }
 
-        function adminUpdateAttendance(clicked_id) {
+        function adminUpdateAttendance() {
 
-            $('#attendanceUpdate').click(function () {
-
-                let lesson_id = parseInt(clicked_id);
+            $(document).on('click', '#attendanceUpdate', function () {
+                let updateId = $(this).attr('updateId');
+                let lesson_id = parseInt(updateId);
                 let attendance_options = ['present', 'absent', 'makeup'];
                 let attendance_choices = document.getElementsByName('adminAttendance');
 
                 let attendance;
-                for (var i = 0, length = attendance_choices.length; i < length; i++) {
+                for (let i = 0, length = attendance_choices.length; i < length; i++) {
                     if (attendance_choices[i].checked) {
                         attendance = attendance_choices[i].value
                         break;
@@ -521,7 +519,7 @@
                         url: "sam_api/lesson_api/" + lesson_id + "/",
                         success: function(lessons) {
                             let lesson = lessons.lessons;
-                            let lesson_date = (getLessonDate(clicked_id));
+                            let lesson_date = (getLessonDate(updateId));
                             lesson[lesson_date] = attendance;
                             lesson =  JSON.parse(JSON.stringify(lesson));
                             $.ajax({
@@ -532,21 +530,27 @@
                                 },
                                 success: function () {
                                     $('#updateAttendanceModal').modal('toggle');
+                                    document.getElementById("updateAttendanceForm").reset();
                                     buildTable($('#selectDay').val())
+
                                 },
                                 error: function (xhr, resp, text) {
                                     console.log(xhr, resp, text);
                                 }
                             })
-
                         },
                         error: function (xhr, resp, text) {
                             console.log(xhr, resp, text);
                         }
+
                     })
                 }
+                buildTable($('#selectDay').val())
             });
+        }
 
+        function cancelAttendanceUpdate(){
+            $('#updateAttendanceModal').modal('toggle');
         }
 
         function getLessonDate(id) {
@@ -758,8 +762,14 @@
                 $('#dropStudentName').html(dropStudent);
                 dropStudentID = $(this).children().attr('id');
                 $('#confirmDrop').attr('dropId', dropStudentID);
-                //editStudentID = $(this).children().attr('id');
                 $('#submitEdit').attr('editId', dropStudentID);
+
+
+            });
+
+            $(document).on('click', '.attendanceButton', function () {
+                let editLessonID = $(this).attr('id');
+                $('#attendanceUpdate').attr('updateId', editLessonID);
 
             });
 
