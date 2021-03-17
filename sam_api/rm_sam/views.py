@@ -1,5 +1,4 @@
-import json
-from django.core.serializers.json import DjangoJSONEncoder
+
 
 from django.contrib.auth.decorators import login_required
 
@@ -12,6 +11,7 @@ from django.contrib.auth.forms import (PasswordChangeForm, UserChangeForm,
 from django.db.models import F
 from django.shortcuts import redirect, render
 from django.utils import timezone
+from pip._vendor.requests.compat import str
 from rest_framework import viewsets
 
 from .forms import SignUpForm, EditProfileForm
@@ -99,7 +99,8 @@ def teacher(request, teacher_id):
     else:
 
         return render(request, 'teacher.html',
-                      {'current_teacher': current_teacher, 'students': students, 'today': today})
+                      {'current_teacher': current_teacher, 'students': students,
+                       'today': today, 'month': month, 'day' : day})
 
 
 def home(request):
