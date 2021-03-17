@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="" />
+    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="fixed issue with only selected lesson updating">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/498c5770-fbc0-4da2-b44f-11c1026bbaaf.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ab1421a-6e62-48b9-b197-3dfd0d1d0130.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="KEITH CARLSON &lt;kcarlson@mail.greenriver.edu&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1poJsbPs4hBRLM4YhMCmamdY7sj" />
@@ -26,7 +36,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -40,8 +50,24 @@
       <workItem from="1615873834995" duration="1780000" />
       <workItem from="1615999142464" duration="1564000" />
       <workItem from="1616000733742" duration="441000" />
-      <workItem from="1616003438618" duration="199000" />
+      <workItem from="1616003438618" duration="469000" />
+      <workItem from="1616003921401" duration="283000" />
     </task>
+    <task id="LOCAL-00001" summary="fixed issue with only selected lesson updating">
+      <created>1616003688493</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1616003688493</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fixed issue with only selected lesson updating">
+      <created>1616003754069</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616003754069</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -61,5 +87,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Added new users to teacher table" />
+    <MESSAGE value="fixed issue with only selected lesson updating" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed issue with only selected lesson updating" />
   </component>
 </project>
