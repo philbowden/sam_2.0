@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="Fixed up DB so app is running again.">
+    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="Inserted Fordward Back buttons on teacher.html as well as displaying the date.">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/templates/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/templates/teacher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +56,10 @@
       <workItem from="1616000733742" duration="441000" />
       <workItem from="1616003438618" duration="469000" />
       <workItem from="1616003921401" duration="2045000" />
-      <workItem from="1616015782559" duration="6064000" />
+      <workItem from="1616015782559" duration="6124000" />
+      <workItem from="1616099677223" duration="22000" />
+      <workItem from="1616099741827" duration="3092000" />
+      <workItem from="1616352957687" duration="4808000" />
     </task>
     <task id="LOCAL-00001" summary="fixed issue with only selected lesson updating">
       <created>1616003688493</created>
@@ -86,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616019219386</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Inserted Fordward Back buttons on teacher.html as well as displaying the date.">
+      <created>1616022974502</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1616022974502</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +120,7 @@
     <MESSAGE value="fixed issue with only selected lesson updating" />
     <MESSAGE value="Django/pycharm issues." />
     <MESSAGE value="Fixed up DB so app is running again." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed up DB so app is running again." />
+    <MESSAGE value="Inserted Fordward Back buttons on teacher.html as well as displaying the date." />
+    <option name="LAST_COMMIT_MESSAGE" value="Inserted Fordward Back buttons on teacher.html as well as displaying the date." />
   </component>
 </project>
