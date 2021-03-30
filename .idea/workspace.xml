@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="Took out forward back buttons.">
-      <change afterPath="$PROJECT_DIR$/sam_api/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sam_api/rm_sam/teacherCal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sam_2.0.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sam_2.0.iml" afterDir="false" />
+    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="Added Date Picker in teacherCal.py.">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1200a2d4-4f55-4aa4-a667-0bad9fcd789d.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f893a97a-0294-43bd-bff0-d3c2d7c13a94.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/templates/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/templates/teacher.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/teacherCal.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/teacherCal.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +75,8 @@
       <workItem from="1616519293829" duration="3511000" />
       <workItem from="1616690411012" duration="731000" />
       <workItem from="1617121098281" duration="14000" />
-      <workItem from="1617121148480" duration="4328000" />
+      <workItem from="1617121148480" duration="4521000" />
+      <workItem from="1617126226020" duration="1708000" />
     </task>
     <task id="LOCAL-00001" summary="fixed issue with only selected lesson updating">
       <created>1616003688493</created>
@@ -130,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616519501103</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added Date Picker in teacherCal.py.">
+      <created>1617125653167</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1617125653167</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,6 +160,7 @@
     <MESSAGE value="Fixed up DB so app is running again." />
     <MESSAGE value="Inserted Fordward Back buttons on teacher.html as well as displaying the date." />
     <MESSAGE value="Took out forward back buttons." />
-    <option name="LAST_COMMIT_MESSAGE" value="Took out forward back buttons." />
+    <MESSAGE value="Added Date Picker in teacherCal.py." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Date Picker in teacherCal.py." />
   </component>
 </project>
