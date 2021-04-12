@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="Added Date Picker in teacherCal.py.">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1200a2d4-4f55-4aa4-a667-0bad9fcd789d.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f893a97a-0294-43bd-bff0-d3c2d7c13a94.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sam_2.0.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sam_2.0.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/teacherCal.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/teacherCal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/teacherCal.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/sam_api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/sam_api/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/templates/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/templates/teacher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +81,10 @@
       <workItem from="1617121098281" duration="14000" />
       <workItem from="1617121148480" duration="4521000" />
       <workItem from="1617126226020" duration="1708000" />
+      <workItem from="1618037230233" duration="2317000" />
+      <workItem from="1618086304383" duration="937000" />
+      <workItem from="1618092800494" duration="226000" />
+      <workItem from="1618197453463" duration="371000" />
     </task>
     <task id="LOCAL-00001" summary="fixed issue with only selected lesson updating">
       <created>1616003688493</created>

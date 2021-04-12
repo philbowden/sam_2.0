@@ -1,13 +1,11 @@
-
+from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
-
 from django.contrib import messages
 from django.contrib.auth import (authenticate, login, logout,
                                  update_session_auth_hash)
 from django.contrib.auth.forms import (PasswordChangeForm, UserChangeForm,
                                        UserCreationForm)
-
 from django.db.models import F
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -54,8 +52,11 @@ def admin(request):
 
 @login_required(login_url='/login/')
 def teacher(request, teacher_id):
-    day = timezone.localdate().day
-    today = timezone.localdate().strftime('%A').lower()
+    increment = 1
+    day = timezone.localdate().day + increment
+    today = timezone.localdate()
+    today += timedelta(days=increment)
+    today = today.strftime('%A').lower()
     month = timezone.localdate().strftime('%B')
     year = timezone.localdate().year
 
