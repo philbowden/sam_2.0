@@ -51,11 +51,10 @@ def admin(request):
 
 
 @login_required(login_url='/login/')
-def teacher(request, teacher_id):
-    increment = 1
-    day = timezone.localdate().day + increment
+def teacher(request, teacher_id, change_day=0):
+    day = timezone.localdate().day + 0
     today = timezone.localdate()
-    today += timedelta(days=increment)
+    today += timedelta(days=change_day)
     today = today.strftime('%A').lower()
     month = timezone.localdate().strftime('%B')
     year = timezone.localdate().year
@@ -202,3 +201,5 @@ def change_password(request):
 
     context = {'form': form}
     return render(request, 'change_password.html', context)
+
+

@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="Added Date Picker in teacherCal.py.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sam_2.0.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sam_2.0.iml" afterDir="false" />
+    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/teacherCal.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/sam_api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/sam_api/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/templates/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/templates/teacher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +80,10 @@
       <workItem from="1618037230233" duration="2317000" />
       <workItem from="1618086304383" duration="937000" />
       <workItem from="1618092800494" duration="226000" />
-      <workItem from="1618197453463" duration="371000" />
+      <workItem from="1618197453463" duration="1561000" />
+      <workItem from="1618455408274" duration="946000" />
+      <workItem from="1618462270242" duration="5000" />
+      <workItem from="1618717712899" duration="1496000" />
     </task>
     <task id="LOCAL-00001" summary="fixed issue with only selected lesson updating">
       <created>1616003688493</created>
@@ -142,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617125653167</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html.">
+      <created>1618197868129</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1618197868129</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +175,7 @@
     <MESSAGE value="Inserted Fordward Back buttons on teacher.html as well as displaying the date." />
     <MESSAGE value="Took out forward back buttons." />
     <MESSAGE value="Added Date Picker in teacherCal.py." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Date Picker in teacherCal.py." />
+    <MESSAGE value="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html." />
+    <option name="LAST_COMMIT_MESSAGE" value="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html." />
   </component>
 </project>
