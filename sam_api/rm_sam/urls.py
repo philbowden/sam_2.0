@@ -12,7 +12,7 @@ urlpatterns = [
     path('sam_api/', include(router.urls)),
     path('admin_page', views.admin, name='admin'),
     path('teacher/<int:teacher_id>/', views.teacher, name='teacher'),
-    path('teacher/<int:teacher_id>/<int:change_day>', views.teacher, name='teacher'),
+    path('teacher/<int:teacher_id>/<int:change_day>/<direction>', views.teacher, name='teacher'),
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register_user, name='register'),

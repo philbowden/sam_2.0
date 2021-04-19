@@ -51,13 +51,15 @@ def admin(request):
 
 
 @login_required(login_url='/login/')
-def teacher(request, teacher_id, change_day=0):
-    day = timezone.localdate().day + 0
+def teacher(request, teacher_id, change_day=0, direction="f"):
     today = timezone.localdate()
+    if direction == "b":
+        change_day *= -1
     today += timedelta(days=change_day)
+    month = today.strftime('%B')
+    year = today.year
+    day = today.day
     today = today.strftime('%A').lower()
-    month = timezone.localdate().strftime('%B')
-    year = timezone.localdate().year
 
     students = Student.objects.all().filter(teacher=teacher_id, day=today, active=True).order_by('time')
     current_teacher = Teacher.objects.filter(id=teacher_id)
