@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="finalized current approach in views.py, urls,py">
+    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html.">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sam_2.0.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sam_2.0.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/templates/admin.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/templates/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/templates/teacher.html" afterDir="false" />
@@ -56,15 +61,15 @@
       <recent name="$PROJECT_DIR$/sam_api/rm_sam" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.sam_api">
-    <configuration name="sam_api" type="PythonConfigurationType" factoryName="Python">
+  <component name="RunManager">
+    <configuration name="SamConfig" type="PythonConfigurationType" factoryName="Python">
       <module name="sam_2.0" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="/usr/local/bin/python3.9" />
+      <option name="SDK_HOME" value="/usr/local/bin/python3.8" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sam_api" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -79,37 +84,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="sam_2.0" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sam_api/rm_sam" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sam_api/rm_sam/views.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.sam_api" />
-      <item itemvalue="Python.views" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.views" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -141,12 +115,11 @@
       <workItem from="1618455408274" duration="946000" />
       <workItem from="1618462270242" duration="5000" />
       <workItem from="1618717712899" duration="1496000" />
-      <workItem from="1618852452714" duration="4736000" />
-      <workItem from="1618883911299" duration="3649000" />
-      <workItem from="1618957497726" duration="4251000" />
-      <workItem from="1619056843014" duration="3225000" />
-      <workItem from="1619459819805" duration="444000" />
-      <workItem from="1619461411673" duration="1286000" />
+      <workItem from="1618852452714" duration="4686000" />
+      <workItem from="1619111305174" duration="3884000" />
+      <workItem from="1619126013195" duration="847000" />
+      <workItem from="1619148360371" duration="4381000" />
+      <workItem from="1619153527492" duration="595000" />
     </task>
     <task id="LOCAL-00001" summary="fixed issue with only selected lesson updating">
       <created>1616003688493</created>
@@ -211,14 +184,7 @@
       <option name="project" value="LOCAL" />
       <updated>1618197868129</updated>
     </task>
-    <task id="LOCAL-00010" summary="finalized current approach in views.py, urls,py">
-      <created>1618857801288</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1618857801288</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,11 +212,9 @@
     <MESSAGE value="Took out forward back buttons." />
     <MESSAGE value="Added Date Picker in teacherCal.py." />
     <MESSAGE value="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html." />
-    <MESSAGE value="finalized current approach in views.py, urls,py" />
-    <option name="LAST_COMMIT_MESSAGE" value="finalized current approach in views.py, urls,py" />
+    <option name="LAST_COMMIT_MESSAGE" value="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/sam_2_0$sam_api.coverage" NAME="sam_api Coverage Results" MODIFIED="1619056858883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api" />
-    <SUITE FILE_PATH="coverage/sam_2_0$views.coverage" NAME="views Coverage Results" MODIFIED="1618960451256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api/rm_sam" />
+    <SUITE FILE_PATH="coverage/sam_2_0$SamConfig.coverage" NAME="SamConfig Coverage Results" MODIFIED="1619152888720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api" />
   </component>
 </project>

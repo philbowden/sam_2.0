@@ -1,5 +1,4 @@
-from datetime import timedelta
-
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import (authenticate, login, logout,
@@ -51,16 +50,13 @@ def admin(request):
 
 
 @login_required(login_url='/login/')
-def teacher(request, teacher_id, change_day=0, direction="f"):
-    today = timezone.localdate()
-    if direction == "b":
-        change_day *= -1
-    today += timedelta(days=change_day)
+def teacher(request, teacher_id, today=timezone.localdate().strftime('%Y-%m-%d')):
+    today = datetime.strptime(today, '%Y-%m-%d')
     year = today.year
     day = today.day
+
     month = today.strftime('%B')
     today = today.strftime('%A').lower()
-    request.session['current_date'] = today
 
     students = Student.objects.all().filter(teacher=teacher_id, day=today, active=True).order_by('time')
     current_teacher = Teacher.objects.filter(id=teacher_id)
@@ -121,6 +117,9 @@ def login_user(request):
             this_teacher = Teacher.objects.get(user_id=user.id)
             request.session['current_id'] = this_teacher.id
             request.session['current_status'] = this_teacher.is_admin
+            today = timezone.localdate()
+            today = today.strftime('%Y-%m-%d')
+            request.session['today'] = today
 
 
             if this_teacher.is_admin:

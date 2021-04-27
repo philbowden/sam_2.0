@@ -20,4 +20,4 @@ class LessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ('id','student', 'teacher', 'month', 'year', 'lessons')
+        fields = ('id', 'student', 'teacher', 'month', 'year', 'lessons')
