@@ -361,7 +361,22 @@
         let currentDay = today.getDay();
         let currentMonth = today.getMonth();
         let currentYear = today.getFullYear();
-        let change_day = 0;
+       // let change_day = 0;
+       // let direction = "f";
+
+        /*$(function(){
+            $("#back").click(function(event){
+                $.ajax({
+                    type: "GET",
+                    url: 'http://localhost:8000/' + teacherId + "/" +
+                    change_day + "/" + direction + "/",
+                        success: function(response){
+                        location.reload(true);
+
+                        }
+                })
+            })
+        })*/
 
         let days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
