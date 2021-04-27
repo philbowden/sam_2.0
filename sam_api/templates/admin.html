@@ -656,7 +656,7 @@
                     rows[i].lastChild.remove();
                 }
                 let currentNumCol = document.getElementById('adminTable').rows[0].cells.length - 3;
-               // console.log("numCol after removal: " + currentNumCol);
+
             } else if (currentNumColumns === 4 && numLessonDays === 5) {
                 let th = document.createElement('th');
                 th.setAttribute("id", "lesson5");
@@ -666,7 +666,7 @@
                     rows[i].insertCell(-1);
                 }
                 let currentNumCol = document.getElementById('adminTable').rows[0].cells.length - 3;
-              //  console.log("numCol after addition: " + currentNumCol)
+
             }
         }
 
