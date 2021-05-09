@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import (authenticate, login, logout,
@@ -50,15 +50,21 @@ def admin(request):
 
 
 @login_required(login_url='/login/')
-def teacher(request, teacher_id, today=timezone.localdate().strftime('%Y-%m-%d')):
-    today = datetime.strptime(today, '%Y-%m-%d')
-    year = today.year
-    day = today.day
+def teacher(request, teacher_id):
+    date_string = request.session['today']
+    date_object = datetime.strptime(date_string, '%Y-%m-%d')
+    change_day = request.GET.get('change_day', None)
+    if change_day == 'prev':
+        date_object += timedelta(days=-1)
+    elif change_day == 'next':
+        date_object += timedelta(days=1)
+    year_int = date_object.year
+    day_int = date_object.day
 
-    month = today.strftime('%B')
-    today = today.strftime('%A').lower()
+    month_string = date_object.strftime('%B')
+    day_string = date_object.strftime('%A').lower()
 
-    students = Student.objects.all().filter(teacher=teacher_id, day=today, active=True).order_by('time')
+    students = Student.objects.all().filter(teacher=teacher_id, day=day_string, active=True).order_by('time')
     current_teacher = Teacher.objects.filter(id=teacher_id)
 
     if request.method == "POST":
@@ -73,14 +79,14 @@ def teacher(request, teacher_id, today=timezone.localdate().strftime('%Y-%m-%d')
                     data = "makeup"
                     Student.objects.filter(id=student.id).update(make_up=F('make_up') + 1)
 
-            if Lesson.objects.all().filter(student=student.id, teacher=teacher_id, month=month, year=year).count() == 0:
+            if Lesson.objects.all().filter(student=student.id, teacher=teacher_id, month=month_string, year=year_int).count() == 0:
                 lesson_attrs = {
                     "student_id": student.id,
                     "teacher_id": student.teacher.id,
-                    "month": month,
-                    "year": year,
+                    "month": month_string,
+                    "year": year_int,
                     "lessons": {
-                        day: data
+                        day_int: data
                     }
                 }
                 new_lesson = Lesson.objects.create(**lesson_attrs)
@@ -89,8 +95,8 @@ def teacher(request, teacher_id, today=timezone.localdate().strftime('%Y-%m-%d')
                     serializer.save()
 
             else:
-                lesson = Lesson.objects.get(student=student.id, teacher=teacher_id, month=month, year=year)
-                lesson.lessons[day] = data
+                lesson = Lesson.objects.get(student=student.id, teacher=teacher_id, month=month_string, year=year_int)
+                lesson.lessons[day_int] = data
                 lesson.save()
 
         return redirect('home')
@@ -99,7 +105,7 @@ def teacher(request, teacher_id, today=timezone.localdate().strftime('%Y-%m-%d')
 
         return render(request, 'teacher.html',
                       {'current_teacher': current_teacher, 'students': students,
-                       'today': today, 'month': month, 'day' : day})
+                       'today': day_string, 'month': month_string, 'day' : day_int})
 
 
 def home(request):
