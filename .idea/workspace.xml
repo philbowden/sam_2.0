@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html.">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="put form tags in teacher.html &quot;prev&quot; and &quot;next&quot; buttons.  Buttons only work once each.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/templates/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/templates/teacher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +113,7 @@
       <workItem from="1619126013195" duration="847000" />
       <workItem from="1619148360371" duration="4381000" />
       <workItem from="1619153527492" duration="595000" />
-      <workItem from="1620583570867" duration="4145000" />
+      <workItem from="1620583570867" duration="6096000" />
     </task>
     <task id="LOCAL-00001" summary="fixed issue with only selected lesson updating">
       <created>1616003688493</created>
@@ -180,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618197868129</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="put form tags in teacher.html &quot;prev&quot; and &quot;next&quot; buttons.  Buttons only work once each.">
+      <created>1620587879454</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1620587879454</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,23 +213,12 @@
     <MESSAGE value="Took out forward back buttons." />
     <MESSAGE value="Added Date Picker in teacherCal.py." />
     <MESSAGE value="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html." />
-    <option name="LAST_COMMIT_MESSAGE" value="added &quot;increment&quot; variable to views teacher view for updating the day.  Added buttons to teacher.html." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <condition expression="change_day != None" language="Python" />
-          <url>file://$PROJECT_DIR$/sam_api/rm_sam/views.py</url>
-          <line>56</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="put form tags in teacher.html &quot;prev&quot; and &quot;next&quot; buttons.  Buttons only work once each." />
+    <option name="LAST_COMMIT_MESSAGE" value="put form tags in teacher.html &quot;prev&quot; and &quot;next&quot; buttons.  Buttons only work once each." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sam_2_0$sam_api.coverage" NAME="sam_api Coverage Results" MODIFIED="1619056858883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api" />
-    <SUITE FILE_PATH="coverage/sam_2_0$SamConfig.coverage" NAME="SamConfig Coverage Results" MODIFIED="1620587647251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api" />
+    <SUITE FILE_PATH="coverage/sam_2_0$SamConfig.coverage" NAME="SamConfig Coverage Results" MODIFIED="1620589682715" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api" />
     <SUITE FILE_PATH="coverage/sam_2_0$views.coverage" NAME="views Coverage Results" MODIFIED="1618960451256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api/rm_sam" />
   </component>
 </project>

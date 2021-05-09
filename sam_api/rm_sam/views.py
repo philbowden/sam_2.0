@@ -51,7 +51,7 @@ def admin(request):
 
 @login_required(login_url='/login/')
 def teacher(request, teacher_id):
-    date_string = request.session['today']
+    date_string = request.session['date_string']
     date_object = datetime.strptime(date_string, '%Y-%m-%d')
     change_day = request.GET.get('change_day', None)
     if change_day == 'prev':
@@ -63,6 +63,8 @@ def teacher(request, teacher_id):
 
     month_string = date_object.strftime('%B')
     day_string = date_object.strftime('%A').lower()
+    date_string = date_object.strftime('%Y-%m-%d')
+    request.session['date_string'] = date_string
 
     students = Student.objects.all().filter(teacher=teacher_id, day=day_string, active=True).order_by('time')
     current_teacher = Teacher.objects.filter(id=teacher_id)
@@ -79,7 +81,8 @@ def teacher(request, teacher_id):
                     data = "makeup"
                     Student.objects.filter(id=student.id).update(make_up=F('make_up') + 1)
 
-            if Lesson.objects.all().filter(student=student.id, teacher=teacher_id, month=month_string, year=year_int).count() == 0:
+            if Lesson.objects.all().filter(student=student.id, teacher=teacher_id, month=month_string,
+                                           year=year_int).count() == 0:
                 lesson_attrs = {
                     "student_id": student.id,
                     "teacher_id": student.teacher.id,
@@ -105,7 +108,7 @@ def teacher(request, teacher_id):
 
         return render(request, 'teacher.html',
                       {'current_teacher': current_teacher, 'students': students,
-                       'today': day_string, 'month': month_string, 'day' : day_int})
+                       'today': day_string, 'month': month_string, 'day': day_int})
 
 
 def home(request):
@@ -123,10 +126,9 @@ def login_user(request):
             this_teacher = Teacher.objects.get(user_id=user.id)
             request.session['current_id'] = this_teacher.id
             request.session['current_status'] = this_teacher.is_admin
-            today = timezone.localdate()
-            today = today.strftime('%Y-%m-%d')
-            request.session['today'] = today
-
+            current_day_object = timezone.localdate()
+            date_string = current_day_object.strftime('%Y-%m-%d')
+            request.session['date_string'] = date_string
 
             if this_teacher.is_admin:
                 return redirect('/admin_page')
@@ -210,5 +212,3 @@ def change_password(request):
 
     context = {'form': form}
     return render(request, 'change_password.html', context)
-
-
