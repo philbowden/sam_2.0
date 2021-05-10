@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7356551-42f6-4891-a256-e7556e3fbd8c" name="Default Changelist" comment="put form tags in teacher.html &quot;prev&quot; and &quot;next&quot; buttons.  Buttons only work once each.">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sam_2.0.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sam_2.0.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sam_api/rm_sam/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/rm_sam/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sam_api/templates/teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/sam_api/templates/teacher.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +64,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="/usr/local/bin/python3.9" />
+      <option name="SDK_HOME" value="/usr/local/bin/python3.8" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sam_api" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -114,6 +116,8 @@
       <workItem from="1619148360371" duration="4381000" />
       <workItem from="1619153527492" duration="595000" />
       <workItem from="1620583570867" duration="6096000" />
+      <workItem from="1620590759496" duration="58000" />
+      <workItem from="1620662352393" duration="5177000" />
     </task>
     <task id="LOCAL-00001" summary="fixed issue with only selected lesson updating">
       <created>1616003688493</created>
@@ -218,7 +222,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sam_2_0$sam_api.coverage" NAME="sam_api Coverage Results" MODIFIED="1619056858883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api" />
-    <SUITE FILE_PATH="coverage/sam_2_0$SamConfig.coverage" NAME="SamConfig Coverage Results" MODIFIED="1620589682715" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api" />
+    <SUITE FILE_PATH="coverage/sam_2_0$SamConfig.coverage" NAME="SamConfig Coverage Results" MODIFIED="1620668122993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api" />
     <SUITE FILE_PATH="coverage/sam_2_0$views.coverage" NAME="views Coverage Results" MODIFIED="1618960451256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sam_api/rm_sam" />
   </component>
 </project>

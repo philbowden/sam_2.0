@@ -53,11 +53,14 @@ def admin(request):
 def teacher(request, teacher_id):
     date_string = request.session['date_string']
     date_object = datetime.strptime(date_string, '%Y-%m-%d')
-    change_day = request.GET.get('change_day', None)
-    if change_day == 'prev':
-        date_object += timedelta(days=-1)
-    elif change_day == 'next':
-        date_object += timedelta(days=1)
+
+    if request.method == "GET":
+        change_day = request.GET.get('change_day', None)
+        if change_day == 'prev':
+            date_object += timedelta(days=-1)
+        elif change_day == 'next':
+            date_object += timedelta(days=-1)
+
     year_int = date_object.year
     day_int = date_object.day
 
@@ -70,6 +73,7 @@ def teacher(request, teacher_id):
     current_teacher = Teacher.objects.filter(id=teacher_id)
 
     if request.method == "POST":
+        current_date = request.session['date_string']
         for student in students:
             request_id = str(student.id) + "_attendance"
             student_attendance = request.POST[request_id]
