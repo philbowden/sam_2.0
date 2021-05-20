@@ -1,14 +1,22 @@
-.teachernav
-{
+.center-block {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#next{
+    white-space: nowrap;
+}
+
+.teachernav {
     background: url("../images/rock.jpg");
 }
 
-.header
-{
+.header {
     color: white;
 }
 
-#body
-{
+#body {
     background: url("../images/rock.jpg");
 }
+
